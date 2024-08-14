@@ -1,0 +1,11 @@
+# User Stories:
+- A user will be able to create an account.
+- A user will be able to log in using an existing account.
+- A user will be able to delete their account.
+- A user will be able to update their account details.
+- A user will be able to view their account details / ‘profile’.
+- A user will be able to log out.
+- A user will be able to view items listed in The Silk Road.
+- A user will be able to add items to their cart.
+- A user will be able to view their cart.
+- A user will be able to remove items from their cart / “clear” their cart.
