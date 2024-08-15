@@ -11,7 +11,7 @@ public class Product
 
     public required string Description { get; set; }
 
-    public required decimal Price { get; set; }
+    public required float Price { get; set; }
 
     public Seller? Seller { get; set; }
 
