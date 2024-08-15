@@ -23,6 +23,7 @@ if(string.IsNullOrEmpty(connectionString)){
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddCors();
+
 var app = builder.Build();
 
 // :)
@@ -54,5 +55,12 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors(options =>
+    options.AllowAnyHeader()
+    .WithOrigins("http://localhost:3000")
+    .AllowAnyMethod()
+    .AllowCredentials()
+);
 
 app.Run();
