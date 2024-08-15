@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\Helpers\\Helpers.csproj": {}
+    "C:\\Users\\colto\\Documents\\GitHub\\SilkRoad\\main\\Dev\\Helpers\\Helpers.csproj": {}
   },
   "projects": {
-    "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\Helpers\\Helpers.csproj": {
+    "C:\\Users\\colto\\Documents\\GitHub\\SilkRoad\\main\\Dev\\Helpers\\Helpers.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\Helpers\\Helpers.csproj",
+        "projectUniqueName": "C:\\Users\\colto\\Documents\\GitHub\\SilkRoad\\main\\Dev\\Helpers\\Helpers.csproj",
         "projectName": "Helpers",
-        "projectPath": "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\Helpers\\Helpers.csproj",
-        "packagesPath": "C:\\Users\\warlo\\.nuget\\packages\\",
-        "outputPath": "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\Helpers\\obj\\",
+        "projectPath": "C:\\Users\\colto\\Documents\\GitHub\\SilkRoad\\main\\Dev\\Helpers\\Helpers.csproj",
+        "packagesPath": "C:\\Users\\colto\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\colto\\Documents\\GitHub\\SilkRoad\\main\\Dev\\Helpers\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\warlo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\colto\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -42,6 +42,16 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Http": {
+              "target": "Package",
+              "version": "[2.2.2, )"
+            },
+            "Microsoft.Extensions.Logging": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -58,7 +68,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
