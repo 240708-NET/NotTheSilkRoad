@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\Repository\\Repository.csproj": {}
+    "C:\\Users\\colto\\Documents\\GitHub\\SilkRoad\\main\\Dev\\Repository\\Repository.csproj": {}
   },
   "projects": {
-    "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\Models\\Models.csproj": {
+    "C:\\Users\\colto\\Documents\\GitHub\\SilkRoad\\main\\Dev\\Models\\Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\Models\\Models.csproj",
+        "projectUniqueName": "C:\\Users\\colto\\Documents\\GitHub\\SilkRoad\\main\\Dev\\Models\\Models.csproj",
         "projectName": "Models",
-        "projectPath": "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\Models\\Models.csproj",
-        "packagesPath": "C:\\Users\\warlo\\.nuget\\packages\\",
-        "outputPath": "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\Models\\obj\\",
+        "projectPath": "C:\\Users\\colto\\Documents\\GitHub\\SilkRoad\\main\\Dev\\Models\\Models.csproj",
+        "packagesPath": "C:\\Users\\colto\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\colto\\Documents\\GitHub\\SilkRoad\\main\\Dev\\Models\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\warlo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\colto\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -58,21 +58,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\program files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\Repository\\Repository.csproj": {
+    "C:\\Users\\colto\\Documents\\GitHub\\SilkRoad\\main\\Dev\\Repository\\Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\Repository\\Repository.csproj",
+        "projectUniqueName": "C:\\Users\\colto\\Documents\\GitHub\\SilkRoad\\main\\Dev\\Repository\\Repository.csproj",
         "projectName": "Repository",
-        "projectPath": "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\Repository\\Repository.csproj",
-        "packagesPath": "C:\\Users\\warlo\\.nuget\\packages\\",
-        "outputPath": "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\Repository\\obj\\",
+        "projectPath": "C:\\Users\\colto\\Documents\\GitHub\\SilkRoad\\main\\Dev\\Repository\\Repository.csproj",
+        "packagesPath": "C:\\Users\\colto\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\colto\\Documents\\GitHub\\SilkRoad\\main\\Dev\\Repository\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\warlo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\colto\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -84,8 +84,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\Models\\Models.csproj": {
-                "projectPath": "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\Models\\Models.csproj"
+              "C:\\Users\\colto\\Documents\\GitHub\\SilkRoad\\main\\Dev\\Models\\Models.csproj": {
+                "projectPath": "C:\\Users\\colto\\Documents\\GitHub\\SilkRoad\\main\\Dev\\Models\\Models.csproj"
               }
             }
           }
@@ -132,7 +132,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\program files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

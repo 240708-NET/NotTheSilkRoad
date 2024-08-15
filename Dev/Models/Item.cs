@@ -9,8 +9,8 @@ public class Item
 
     public required Product Product { get; set; }
 
-    public required decimal Quantity { get; set; }
+    public required float Quantity { get; set; }
 
-    public required decimal Price { get; set; }
+    public required float Price { get; set; }
 
 }
