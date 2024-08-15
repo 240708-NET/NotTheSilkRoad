@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jlq54\\Revature\\NotTheSilkRoad\\Dev\\API\\API.csproj": {}
+    "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jlq54\\Revature\\NotTheSilkRoad\\Dev\\API\\API.csproj": {
+    "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jlq54\\Revature\\NotTheSilkRoad\\Dev\\API\\API.csproj",
+        "projectUniqueName": "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\jlq54\\Revature\\NotTheSilkRoad\\Dev\\API\\API.csproj",
-        "packagesPath": "C:\\Users\\jlq54\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jlq54\\Revature\\NotTheSilkRoad\\Dev\\API\\obj\\",
+        "projectPath": "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\API\\API.csproj",
+        "packagesPath": "C:\\Users\\warlo\\.nuget\\packages\\",
+        "outputPath": "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\jlq54\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\warlo\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -71,7 +71,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
