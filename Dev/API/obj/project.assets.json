@@ -8842,19 +8842,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\warlo\\.nuget\\packages\\": {}
+    "C:\\Users\\colto\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\API\\API.csproj",
+      "projectUniqueName": "C:\\Users\\colto\\Documents\\GitHub\\SilkRoad\\main\\Dev\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\API\\API.csproj",
-      "packagesPath": "C:\\Users\\warlo\\.nuget\\packages\\",
-      "outputPath": "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\API\\obj\\",
+      "projectPath": "C:\\Users\\colto\\Documents\\GitHub\\SilkRoad\\main\\Dev\\API\\API.csproj",
+      "packagesPath": "C:\\Users\\colto\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\colto\\Documents\\GitHub\\SilkRoad\\main\\Dev\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\warlo\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\colto\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -8866,14 +8866,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\Models\\Models.csproj": {
-              "projectPath": "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\Models\\Models.csproj"
+            "C:\\Users\\colto\\Documents\\GitHub\\SilkRoad\\main\\Dev\\Models\\Models.csproj": {
+              "projectPath": "C:\\Users\\colto\\Documents\\GitHub\\SilkRoad\\main\\Dev\\Models\\Models.csproj"
             },
-            "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\Repository\\Repository.csproj": {
-              "projectPath": "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\Repository\\Repository.csproj"
+            "C:\\Users\\colto\\Documents\\GitHub\\SilkRoad\\main\\Dev\\Repository\\Repository.csproj": {
+              "projectPath": "C:\\Users\\colto\\Documents\\GitHub\\SilkRoad\\main\\Dev\\Repository\\Repository.csproj"
             },
-            "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\Services\\Services.csproj": {
-              "projectPath": "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\Services\\Services.csproj"
+            "C:\\Users\\colto\\Documents\\GitHub\\SilkRoad\\main\\Dev\\Services\\Services.csproj": {
+              "projectPath": "C:\\Users\\colto\\Documents\\GitHub\\SilkRoad\\main\\Dev\\Services\\Services.csproj"
             }
           }
         }
@@ -8935,7 +8935,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
