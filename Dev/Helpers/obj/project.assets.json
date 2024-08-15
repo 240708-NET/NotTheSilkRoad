@@ -8,19 +8,19 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\jlq54\\.nuget\\packages\\": {}
+    "C:\\Users\\warlo\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jlq54\\Revature\\NotTheSilkRoad\\Dev\\Helpers\\Helpers.csproj",
+      "projectUniqueName": "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\Helpers\\Helpers.csproj",
       "projectName": "Helpers",
-      "projectPath": "C:\\Users\\jlq54\\Revature\\NotTheSilkRoad\\Dev\\Helpers\\Helpers.csproj",
-      "packagesPath": "C:\\Users\\jlq54\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jlq54\\Revature\\NotTheSilkRoad\\Dev\\Helpers\\obj\\",
+      "projectPath": "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\Helpers\\Helpers.csproj",
+      "packagesPath": "C:\\Users\\warlo\\.nuget\\packages\\",
+      "outputPath": "D:\\Workspace\\revature\\NotTheSilkRoad\\Dev\\Helpers\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\jlq54\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\warlo\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -64,7 +64,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "c:\\program files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
