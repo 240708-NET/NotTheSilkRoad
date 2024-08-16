@@ -1,4 +1,16 @@
 .login
 {
-    color: blue;
+    margin: auto;
+    min-width: 400px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login input
+{
+    width: 100%;
+    padding: 1rem;
 }
