@@ -19,7 +19,7 @@ namespace Repository
 
         Item Update(int Id, Item item)
         {
-            Item itemToUpdate = _context.Item.Find(Id);
+            Item itemToUpdate = _context.Items.Find(Id);
 
             if (item != null)
             {
@@ -27,7 +27,7 @@ namespace Repository
                 itemToUpdate.Quantity = item.Quantity;
                 itemToUpdate.Price = item.Price;
                 _context.SaveChanges();
-                return _context.Item.Find(Id);
+                return _context.Items.Find(Id);
             }
             return null;
         }
@@ -46,6 +46,31 @@ namespace Repository
         Item GetById(int Id)
         {
             return _context.Items.Find(Id);
+        }
+
+        Item IRepository<Item>.Save(Item t)
+        {
+            throw new NotImplementedException();
+        }
+
+        Item IRepository<Item>.Update(int Id, Item t)
+        {
+            throw new NotImplementedException();
+        }
+
+        List<Item> IRepository<Item>.List()
+        {
+            throw new NotImplementedException();
+        }
+
+        void IRepository<Item>.Delete(Item t)
+        {
+            throw new NotImplementedException();
+        }
+
+        Item IRepository<Item>.GetById(int Id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
