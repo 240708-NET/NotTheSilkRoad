@@ -27,10 +27,10 @@ public class UserServices
         return repo.Save(model);
     }
     // Delete by ID
-    public User DeleteByID(int id)
+    public User DeleteById(int id)
     {
         User target = repo.GetById(id);
-        return repo.Delete(model);
+        return repo.Delete(target);
     }
     // Update
     public User Update(int id, User model)

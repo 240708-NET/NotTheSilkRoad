@@ -27,10 +27,10 @@ public class OrderServices
         return repo.Save(model);
     }
     // Delete by ID
-    public Order DeleteByID(int id)
+    public Order DeleteById(int id)
     {
         Order target = repo.GetById(id);
-        return repo.Delete(model);
+        return repo.Delete(target);
     }
     // Update
     public Order Update(int id, Order model)

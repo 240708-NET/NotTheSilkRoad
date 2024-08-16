@@ -27,10 +27,10 @@ public class ProductServices
         return repo.Save(model);
     }
     // Delete by ID
-    public Product DeleteByID(int id)
+    public Product DeleteById(int id)
     {
         Product target = repo.GetById(id);
-        return repo.Delete(model);
+        return repo.Delete(target);
     }
     // Update
     public Product Update(int id, Product model)

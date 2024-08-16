@@ -27,10 +27,10 @@ public class CategoryServices
         return repo.Save(model);
     }
     // Delete by ID
-    public Category DeleteByID(int id)
+    public Category DeleteById(int id)
     {
         Category target = repo.GetById(id);
-        return repo.Delete(model);
+        return repo.Delete(target);
     }
     // Update
     public Category Update(int id, Category model)
