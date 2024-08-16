@@ -1,6 +1,6 @@
 import NavbarStyles from "./Navbar.module.css";
 import Login from "@/components/Login/Login";
-function Navbar({showLogin, setShowLogin, isLogin, setIsLogin})
+function Navbar({showLogin, setShowLogin, isLogin, setIsLogin} : {showLogin: boolean, setShowLogin: any, isLogin: boolean, setIsLogin: any})
 {
     const handleLogin = () => {
         if(showLogin)
