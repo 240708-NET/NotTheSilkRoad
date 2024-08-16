@@ -3,7 +3,8 @@ function Login()
 {
     return(
         <div className={LoginStyles.login}>
-            <h1>Login</h1>
+            <input type="text" placeholder="Email"></input>
+            <input type="password" placeholder="Password"></input>
         </div>
     )
 };

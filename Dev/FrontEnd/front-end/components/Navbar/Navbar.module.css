@@ -1,0 +1,19 @@
+.navbar
+{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    color: blue;
+    align-items: center;
+}
+
+.search
+{
+    flex: 1; /* additionally, equal width */
+    padding: 0 5rem;
+}
+
+.search input
+{
+    width: 85%;
+}
