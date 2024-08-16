@@ -2,7 +2,7 @@ using Models;
 
 namespace Repository
 {
-    public class ItemRepository : ItemRepository<Item>
+    public class ItemRepository : IRepository<Item>
     {
         DataContext _context;
         public ItemRepository(DataContext context)
