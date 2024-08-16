@@ -27,6 +27,7 @@ namespace Repository
                 userToUpdate.email = user.email;
                 userToUpdate.password = user.password;
                 userToUpdate.user_type = user.user_type;
+                userToUpdate.address = user.address;
                 _context.SaveChanges();
                 return _context.User.Find(Id);
             }
