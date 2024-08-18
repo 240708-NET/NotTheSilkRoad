@@ -1,57 +1,66 @@
-namespace API.Controllers;
-
-using System.Data.Common;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services;
+
+namespace API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
 public class CategoryController : ControllerBase
 {
-    private CategoryServices _ModelService;
+    private CategoryServices _service;
 
-    public CategoryController(CategoryServices ModelService)
+    public CategoryController(CategoryServices service)
     {
-        _ModelService = ModelService;
+        _service = service;
     }
 
     [HttpGet]
-    public IActionResult GetAll()
+    public ActionResult<List<Category>> GetAll()
     {
-        var models = _ModelService.GetAll();
-        return Ok(models);
+        return Ok(_service.GetAll());
     }
 
     [HttpGet("{id}")]
-    public IActionResult GetById(int id)
+    public ActionResult<Category> GetById(int id)
     {
-        var models = _ModelService.GetById(id);
-        return Ok(models);
+        Category category = _service.GetById(id);
+        return category != null ? Ok(category) : NotFound($"Category id={id} not found!");
     }
 
     [HttpPost]
-    public IActionResult Insert(Category model)
+    public ActionResult<Category> Insert(Category category)
     {
-        if (_ModelService.Save(model) != null)
-            return Ok(new { message = "Created Model" });
-        else 
-            return Ok(new { message = "Client-side Error" });
+        Category categoryCreated = _service.Save(category);
+
+        return CreatedAtAction(nameof(GetById), new { id = categoryCreated.Id }, categoryCreated);
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(int id, Category model)
+    public ActionResult<Category> Update(int id, Category category)
     {
-        if (_ModelService.Update(id, model) != null)
-            return Ok(new { message = "Updated" });
-        else 
-            return Ok(new { message = "Client-side Error" });
+        if(id != category.Id){
+            return BadRequest("Category Id mismatch.");
+        }
+
+        Category categoryFound = _service.GetById(id);
+
+        if (categoryFound == null){
+            return NotFound($"Category with Id = {id} not found!");
+        }
+        
+        return _service.Update(id, category);
     }
 
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public ActionResult DeleteById(int id)
     {
-        _ModelService.DeleteById(id);
-        return Ok(new { message = "Deleted" });
+        Category categoryFound = _service.GetById(id);
+
+        if (categoryFound == null){
+            return NotFound($"Category with Id = {id} not found!");
+        }
+        _service.Delete(categoryFound);
+        return Ok($"Category with Id = {id} deleted!");
     }
 }

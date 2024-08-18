@@ -3,21 +3,20 @@ using Models;
 using Repository;
 
 namespace Services;
-public class ItemServices
+public class SellerServices
 {
-    private readonly ILogger<Item> _logger;
-
-    private IRepository<Item> _repo;
+    private readonly ILogger<Seller> _logger;
+    private IRepository<Seller> _repo;
 
     // Constructor
-    public ItemServices(IRepository<Item> repo,
-                        ILogger<Item> logger)
+    public SellerServices(IRepository<Seller> repo,
+                            ILogger<Seller> logger)
     {
         _repo = repo;
         _logger = logger;
     }
     // Get All
-    public List<Item> GetAll()
+    public List<Seller> GetAll()
     {
         try
         {
@@ -30,7 +29,7 @@ public class ItemServices
         }
     }
     // Get By ID
-    public Item? GetById(int id)
+    public Seller? GetById(int id)
     {
         try
         {
@@ -43,11 +42,11 @@ public class ItemServices
         }
     }
     // Save/Create
-    public Item? Save(Item item)
+    public Seller? Save(Seller seller)
     {
         try
         {
-            return _repo.Save(item);
+            return _repo.Save(seller);
         }
         catch (Exception e)
         {
@@ -56,11 +55,11 @@ public class ItemServices
         }
     }
     // Delete by ID
-    public void Delete(Item item)
+    public void Delete(Seller seller)
     {
         try
         {
-            _repo.Delete(item);
+            _repo.Delete(seller);
         }
         catch (Exception e)
         {
@@ -68,11 +67,11 @@ public class ItemServices
         }
     }
     // Update
-    public Item? Update(int id, Item item)
+    public Seller? Update(int id, Seller seller)
     {
         try
         {
-            return _repo.Update(id, item);
+            return _repo.Update(id, seller);
         }
         catch (Exception e)
         {

@@ -1,56 +1,70 @@
-namespace API.Controllers;
-
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services;
+
+namespace API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
 public class OrderController : ControllerBase
 {
-    private OrderServices _ModelService;
+    private OrderServices _service;
 
-    public OrderController(OrderServices ModelService)
+    public OrderController(OrderServices service)
     {
-        _ModelService = ModelService;
+        _service = service;
     }
 
     [HttpGet]
-    public IActionResult GetAll()
+    public ActionResult<List<Order>> GetAll()
     {
-        var models = _ModelService.GetAll();
-        return Ok(models);
+        return Ok(_service.GetAll());
     }
 
     [HttpGet("{id}")]
-    public IActionResult GetById(int id)
+    public ActionResult<Order> GetById(int id)
     {
-        var models = _ModelService.GetById(id);
-        return Ok(models);
+        Order order = _service.GetById(id);
+        return order != null ? Ok(order) : NotFound($"Order id={id} not found!");
     }
 
     [HttpPost]
-    public IActionResult Insert(Order model)
+    public ActionResult<Order> Insert(Order order)
     {
-        if (_ModelService.Save(model) != null)
-            return Ok(new { message = "Created Model" });
-        else 
-            return Ok(new { message = "Client-side Error" });
+        if(order.Customer == null || order.Customer.Id == 0){
+            return BadRequest("Customer Id is missing.");
+        }
+
+        Order orderCreated = _service.Save(order);
+
+        return CreatedAtAction(nameof(GetById), new { id = orderCreated.Id }, orderCreated);
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(int id, Order model)
+    public ActionResult<Order> Update(int id, Order order)
     {
-        if (_ModelService.Update(id, model) != null)
-            return Ok(new { message = "Updated" });
-        else 
-            return Ok(new { message = "Client-side Error" });
+        if(id != order.Id){
+            return BadRequest("Order Id mismatch.");
+        }
+
+        Order orderFound = _service.GetById(id);
+
+        if (orderFound == null){
+            return NotFound($"Order with Id = {id} not found!");
+        }
+        
+        return _service.Update(id, order);
     }
 
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public ActionResult DeleteById(int id)
     {
-        _ModelService.DeleteById(id);
-        return Ok(new { message = "Deleted" });
+        Order orderFound = _service.GetById(id);
+
+        if (orderFound == null){
+            return NotFound($"Order with Id = {id} not found!");
+        }
+        _service.Delete(orderFound);
+        return Ok($"Order with Id = {id} deleted!");
     }
 }

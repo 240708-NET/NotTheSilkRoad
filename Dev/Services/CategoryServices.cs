@@ -1,40 +1,84 @@
-﻿namespace Services;
-
+﻿using Microsoft.Extensions.Logging;
 using Models;
 using Repository;
+
+namespace Services;
 public class CategoryServices
 {
-    private DataContext _context;
-    private CategoryRepository repo;
+    private readonly ILogger<Category> _logger;
+
+    private IRepository<Category> _repo;
+
     // Constructor
-    public Category Create(CategoryRepository repo)
+    public CategoryServices(IRepository<Category> repo,
+                             ILogger<Category> logger)
     {
-        this.repo = repo;
+        _repo = repo;
+        _logger = logger;
     }
     // Get All
     public List<Category> GetAll()
     {
-        return repo.List();
+        try
+        {
+            return _repo.List();
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return [];
+        }
     }
     // Get By ID
-    public Category GetById(int id)
+    public Category? GetById(int id)
     {
-        return repo.GetById(id);
+        try
+        {
+            return _repo.GetById(id);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return null;
+        }
     }
     // Save/Create
-    public Category Save(Category model)
+    public Category? Save(Category category)
     {
-        return repo.Save(model);
+        try
+        {
+            return _repo.Save(category);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return null;
+        }
+        
     }
     // Delete by ID
-    public Category DeleteById(int id)
+    public void Delete(Category category)
     {
-        Category target = repo.GetById(id);
-        return repo.Delete(target);
+        try
+        {
+            _repo.Delete(category);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+        }
     }
     // Update
-    public Category Update(int id, Category model)
+    public Category? Update(int id, Category category)
     {
-        return repo.Update(id, model);
+        try
+        {
+            return _repo.Update(id, category);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return null;
+        }
     }
 }

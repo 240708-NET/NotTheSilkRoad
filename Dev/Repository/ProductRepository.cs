@@ -10,41 +10,41 @@ namespace Repository
             _context = context;
         }
 
-        Product Save(Product product)
+        public Product Save(Product product)
         {
             _context.Add(product);
             _context.SaveChanges();
             return product;
         }
 
-        Product Update(int Id, Product product)
+        public Product Update(int Id, Product product)
         {
-            Product productToUpdate = _context.Product.Find(Id);
+            Product productToUpdate = _context.Products.Find(Id);
 
-            if (order != null)
+            if (product != null)
             {
                 productToUpdate.Title = product.Title;
                 productToUpdate.Description = product.Description;
                 productToUpdate.Price = product.Price;
-                productToUpdate.SellerId = product.SellerId;
+                productToUpdate.Seller = _context.Sellers.Find(product.Seller.Id);
                 _context.SaveChanges();
-                return _context.Product.Find(Id);
+                return productToUpdate;
             }
             return null;
         }
 
-        List<Product> List()
+        public List<Product> List()
         {
             return _context.Products.ToList();
         }
 
-        void Delete(Product product)
+        public void Delete(Product product)
         {
             _context.Products.Remove(product);
             _context.SaveChanges();
         }
 
-        Product GetById(int Id)
+        public Product GetById(int Id)
         {
             return _context.Products.Find(Id);
         }

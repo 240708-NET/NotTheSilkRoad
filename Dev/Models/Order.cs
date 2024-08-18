@@ -15,6 +15,6 @@ public class Order
 
     public bool Active { get; set; }
 
-    public required string shippingAddress { get; set; }
+    public required string ShippingAddress { get; set; }
 
 }

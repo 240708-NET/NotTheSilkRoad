@@ -1,40 +1,83 @@
-namespace Services;
-
+using Microsoft.Extensions.Logging;
 using Models;
 using Repository;
+
+namespace Services;
 public class OrderServices
 {
-    private DataContext _context;
-    private OrderRepository repo;
+    private readonly ILogger<Order> _logger;
+
+    private IRepository<Order> _repo;
+
     // Constructor
-    public Order Create(OrderRepository repo)
+    public OrderServices(IRepository<Order> repo,
+                         ILogger<Order> logger)
     {
-        this.repo = repo;
+        _repo = repo;
+        _logger = logger;
     }
     // Get All
     public List<Order> GetAll()
     {
-        return repo.List();
+        try
+        {
+            return _repo.List();
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return [];
+        }
     }
     // Get By ID
     public Order GetById(int id)
     {
-        return repo.GetById(id);
+        try
+        {
+            return _repo.GetById(id);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return null;
+        }
     }
     // Save/Create
-    public Order Save(Order model)
+    public Order Save(Order order)
     {
-        return repo.Save(model);
+        try
+        {
+            return _repo.Save(order);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return null;
+        }
     }
     // Delete by ID
-    public Order DeleteById(int id)
+    public void Delete(Order order)
     {
-        Order target = repo.GetById(id);
-        return repo.Delete(target);
+        try
+        {
+            _repo.Delete(order);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+        }
     }
     // Update
-    public Order Update(int id, Order model)
+    public Order Update(int id, Order order)
     {
-        return repo.Update(id, model);
+        try
+        {
+            return _repo.Update(id, order);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return null;
+        }
     }
 }
