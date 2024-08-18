@@ -1,56 +1,66 @@
-namespace API.Controllers;
-
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services;
+
+namespace API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
 public class ItemController : ControllerBase
 {
-    private ItemServices _ModelService;
+    private ItemServices _service;
 
-    public ItemController(ItemServices ModelService)
+    public ItemController(ItemServices service)
     {
-        _ModelService = ModelService;
+        _service = service;
     }
 
     [HttpGet]
-    public IActionResult GetAll()
+    public ActionResult<List<Item>> GetAll()
     {
-        var models = _ModelService.GetAll();
-        return Ok(models);
+        return Ok(_service.GetAll());
     }
 
     [HttpGet("{id}")]
-    public IActionResult GetById(int id)
+    public ActionResult<Item> GetById(int id)
     {
-        var models = _ModelService.GetById(id);
-        return Ok(models);
+        Item item = _service.GetById(id);
+        return item != null ? Ok(item) : NotFound($"Item id={id} not found!");
     }
 
     [HttpPost]
-    public IActionResult Insert(Item model)
+    public ActionResult<Item> Insert(Item item)
     {
-        if (_ModelService.Save(model) != null)
-            return Ok(new { message = "Created Model" });
-        else 
-            return Ok(new { message = "Client-side Error" });
+        Item itemCreated = _service.Save(item);
+
+        return CreatedAtAction(nameof(GetById), new { id = itemCreated.Id }, itemCreated);
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(int id, Item model)
+    public ActionResult<Item> Update(int id, Item item)
     {
-        if (_ModelService.Update(id, model) != null)
-            return Ok(new { message = "Updated" });
-        else 
-            return Ok(new { message = "Client-side Error" });
+        if(id != item.Id){
+            return BadRequest("Item Id mismatch.");
+        }
+
+        Item itemFound = _service.GetById(id);
+
+        if (itemFound == null){
+            return NotFound($"Item with Id = {id} not found!");
+        }
+        
+        return _service.Update(id, item);
     }
 
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public ActionResult DeleteById(int id)
     {
-        _ModelService.DeleteById(id);
-        return Ok(new { message = "Deleted" });
+        Item itemFound = _service.GetById(id);
+
+        if (itemFound == null){
+            return NotFound($"Item with Id = {id} not found!");
+        }
+        _service.Delete(itemFound);
+        return Ok($"Item with Id = {id} deleted!");
     }
 }

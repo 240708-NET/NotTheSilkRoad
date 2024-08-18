@@ -1,40 +1,81 @@
-namespace Services;
-
+using Microsoft.Extensions.Logging;
 using Models;
 using Repository;
+
+namespace Services;
 public class ProductServices
 {
-    private DataContext _context;
-    private ProductRepository repo;
+    private readonly ILogger<Product> _logger;
+    private IRepository<Product> _repo;
     // Constructor
-    public Product Create(ProductRepository repo)
+    public ProductServices(IRepository<Product> repo,
+                            ILogger<Product> logger)
     {
-        this.repo = repo;
+        _repo = repo;
+        _logger = logger;
     }
     // Get All
     public List<Product> GetAll()
     {
-        return repo.List();
+        try
+        {
+            return _repo.List();
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return [];
+        }
     }
     // Get By ID
     public Product GetById(int id)
     {
-        return repo.GetById(id);
+        try
+        {
+            return _repo.GetById(id);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return null;
+        }
     }
     // Save/Create
-    public Product Save(Product model)
+    public Product Save(Product product)
     {
-        return repo.Save(model);
+        try
+        {
+            return _repo.Save(product);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return null;
+        }
     }
     // Delete by ID
-    public Product DeleteById(int id)
+    public void Delete(Product product)
     {
-        Product target = repo.GetById(id);
-        return repo.Delete(target);
+        try
+        {
+            _repo.Delete(product);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+        }
     }
     // Update
-    public Product Update(int id, Product model)
+    public Product Update(int id, Product product)
     {
-        return repo.Update(id, model);
+        try
+        {
+            return _repo.Update(id, product);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return null;
+        }
     }
 }

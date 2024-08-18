@@ -10,41 +10,42 @@ namespace Repository
             _context = context;
         }
 
-        Order Save(Order order)
+        public Order Save(Order order)
         {
+            order.Customer = _context.Customers.Find(order.Customer.Id);
             _context.Add(order);
             _context.SaveChanges();
             return order;
         }
 
-        Order Update(int Id, Order order)
+        public Order Update(int Id, Order order)
         {
-            Order orderToUpdate = _context.Order.Find(Id);
+            Order orderToUpdate = _context.Orders.Find(Id);
 
             if (order != null)
             {
-                orderToUpdate.CustomerId = order.CustomerId;
+                orderToUpdate.Customer = _context.Customers.Find(order.Customer.Id);
                 orderToUpdate.Date = order.Date;
                 orderToUpdate.Active = order.Active;
                 orderToUpdate.ShippingAddress = order.ShippingAddress;
                 _context.SaveChanges();
-                return _context.Order.Find(Id);
+                return orderToUpdate;
             }
             return null;
         }
 
-        List<Order> List()
+        public List<Order> List()
         {
             return _context.Orders.ToList();
         }
 
-        void Delete(Order order)
+        public void Delete(Order order)
         {
-            _context.Orders.Remove(item);
+            _context.Orders.Remove(order);
             _context.SaveChanges();
         }
 
-        Order GetById(int Id)
+        public Order GetById(int Id)
         {
             return _context.Orders.Find(Id);
         }

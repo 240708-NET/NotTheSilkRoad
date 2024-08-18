@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using DotNetEnv;
 using Repository;
 using Helpers;
+using Models;
+using Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +23,19 @@ if(string.IsNullOrEmpty(connectionString)){
 }
 
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
+
+builder.Services.AddScoped<IRepository<Customer>, CustomerRepository>();
+builder.Services.AddScoped<CustomerServices>();
+builder.Services.AddScoped<IRepository<Seller>, SellerRepository>();
+builder.Services.AddScoped<SellerServices>();
+builder.Services.AddScoped<IRepository<Order>, OrderRepository>();
+builder.Services.AddScoped<OrderServices>();
+builder.Services.AddScoped<IRepository<Item>, ItemRepository>();
+builder.Services.AddScoped<ItemServices>();
+builder.Services.AddScoped<IRepository<Product>, ProductRepository>();
+builder.Services.AddScoped<ProductServices>();
+builder.Services.AddScoped<IRepository<Category>, CategoryRepository>();
+builder.Services.AddScoped<CategoryServices>();
 
 builder.Services.AddCors();
 
