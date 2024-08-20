@@ -5,6 +5,7 @@ import {products } from '@/components/Listing/listings.js'
 function ListItem(){
     const path = usePathname()
     const [prod, setProd] = useState()
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         console.log(products)
@@ -13,29 +14,31 @@ function ListItem(){
         console.log(itemName)
 
         const item = products.filter(x => x.title == itemName);
-        console.log(item)
-        setProd(item)
+        console.log(item[0])
+        setProd(item[0])
+        setLoading(false)
 
     }, [path])
    
 
   
 
-   
+   if(loading){
+    return <h1>Loading...</h1>
+   }
     
     return (
         <>
         {prod  && (
             <>
-            {prod.map((item, key) => {
-                <div key={key}>
-                 <p>This is your item: {item.title}</p>
-                 <img src={item.image}/>
-                 <p>{item.price}</p>
+           
+                <div>
+                 <p>This is your item: {prod.title}</p>
+                 <img src={prod.image}/>
+                 <p>{prod.price}</p>
                  </div>
 
-            })}
-            
+          
              </>
 
         )}
