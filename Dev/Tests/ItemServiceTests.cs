@@ -66,7 +66,7 @@ namespace Tests
         public void GetById_CorrectOutput()
         {
             // Arrange
-            Item expectedItem = new Item {Id = 1, Product = new Product{Id = 1, Title = "Product 1", Description = "This is test product 1.", Price = 1.25F, Categories = new List<Category>()}, Quantity = 10, Price = 12.50F};
+            Item expectedItem = new Item { Id = 1, Product = new Product { Id = 1, Title = "Product 1", Description = "This is test product 1.", Price = 1.25F, Categories = new List<Category>() }, Quantity = 10, Price = 12.50F };
             _repoMock.Setup(x => x.GetById(1)).Returns(expectedItem);
 
             // Act
@@ -101,7 +101,7 @@ namespace Tests
         public void Save_CorrectOutput()
         {
             // Arrange
-            Item newItem = new Item {Id = 1, Product = new Product{Id = 1, Title = "Product 1", Description = "This is test product 1.", Price = 1.25F, Categories = new List<Category>()}, Quantity = 10, Price = 12.50F};
+            Item newItem = new Item { Id = 1, Product = new Product { Id = 1, Title = "Product 1", Description = "This is test product 1.", Price = 1.25F, Categories = new List<Category>() }, Quantity = 10, Price = 12.50F };
             _repoMock.Setup(x => x.Save(newItem)).Returns(newItem);
 
             // Act
@@ -118,7 +118,7 @@ namespace Tests
             _repoMock.Setup(repo => repo.Save(It.IsAny<Item>())).Throws(new Exception("Test exception"));
 
             // Act
-            var result = _itemService.Save(new Item {Id = 1, Product = new Product{Id = 1, Title = "Product 1", Description = "This is test product 1.", Price = 1.25F, Categories = new List<Category>()}, Quantity = 10, Price = 12.50F});
+            var result = _itemService.Save(new Item { Id = 1, Product = new Product { Id = 1, Title = "Product 1", Description = "This is test product 1.", Price = 1.25F, Categories = new List<Category>() }, Quantity = 10, Price = 12.50F });
 
             // Assert
             Assert.Null(result);
@@ -136,7 +136,7 @@ namespace Tests
         public void Delete_ShouldInvokeRepositoryDelete()
         {
             // Arrange
-            Item itemToDelete = new Item {Id = 1, Product = new Product{Id = 1, Title = "Product 1", Description = "This is test product 1.", Price = 1.25F, Categories = new List<Category>()}, Quantity = 10, Price = 12.50F};
+            Item itemToDelete = new Item { Id = 1, Product = new Product { Id = 1, Title = "Product 1", Description = "This is test product 1.", Price = 1.25F, Categories = new List<Category>() }, Quantity = 10, Price = 12.50F };
 
             // Act
             _itemService.Delete(itemToDelete);
@@ -149,7 +149,7 @@ namespace Tests
         public void Delete_WhenExceptionThrown_ShouldLogError()
         {
             // Arrange
-            Item itemToDelete = new Item {Id = 1, Product = new Product{Id = 1, Title = "Product 1", Description = "This is test product 1.", Price = 1.25F, Categories = new List<Category>()}, Quantity = 10, Price = 12.50F};
+            Item itemToDelete = new Item { Id = 1, Product = new Product { Id = 1, Title = "Product 1", Description = "This is test product 1.", Price = 1.25F, Categories = new List<Category>() }, Quantity = 10, Price = 12.50F };
             _repoMock.Setup(repo => repo.Delete(It.IsAny<Item>())).Throws(new Exception("Test exception"));
 
             // Act
@@ -170,7 +170,7 @@ namespace Tests
         public void Update_CorrectOutput()
         {
             // Arrange
-            Item updatedItem = new Item {Id = 1, Product = new Product{Id = 1, Title = "Product 1", Description = "This is test product 1.", Price = 1.25F, Categories = new List<Category>()}, Quantity = 10, Price = 12.50F};
+            Item updatedItem = new Item { Id = 1, Product = new Product { Id = 1, Title = "Product 1", Description = "This is test product 1.", Price = 1.25F, Categories = new List<Category>() }, Quantity = 10, Price = 12.50F };
             _repoMock.Setup(x => x.Update(1, updatedItem)).Returns(updatedItem);
 
             // Act
@@ -184,7 +184,7 @@ namespace Tests
         public void Update_WhenExceptionThrown_ShouldLogErrorAndReturnNull()
         {
             // Arrange
-            Item itemToUpdate = new Item {Id = 1, Product = new Product{Id = 1, Title = "Product 1", Description = "This is test product 1.", Price = 1.25F, Categories = new List<Category>()}, Quantity = 10, Price = 12.50F};
+            Item itemToUpdate = new Item { Id = 1, Product = new Product { Id = 1, Title = "Product 1", Description = "This is test product 1.", Price = 1.25F, Categories = new List<Category>() }, Quantity = 10, Price = 12.50F };
             _repoMock.Setup(repo => repo.Update(It.IsAny<int>(), It.IsAny<Item>())).Throws(new Exception("Test exception"));
 
             // Act
