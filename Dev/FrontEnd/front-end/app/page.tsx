@@ -1,5 +1,4 @@
 "use client";
-import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar/Navbar";
 import styles from "./page.module.css";
@@ -17,6 +16,7 @@ export default function Home() {
       <Navbar showLogin={showLogin} setShowLogin={setShowLogin} isLogin={isLogin} setIsLogin={setIsLogin}
         isAccountClick={isAccountClick} setIsAccountClick={setIsAccountClick} />
       {showLogin && <Login />}
+      
         {isAccountClick && <AccountMenu />}
 
     </main>
