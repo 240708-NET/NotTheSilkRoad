@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Runtime.CompilerServices;
+using DTO;
+using Microsoft.Extensions.Logging;
 using Models;
 using Repository;
 
@@ -9,19 +11,22 @@ public class CategoryServices
 
     private IRepository<Category> _repo;
 
-    // Constructor
+    private IRepository<Product> _repoProduct;
+
     public CategoryServices(IRepository<Category> repo,
+                            IRepository<Product> repoProduct,
                              ILogger<Category> logger)
     {
         _repo = repo;
         _logger = logger;
+        _repoProduct = repoProduct;
     }
-    // Get All
-    public List<Category> GetAll()
+
+    public List<CategoryDTO> GetAll()
     {
         try
         {
-            return _repo.List();
+            return new List<CategoryDTO>(_repo.List().Select(c => new CategoryDTO(c, true)));
         }
         catch (Exception e)
         {
@@ -29,12 +34,12 @@ public class CategoryServices
             return [];
         }
     }
-    // Get By ID
-    public Category? GetById(int id)
+
+    public CategoryDTO? GetById(int id)
     {
         try
         {
-            return _repo.GetById(id);
+            return new CategoryDTO(_repo.GetById(id), true);
         }
         catch (Exception e)
         {
@@ -42,12 +47,16 @@ public class CategoryServices
             return null;
         }
     }
-    // Save/Create
-    public Category? Save(Category category)
+
+    public CategoryDTO? Save(CategoryDTO dto)
     {
         try
         {
-            return _repo.Save(category);
+            Category entity = (Category)RuntimeHelpers.GetUninitializedObject(typeof(Category));
+
+            Category categoryCreated = _repo.Save(CopyDtoToEntity(dto, entity));
+
+            return new CategoryDTO(categoryCreated, true);
         }
         catch (Exception e)
         {
@@ -56,29 +65,51 @@ public class CategoryServices
         }
         
     }
-    // Delete by ID
-    public void Delete(Category category)
+
+    public void Delete(CategoryDTO dto)
     {
         try
         {
-            _repo.Delete(category);
+            _repo.Delete(_repo.GetById(dto.Id));
         }
         catch (Exception e)
         {
             _logger.LogError(e.Message);
         }
     }
-    // Update
-    public Category? Update(int id, Category category)
+
+    public CategoryDTO? Update(int id, CategoryDTO dto)
     {
         try
         {
-            return _repo.Update(id, category);
+            Category category = _repo.GetById(id);
+            return new CategoryDTO(_repo.Update(CopyDtoToEntity(dto, category)), true);
         }
         catch (Exception e)
         {
             _logger.LogError(e.Message);
             return null;
         }
+    }
+
+    private Category CopyDtoToEntity(CategoryDTO dto, Category entity){
+        try
+        {
+            entity.Id = dto.Id;
+            entity.Description = dto.Description;
+            entity.Products = [];
+            foreach(ProductDTO productDTO in dto.Products){
+                Product product = _repoProduct.GetById(productDTO.Id);
+                entity.Products.Add(product);
+            }
+
+            return entity;
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return null;
+        }
+
     }
 }

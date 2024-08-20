@@ -1,5 +1,5 @@
+using DTO;
 using Microsoft.AspNetCore.Mvc;
-using Models;
 using Services;
 
 namespace API.Controllers;
@@ -16,34 +16,34 @@ public class CustomerController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<List<Customer>> GetAll()
+    public ActionResult<List<CustomerDTO>> GetAll()
     {
         return Ok(_service.GetAll());
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Customer> GetById(int id)
+    public ActionResult<CustomerDTO> GetById(int id)
     {
-        Customer customer = _service.GetById(id);
+        CustomerDTO customer = _service.GetById(id);
         return customer != null ? Ok(customer) : NotFound($"Customer id={id} not found!");
     }
 
     [HttpPost]
-    public ActionResult<Customer> Insert(Customer customer)
+    public ActionResult<CustomerDTO> Insert(CustomerDTO customer)
     {
-        Customer customerCreated = _service.Save(customer);
+        CustomerDTO customerCreated = _service.Save(customer);
 
         return CreatedAtAction(nameof(GetById), new { id = customerCreated.Id }, customerCreated);
     }
 
     [HttpPut("{id}")]
-    public ActionResult<Customer> Update(int id, Customer customer)
+    public ActionResult<CustomerDTO> Update(int id, CustomerDTO customer)
     {
         if(id != customer.Id){
             return BadRequest("Customer Id mismatch.");
         }
 
-        Customer customerFound = _service.GetById(id);
+        CustomerDTO customerFound = _service.GetById(id);
 
         if (customerFound == null){
             return NotFound($"Customer with Id = {id} not found!");
@@ -55,7 +55,7 @@ public class CustomerController : ControllerBase
     [HttpDelete("{id}")]
     public ActionResult DeleteById(int id)
     {
-        Customer customerFound = _service.GetById(id);
+        CustomerDTO customerFound = _service.GetById(id);
 
         if (customerFound == null){
             return NotFound($"Customer with Id = {id} not found!");

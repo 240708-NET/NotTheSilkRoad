@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+using DTO;
 using Microsoft.Extensions.Logging;
 using Models;
 using Repository;
@@ -8,19 +10,23 @@ public class SellerServices
     private readonly ILogger<Seller> _logger;
     private IRepository<Seller> _repo;
 
-    // Constructor
+    private IRepository<Product> _repoProduct;
+
+
     public SellerServices(IRepository<Seller> repo,
+                            IRepository<Product> repoProduct,
                             ILogger<Seller> logger)
     {
         _repo = repo;
         _logger = logger;
+        _repoProduct = repoProduct;
     }
-    // Get All
-    public List<Seller> GetAll()
+
+    public List<SellerDTO> GetAll()
     {
         try
         {
-            return _repo.List();
+            return new List<SellerDTO>(_repo.List().Select(s => new SellerDTO(s, true)));
         }
         catch (Exception e)
         {
@@ -28,12 +34,12 @@ public class SellerServices
             return [];
         }
     }
-    // Get By ID
-    public Seller? GetById(int id)
+
+    public SellerDTO? GetById(int id)
     {
         try
         {
-            return _repo.GetById(id);
+            return new SellerDTO(_repo.GetById(id), true);
         }
         catch (Exception e)
         {
@@ -41,12 +47,16 @@ public class SellerServices
             return null;
         }
     }
-    // Save/Create
-    public Seller? Save(Seller seller)
+
+    public SellerDTO? Save(SellerDTO dto)
     {
         try
         {
-            return _repo.Save(seller);
+            Seller entity = (Seller)RuntimeHelpers.GetUninitializedObject(typeof(Seller));
+
+            Seller sellerCreated = _repo.Save(CopyDtoToEntity(dto, entity));
+
+            return new SellerDTO(sellerCreated, true);
         }
         catch (Exception e)
         {
@@ -54,29 +64,53 @@ public class SellerServices
             return null;
         }
     }
-    // Delete by ID
-    public void Delete(Seller seller)
+
+    public void Delete(SellerDTO dto)
     {
         try
         {
-            _repo.Delete(seller);
+            _repo.Delete(_repo.GetById(dto.Id));
         }
         catch (Exception e)
         {
             _logger.LogError(e.Message);
         }
     }
-    // Update
-    public Seller? Update(int id, Seller seller)
+
+    public SellerDTO? Update(int id, SellerDTO dto)
     {
         try
         {
-            return _repo.Update(id, seller);
+            Seller seller = _repo.GetById(id);
+            return new SellerDTO(_repo.Update(CopyDtoToEntity(dto, seller)), true);
         }
         catch (Exception e)
         {
             _logger.LogError(e.Message);
             return null;
         }
+    }
+
+    private Seller CopyDtoToEntity(SellerDTO dto, Seller entity){
+        try
+        {
+            entity.Id = dto.Id;
+            entity.Name = dto.Name;
+            entity.Email = dto.Email;
+            entity.Password = dto.Password;
+            entity.Products = [];
+            foreach(ProductDTO productDTO in dto.Products){
+                Product product = _repoProduct.GetById(productDTO.Id);
+                entity.Products.Add(product);
+            }
+
+            return entity;
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return null;
+        }
+
     }
 }

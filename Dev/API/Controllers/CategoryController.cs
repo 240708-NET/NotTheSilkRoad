@@ -1,5 +1,5 @@
+using DTO;
 using Microsoft.AspNetCore.Mvc;
-using Models;
 using Services;
 
 namespace API.Controllers;
@@ -16,34 +16,34 @@ public class CategoryController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<List<Category>> GetAll()
+    public ActionResult<List<CategoryDTO>> GetAll()
     {
         return Ok(_service.GetAll());
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Category> GetById(int id)
+    public ActionResult<CategoryDTO> GetById(int id)
     {
-        Category category = _service.GetById(id);
+        CategoryDTO category = _service.GetById(id);
         return category != null ? Ok(category) : NotFound($"Category id={id} not found!");
     }
 
     [HttpPost]
-    public ActionResult<Category> Insert(Category category)
+    public ActionResult<CategoryDTO> Insert(CategoryDTO category)
     {
-        Category categoryCreated = _service.Save(category);
+        CategoryDTO categoryCreated = _service.Save(category);
 
         return CreatedAtAction(nameof(GetById), new { id = categoryCreated.Id }, categoryCreated);
     }
 
     [HttpPut("{id}")]
-    public ActionResult<Category> Update(int id, Category category)
+    public ActionResult<CategoryDTO> Update(int id, CategoryDTO category)
     {
         if(id != category.Id){
             return BadRequest("Category Id mismatch.");
         }
 
-        Category categoryFound = _service.GetById(id);
+        CategoryDTO categoryFound = _service.GetById(id);
 
         if (categoryFound == null){
             return NotFound($"Category with Id = {id} not found!");
@@ -55,7 +55,7 @@ public class CategoryController : ControllerBase
     [HttpDelete("{id}")]
     public ActionResult DeleteById(int id)
     {
-        Category categoryFound = _service.GetById(id);
+        CategoryDTO categoryFound = _service.GetById(id);
 
         if (categoryFound == null){
             return NotFound($"Category with Id = {id} not found!");

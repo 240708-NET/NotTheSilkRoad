@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Models;
 
 namespace Repository
@@ -17,22 +18,18 @@ namespace Repository
             return category;
         }
 
-        public Category Update(int Id, Category category)
+        public Category Update(Category category)
         {
-            Category categoryToUpdate = _context.Categories.Find(Id);
-
-            if (category != null)
-            {
-                categoryToUpdate.Description = category.Description;
-                _context.SaveChanges();
-                return categoryToUpdate;
-            }
-            return null;
+            _context.Entry(category).State = EntityState.Modified;
+            _context.SaveChanges();
+            return category;
         }
 
         public List<Category> List()
         {
-            return _context.Categories.ToList();
+            return _context.Categories
+            .Include(c => c.Products)
+            .ToList();
         }
 
         public void Delete(Category category)

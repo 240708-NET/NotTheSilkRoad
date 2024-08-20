@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Models;
 
 namespace Repository
@@ -17,24 +18,18 @@ namespace Repository
             return seller;
         }
 
-        public Seller Update(int Id, Seller seller)
+        public Seller Update(Seller seller)
         {
-            Seller sellerToUpdate = _context.Sellers.Find(Id);
-
-            if (seller != null)
-            {
-                sellerToUpdate.Name = seller.Name;
-                sellerToUpdate.Email = seller.Email;
-                sellerToUpdate.Password = seller.Password;
-                _context.SaveChanges();
-                return sellerToUpdate;
-            }
-            return null;
+            _context.Entry(seller).State = EntityState.Modified;
+            _context.SaveChanges();
+            return seller;
         }
 
         public List<Seller> List()
         {
-            return _context.Sellers.ToList();
+            return _context.Sellers
+            .Include(s => s.Products)
+            .ToList();
         }
 
         public void Delete(Seller seller)

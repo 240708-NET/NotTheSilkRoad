@@ -4,7 +4,7 @@ namespace Repository
     {
         T Save(T t);
 
-        T Update(int Id, T t);
+        T Update(T t);
 
         List<T> List();
 
