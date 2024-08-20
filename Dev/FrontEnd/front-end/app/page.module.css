@@ -7,6 +7,15 @@
   min-height: 100vh;
 }
 
+.listing{
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 2rem;
+  margin: auto;
+}
+
+
+
 .description {
   display: inherit;
   justify-content: inherit;
