@@ -6,7 +6,6 @@ import styles from "./page.module.css";
 import Login from "@/components/Login/Login";
 import AccountMenu from "@/app/AccountMenu/page";
 
-
 export default function Home() {
   const [isLogin, setIsLogin] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
@@ -22,5 +21,4 @@ export default function Home() {
 
     </main>
   );
-
 }
