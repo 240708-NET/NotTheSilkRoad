@@ -1,0 +1,10 @@
+.cart
+{
+    margin: auto;
+    min-width: 400px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
