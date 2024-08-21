@@ -1,0 +1,56 @@
+.container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+
+}
+
+.product {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    padding: 1rem;
+    margin: auto;
+    width: 50%;
+}
+
+
+.product img {
+    width: 50%;
+}
+
+
+.info {
+    flex-direction: column;
+    width: 50%;
+    color: black;
+    position: relative;
+    
+}
+
+.info span {
+    flex-direction: row;
+    width: 100%;
+    
+}
+
+.quantity button,
+.quantity input {
+    padding: 0.5rem;
+}
+
+.cart {
+    background-color: goldenrod;
+    padding: 10px 20px;
+    border: none;
+    width: 100%;
+    margin-top: 2rem;
+    cursor: pointer;
+}
+
+
+
+
+
+
