@@ -2,7 +2,7 @@ import AccountMenuStyles from "./AccountMenuStyles.module.css";
 //import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 import Link from 'next/link';
 import { useRouter } from "next/router";
-import Cart from "../cart/page";
+import Cart from "../../app/cart/page";
 
 function AccountMenu() {
     return (

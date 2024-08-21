@@ -2,10 +2,13 @@
 import {useEffect, useState} from 'react'
 import {usePathname, useRouter} from 'next/navigation'
 import {products } from '@/components/Listing/listings.js'
+import productstyles from './page.module.css'
+
 function ListItem(){
     const path = usePathname()
     const [prod, setProd] = useState()
     const [loading, setLoading] = useState(true)
+    const [count, setCount] = useState(0)
 
     useEffect(() => {
         console.log(products)
@@ -30,16 +33,25 @@ function ListItem(){
     return (
         <>
         {prod  && (
-            <>
-           
-                <div>
-                 <p>This is your item: {prod.title}</p>
-                 <img src={prod.image}/>
+            <div className={productstyles.container}>
+                <div className={productstyles.product}>
+                <img src={prod.image}/>
+                <div className={productstyles.info}>
+                 <h2>{prod.title}</h2>
+                 <p>{prod.description}</p>
                  <p>{prod.price}</p>
+                 <span className={productstyles.quantity}>
+                   <button>-</button>
+                   <input type="number" step="1" placeholder="Quantity"/>
+                   <button>+</button>
+                 </span>
+                 <button className={productstyles.cart}>Add To Cart</button>
                  </div>
+                 </div>
+                 
 
           
-             </>
+             </div>
 
         )}
        
