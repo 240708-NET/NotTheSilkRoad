@@ -1,5 +1,5 @@
+using DTO;
 using Microsoft.AspNetCore.Mvc;
-using Models;
 using Services;
 
 namespace API.Controllers;
@@ -16,34 +16,34 @@ public class SellerController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<List<Seller>> GetAll()
+    public ActionResult<List<SellerDTO>> GetAll()
     {
         return Ok(_service.GetAll());
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Seller> GetById(int id)
+    public ActionResult<SellerDTO> GetById(int id)
     {
-        Seller seller = _service.GetById(id);
+        SellerDTO seller = _service.GetById(id);
         return seller != null ? Ok(seller) : NotFound($"Seller id={id} not found!");
     }
 
     [HttpPost]
-    public ActionResult<Seller> Insert(Seller seller)
+    public ActionResult<SellerDTO> Insert(SellerDTO seller)
     {
-        Seller sellerCreated = _service.Save(seller);
+        SellerDTO sellerCreated = _service.Save(seller);
 
         return CreatedAtAction(nameof(GetById), new { id = sellerCreated.Id }, sellerCreated);
     }
 
     [HttpPut("{id}")]
-    public ActionResult<Seller> Update(int id, Seller seller)
+    public ActionResult<SellerDTO> Update(int id, SellerDTO seller)
     {
         if(id != seller.Id){
             return BadRequest("Seller Id mismatch.");
         }
 
-        Seller sellerFound = _service.GetById(id);
+        SellerDTO sellerFound = _service.GetById(id);
 
         if (sellerFound == null){
             return NotFound($"Seller with Id = {id} not found!");
@@ -55,7 +55,7 @@ public class SellerController : ControllerBase
     [HttpDelete("{id}")]
     public ActionResult DeleteById(int id)
     {
-        Seller sellerFound = _service.GetById(id);
+        SellerDTO sellerFound = _service.GetById(id);
 
         if (sellerFound == null){
             return NotFound($"Seller with Id = {id} not found!");

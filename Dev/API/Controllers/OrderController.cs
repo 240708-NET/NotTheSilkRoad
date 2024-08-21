@@ -1,5 +1,5 @@
+using DTO;
 using Microsoft.AspNetCore.Mvc;
-using Models;
 using Services;
 
 namespace API.Controllers;
@@ -16,38 +16,38 @@ public class OrderController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<List<Order>> GetAll()
+    public ActionResult<List<OrderDTO>> GetAll()
     {
         return Ok(_service.GetAll());
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Order> GetById(int id)
+    public ActionResult<OrderDTO> GetById(int id)
     {
-        Order order = _service.GetById(id);
+        OrderDTO order = _service.GetById(id);
         return order != null ? Ok(order) : NotFound($"Order id={id} not found!");
     }
 
     [HttpPost]
-    public ActionResult<Order> Insert(Order order)
+    public ActionResult<OrderDTO> Insert(OrderDTO order)
     {
         if(order.Customer == null || order.Customer.Id == 0){
             return BadRequest("Customer Id is missing.");
         }
 
-        Order orderCreated = _service.Save(order);
+        OrderDTO orderCreated = _service.Save(order);
 
         return CreatedAtAction(nameof(GetById), new { id = orderCreated.Id }, orderCreated);
     }
 
     [HttpPut("{id}")]
-    public ActionResult<Order> Update(int id, Order order)
+    public ActionResult<OrderDTO> Update(int id, OrderDTO order)
     {
         if(id != order.Id){
             return BadRequest("Order Id mismatch.");
         }
 
-        Order orderFound = _service.GetById(id);
+        OrderDTO orderFound = _service.GetById(id);
 
         if (orderFound == null){
             return NotFound($"Order with Id = {id} not found!");
@@ -59,7 +59,7 @@ public class OrderController : ControllerBase
     [HttpDelete("{id}")]
     public ActionResult DeleteById(int id)
     {
-        Order orderFound = _service.GetById(id);
+        OrderDTO orderFound = _service.GetById(id);
 
         if (orderFound == null){
             return NotFound($"Order with Id = {id} not found!");

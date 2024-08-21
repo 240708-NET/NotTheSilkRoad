@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+using DTO;
 using Microsoft.Extensions.Logging;
 using Models;
 using Repository;
@@ -9,19 +11,27 @@ public class OrderServices
 
     private IRepository<Order> _repo;
 
-    // Constructor
+    private IRepository<Customer> _repoCustomer;
+
+    private IRepository<Item> _repoItem;
+
+
     public OrderServices(IRepository<Order> repo,
+                        IRepository<Customer> repoCustomer,
+                        IRepository<Item> repoItem,
                          ILogger<Order> logger)
     {
         _repo = repo;
         _logger = logger;
+        _repoCustomer = repoCustomer;
+        _repoItem = repoItem;
     }
-    // Get All
-    public List<Order> GetAll()
+
+    public List<OrderDTO> GetAll()
     {
         try
         {
-            return _repo.List();
+            return new List<OrderDTO>(_repo.List().Select(o => new OrderDTO(o)));
         }
         catch (Exception e)
         {
@@ -29,12 +39,12 @@ public class OrderServices
             return [];
         }
     }
-    // Get By ID
-    public Order GetById(int id)
+
+    public OrderDTO? GetById(int id)
     {
         try
         {
-            return _repo.GetById(id);
+            return new OrderDTO(_repo.GetById(id));
         }
         catch (Exception e)
         {
@@ -42,12 +52,16 @@ public class OrderServices
             return null;
         }
     }
-    // Save/Create
-    public Order Save(Order order)
+
+    public OrderDTO? Save(OrderDTO dto)
     {
         try
-        {
-            return _repo.Save(order);
+        {   
+            Order entity = (Order)RuntimeHelpers.GetUninitializedObject(typeof(Order));
+
+            Order orderCreated = _repo.Save(CopyDtoToEntity(dto, entity));
+
+            return new OrderDTO(orderCreated);
         }
         catch (Exception e)
         {
@@ -55,29 +69,53 @@ public class OrderServices
             return null;
         }
     }
-    // Delete by ID
-    public void Delete(Order order)
+
+    public void Delete(OrderDTO dto)
     {
         try
         {
-            _repo.Delete(order);
+            _repo.Delete(_repo.GetById(dto.Id));
         }
         catch (Exception e)
         {
             _logger.LogError(e.Message);
         }
     }
-    // Update
-    public Order Update(int id, Order order)
+
+    public OrderDTO? Update(int id, OrderDTO dto)
     {
         try
         {
-            return _repo.Update(id, order);
+            Order order = _repo.GetById(id);
+            return new OrderDTO(_repo.Update(CopyDtoToEntity(dto, order)));
         }
         catch (Exception e)
         {
             _logger.LogError(e.Message);
             return null;
         }
+    }
+
+    private Order CopyDtoToEntity(OrderDTO dto, Order entity){
+        try
+        {
+            entity.Id = dto.Id;
+            entity.Customer = _repoCustomer.GetById(dto.Customer.Id);
+            entity.Items = [];
+            foreach(ItemDTO itemDTO in dto.Items){
+                Item item = _repoItem.GetById(itemDTO.Id);
+                entity.Items.Add(item);
+            }
+            entity.Date = dto.Date;
+            entity.Active = dto.Active;
+            entity.ShippingAddress = dto.ShippingAddress;
+            return entity;
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return null;
+        }
+
     }
 }

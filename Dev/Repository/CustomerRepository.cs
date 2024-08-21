@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Models;
 
 namespace Repository
@@ -17,25 +18,18 @@ namespace Repository
             return customer;
         }
 
-        public Customer Update(int Id, Customer customer)
+        public Customer Update(Customer customer)
         {
-            Customer customerToUpdate = _context.Customers.Find(Id);
-
-            if (customer != null)
-            {
-                customerToUpdate.Name = customer.Name;
-                customerToUpdate.Email = customer.Email;
-                customerToUpdate.Password = customer.Password;
-                customerToUpdate.Address = customer.Address;
-                _context.SaveChanges();
-                return customerToUpdate;
-            }
-            return null;
+            _context.Entry(customer).State = EntityState.Modified;
+            _context.SaveChanges();
+            return customer;
         }
 
         public List<Customer> List()
         {
-            return _context.Customers.ToList();
+            return _context.Customers
+            .Include(c => c.Orders)
+            .ToList();
         }
 
         public void Delete(Customer customer)

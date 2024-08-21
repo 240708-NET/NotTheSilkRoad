@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Models;
 
 namespace Repository
@@ -12,31 +13,24 @@ namespace Repository
 
         public Order Save(Order order)
         {
-            order.Customer = _context.Customers.Find(order.Customer.Id);
             _context.Add(order);
             _context.SaveChanges();
             return order;
         }
 
-        public Order Update(int Id, Order order)
+        public Order Update(Order order)
         {
-            Order orderToUpdate = _context.Orders.Find(Id);
-
-            if (order != null)
-            {
-                orderToUpdate.Customer = _context.Customers.Find(order.Customer.Id);
-                orderToUpdate.Date = order.Date;
-                orderToUpdate.Active = order.Active;
-                orderToUpdate.ShippingAddress = order.ShippingAddress;
-                _context.SaveChanges();
-                return orderToUpdate;
-            }
-            return null;
+            _context.Entry(order).State = EntityState.Modified;
+            _context.SaveChanges();
+            return order;
         }
 
         public List<Order> List()
         {
-            return _context.Orders.ToList();
+            return _context.Orders
+            .Include(o => o.Customer)
+            .Include(o => o.Items)
+            .ToList();
         }
 
         public void Delete(Order order)

@@ -1,5 +1,5 @@
+using DTO;
 using Microsoft.AspNetCore.Mvc;
-using Models;
 using Services;
 
 namespace API.Controllers;
@@ -16,34 +16,34 @@ public class ItemController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<List<Item>> GetAll()
+    public ActionResult<List<ItemDTO>> GetAll()
     {
         return Ok(_service.GetAll());
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Item> GetById(int id)
+    public ActionResult<ItemDTO> GetById(int id)
     {
-        Item item = _service.GetById(id);
+        ItemDTO item = _service.GetById(id);
         return item != null ? Ok(item) : NotFound($"Item id={id} not found!");
     }
 
     [HttpPost]
-    public ActionResult<Item> Insert(Item item)
+    public ActionResult<ItemDTO> Insert(ItemDTO item)
     {
-        Item itemCreated = _service.Save(item);
+        ItemDTO itemCreated = _service.Save(item);
 
         return CreatedAtAction(nameof(GetById), new { id = itemCreated.Id }, itemCreated);
     }
 
     [HttpPut("{id}")]
-    public ActionResult<Item> Update(int id, Item item)
+    public ActionResult<ItemDTO> Update(int id, ItemDTO item)
     {
         if(id != item.Id){
             return BadRequest("Item Id mismatch.");
         }
 
-        Item itemFound = _service.GetById(id);
+        ItemDTO itemFound = _service.GetById(id);
 
         if (itemFound == null){
             return NotFound($"Item with Id = {id} not found!");
@@ -55,7 +55,7 @@ public class ItemController : ControllerBase
     [HttpDelete("{id}")]
     public ActionResult DeleteById(int id)
     {
-        Item itemFound = _service.GetById(id);
+        ItemDTO itemFound = _service.GetById(id);
 
         if (itemFound == null){
             return NotFound($"Item with Id = {id} not found!");

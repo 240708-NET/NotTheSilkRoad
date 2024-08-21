@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Models;
 
 namespace Repository
@@ -17,24 +18,18 @@ namespace Repository
             return item;
         }
 
-        public Item Update(int Id, Item item)
+        public Item Update(Item item)
         {
-            Item itemToUpdate = _context.Items.Find(Id);
-
-            if (item != null)
-            {
-                itemToUpdate.Product = item.Product;
-                itemToUpdate.Quantity = item.Quantity;
-                itemToUpdate.Price = item.Price;
-                _context.SaveChanges();
-                return itemToUpdate;
-            }
-            return null;
+            _context.Entry(item).State = EntityState.Modified;
+            _context.SaveChanges();
+            return item;
         }
 
         public List<Item> List()
         {
-            return _context.Items.ToList();
+            return _context.Items
+            .Include(i => i.Product)
+            .ToList();
         }
 
         public void Delete(Item item)

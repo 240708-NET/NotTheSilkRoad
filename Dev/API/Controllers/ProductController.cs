@@ -1,5 +1,5 @@
+using DTO;
 using Microsoft.AspNetCore.Mvc;
-using Models;
 using Services;
 
 namespace API.Controllers;
@@ -16,34 +16,34 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<List<Product>> GetAll()
+    public ActionResult<List<ProductDTO>> GetAll()
     {
         return Ok(_service.GetAll());
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Product> GetById(int id)
+    public ActionResult<ProductDTO> GetById(int id)
     {
-        Product product = _service.GetById(id);
+        ProductDTO product = _service.GetById(id);
         return product != null ? Ok(product) : NotFound($"Product id={id} not found!");
     }
 
     [HttpPost]
-    public ActionResult<Product> Insert(Product product)
+    public ActionResult<ProductDTO> Insert(ProductDTO product)
     {
-        Product productCreated = _service.Save(product);
+        ProductDTO productCreated = _service.Save(product);
 
         return CreatedAtAction(nameof(GetById), new { id = productCreated.Id }, productCreated);
     }
 
     [HttpPut("{id}")]
-    public ActionResult<Product> Update(int id, Product product)
+    public ActionResult<ProductDTO> Update(int id, ProductDTO product)
     {
         if(id != product.Id){
             return BadRequest("Order Id mismatch.");
         }
 
-        Product productFound = _service.GetById(id);
+        ProductDTO productFound = _service.GetById(id);
 
         if (productFound == null){
             return NotFound($"Product with Id = {id} not found!");
@@ -55,7 +55,7 @@ public class ProductController : ControllerBase
     [HttpDelete("{id}")]
     public ActionResult DeleteById(int id)
     {
-        Product productFound = _service.GetById(id);
+        ProductDTO productFound = _service.GetById(id);
 
         if (productFound == null){
             return NotFound($"Product with Id = {id} not found!");

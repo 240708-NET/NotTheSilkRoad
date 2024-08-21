@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace Models;
 
@@ -11,7 +12,8 @@ public class Product
 
     public required string Description { get; set; }
 
-    public required float Price { get; set; }
+    [Precision(18, 2)]
+    public required decimal Price { get; set; }
 
     public Seller? Seller { get; set; }
 

@@ -17,4 +17,8 @@ public class Order
 
     public required string ShippingAddress { get; set; }
 
+    public Order()
+    {
+    }
+
 }
