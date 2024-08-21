@@ -36,7 +36,7 @@ public class ItemController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = itemCreated.Id }, itemCreated);
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("{id}")] 
     public ActionResult<ItemDTO> Update(int id, ItemDTO item)
     {
         if(id != item.Id){
