@@ -6,20 +6,23 @@ using System.Collections.Generic;
 using Services;
 using Repository;
 using Models;
+using DTO;
 
 namespace Tests
 {
     public class CategoryServiceTests
     {
         private readonly Mock<IRepository<Category>> _repoMock;
+        private readonly Mock<IRepository<Product>> _repoProductMock;
         private readonly Mock<ILogger<Category>> _loggerMock;
         private readonly CategoryServices _categoryService;
 
         public CategoryServiceTests()
         {
             _repoMock = new Mock<IRepository<Category>>();
+            _repoProductMock = new Mock<IRepository<Product>>();
             _loggerMock = new Mock<ILogger<Category>>();
-            _categoryService = new CategoryServices(_repoMock.Object, _loggerMock.Object);
+            _categoryService = new CategoryServices(_repoMock.Object, _repoProductMock.Object, _loggerMock.Object);
         }
 
         [Fact]
@@ -33,12 +36,13 @@ namespace Tests
                 new Category {Id = 3, Description = "Category 3", Products = new List<Product>()}
             };
             _repoMock.Setup(x => x.List()).Returns(expectedCategories);
+            List<CategoryDTO> expectedDTOs = expectedCategories.Select(i => new CategoryDTO(i, true)).ToList();
 
             // Act
             var result = _categoryService.GetAll();
 
             // Assert
-            Assert.Equal(expectedCategories, result);
+            Assert.Equal(expectedDTOs, result);
         }
 
         [Fact]
@@ -68,12 +72,13 @@ namespace Tests
             // Arrange
             Category expectedCategory = new Category { Id = 1, Description = "Category 1", Products = new List<Product>() };
             _repoMock.Setup(x => x.GetById(1)).Returns(expectedCategory);
+            CategoryDTO expectedDTO = new CategoryDTO(expectedCategory, true);
 
             // Act
             var result = _categoryService.GetById(1);
 
             // Assert
-            Assert.Equal(expectedCategory, result);
+            Assert.Equal(expectedDTO, result);
         }
 
         [Fact]
@@ -104,11 +109,13 @@ namespace Tests
             Category newCategory = new Category { Id = 1, Description = "New Category", Products = new List<Product>() };
             _repoMock.Setup(x => x.Save(newCategory)).Returns(newCategory);
 
+            CategoryDTO newCategoryDTO = new CategoryDTO(newCategory, true);
+
             // Act
-            var result = _categoryService.Save(newCategory);
+            var result = _categoryService.Save(newCategoryDTO);
 
             // Assert
-            Assert.Equal(newCategory, result);
+            Assert.Equal(newCategoryDTO, result);
         }
 
         [Fact]
@@ -118,7 +125,7 @@ namespace Tests
             _repoMock.Setup(repo => repo.Save(It.IsAny<Category>())).Throws(new Exception("Test exception"));
 
             // Act
-            var result = _categoryService.Save(new Category { Id = 1, Description = "Test", Products = new List<Product>() });
+            var result = _categoryService.Save(new CategoryDTO { Id = 1, Description = "Test", Products = new List<ProductDTO>() });
 
             // Assert
             Assert.Null(result);
@@ -137,9 +144,12 @@ namespace Tests
         {
             // Arrange
             Category categoryToDelete = new Category { Id = 1, Description = "Category to delete", Products = new List<Product>() };
+            CategoryDTO categoryToDeleteDTO = new CategoryDTO(categoryToDelete, true);
+
+            _repoMock.Setup(repo => repo.GetById(categoryToDeleteDTO.Id)).Returns(categoryToDelete);
 
             // Act
-            _categoryService.Delete(categoryToDelete);
+            _categoryService.Delete(categoryToDeleteDTO);
 
             // Assert
             _repoMock.Verify(x => x.Delete(categoryToDelete), Times.Once);
@@ -149,11 +159,11 @@ namespace Tests
         public void Delete_WhenExceptionThrown_ShouldLogError()
         {
             // Arrange
-            Category categoryToDelete = new Category { Id = 1, Description = "Category to delete", Products = new List<Product>() };
+            CategoryDTO categoryToDeleteDTO = new CategoryDTO { Id = 1, Description = "Category to delete", Products = new List<ProductDTO>() };
             _repoMock.Setup(repo => repo.Delete(It.IsAny<Category>())).Throws(new Exception("Test exception"));
 
             // Act
-            _categoryService.Delete(categoryToDelete);
+            _categoryService.Delete(categoryToDeleteDTO);
 
             // Assert
             _loggerMock.Verify(
@@ -171,24 +181,26 @@ namespace Tests
         {
             // Arrange
             Category updatedCategory = new Category { Id = 1, Description = "Updated Category", Products = new List<Product>() };
-            _repoMock.Setup(x => x.Update(1, updatedCategory)).Returns(updatedCategory);
+            CategoryDTO updatedCategoryDTO = new CategoryDTO(updatedCategory, true);
+            
+            _repoMock.Setup(x => x.Update(It.IsAny<Category>())).Returns(updatedCategory);
 
             // Act
-            var result = _categoryService.Update(1, updatedCategory);
+            var result = _categoryService.Update(1, updatedCategoryDTO);
 
             // Assert
-            Assert.Equal(updatedCategory, result);
+            Assert.Equal(updatedCategoryDTO, result);
         }
 
         [Fact]
         public void Update_WhenExceptionThrown_ShouldLogErrorAndReturnNull()
         {
             // Arrange
-            Category categoryToUpdate = new Category { Id = 1, Description = "Updated Category", Products = new List<Product>() };
-            _repoMock.Setup(repo => repo.Update(It.IsAny<int>(), It.IsAny<Category>())).Throws(new Exception("Test exception"));
+            CategoryDTO categoryToUpdateDTO = new CategoryDTO { Id = 1, Description = "Updated Category", Products = new List<ProductDTO>() };
+            _repoMock.Setup(repo => repo.Update(It.IsAny<Category>())).Throws(new Exception("Test exception"));
 
             // Act
-            var result = _categoryService.Update(1, categoryToUpdate);
+            var result = _categoryService.Update(1, categoryToUpdateDTO);
 
             // Assert
             Assert.Null(result);
