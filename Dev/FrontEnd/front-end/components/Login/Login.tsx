@@ -3,7 +3,22 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'react-bootstrap';
 
 
-const Login = () => {
+const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, setIsAccountClick }:{ showLogin: boolean, setShowLogin: any, isLogin: boolean, setIsLogin: any, isAccountClick: boolean, setIsAccountClick: any }) => {
+
+    const handleLogin = () => {
+        if (showLogin) {
+            console.log("Logout");
+            setShowLogin(false);
+            setIsLogin(true);
+            setIsAccountClick(false);
+        }
+        else {
+            console.log("Login");
+            setShowLogin(true);
+            setIsLogin(true);
+        }
+    };
+
     return (
         <section className="vh-100" style={{ backgroundColor: '#9A616D' }}>
             <div className="container py-5 h-100">
@@ -57,7 +72,7 @@ const Login = () => {
 
                                             <div className="pt-1 mb-4">
 
-                                                <button className="btn btn-dark btn-lg btn-block" type="submit">
+                                                <button className="btn btn-dark btn-lg btn-block" type="submit" onClick={handleLogin}>
                                                     Login
                                                 </button>
                                             </div>
