@@ -97,7 +97,7 @@ public class SellerServices
             entity.Id = dto.Id;
             entity.Name = dto.Name;
             entity.Email = dto.Email;
-            entity.Password = dto.Password;
+            entity.Password = BCrypt.Net.BCrypt.HashPassword(dto.Password);
             entity.Products = [];
             foreach(ProductDTO productDTO in dto.Products){
                 Product product = _repoProduct.GetById(productDTO.Id);

@@ -43,5 +43,10 @@ namespace Repository
         {
             return _context.Orders.Find(Id);
         }
+
+        public List<Order> GetByCustomerId(int Id)
+        {
+            return _context.Orders.Where(o => o.Customer.Id == Id).Include(o => o.Items).ToList();
+        }
     }
 }

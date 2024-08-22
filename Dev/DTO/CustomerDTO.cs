@@ -17,7 +17,6 @@ public class CustomerDTO : UserDTO
         }
         this.Name = entity.Name;
         this.Email = entity.Email;
-        this.Password = entity.Password;
     }
 
     public CustomerDTO()

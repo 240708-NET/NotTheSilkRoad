@@ -49,6 +49,20 @@ public class ProductServices
         }
     }
 
+        public List<ProductDTO> GetBySellerId(int id)
+    {
+        try
+        {
+            //return new List<ProductDTO>(_repo.GetBySellerId(id).Select(o => new ProductDTO(o)));
+            return new List<ProductDTO>();
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return null;
+        }
+    }
+
     public ProductDTO Save(ProductDTO dto)
     {
         try

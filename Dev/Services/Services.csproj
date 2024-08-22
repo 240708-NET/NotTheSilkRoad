@@ -11,5 +11,9 @@
     <ProjectReference Include="..\DTO\DTO.csproj" />
     <ProjectReference Include="..\Repository\Repository.csproj" />
   </ItemGroup>
+
+ <ItemGroup>
+   <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+ </ItemGroup>
   
 </Project>

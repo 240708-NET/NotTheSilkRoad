@@ -28,6 +28,13 @@ public class ProductController : ControllerBase
         return product != null ? Ok(product) : NotFound($"Product id={id} not found!");
     }
 
+        [HttpGet("seller/{id}")]
+    public ActionResult<List<ProductDTO>> GetBySellerId(int id)
+    {
+        List<ProductDTO> products = _service.GetBySellerId(id);
+        return Ok(products);
+    }
+
     [HttpPost]
     public ActionResult<ProductDTO> Insert(ProductDTO product)
     {

@@ -28,6 +28,13 @@ public class OrderController : ControllerBase
         return order != null ? Ok(order) : NotFound($"Order id={id} not found!");
     }
 
+    [HttpGet("customer/{id}")]
+    public ActionResult<List<OrderDTO>> GetByCustomerId(int id)
+    {
+        List<OrderDTO> orders = _service.GetByCustomerId(id);
+        return Ok(orders);
+    }
+
     [HttpPost]
     public ActionResult<OrderDTO> Insert(OrderDTO order)
     {
