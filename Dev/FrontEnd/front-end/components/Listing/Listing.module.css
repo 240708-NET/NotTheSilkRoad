@@ -1,12 +1,6 @@
 .card {
-    display: flex;
-    flex-direction: column;
-    border-radius: 5px;
-    position: relative;
-    width: 25%;
-    background-color: #18181b;
-
-
+  width: 400px; /* Adjust the width as needed */
+  margin: auto; /* Add a margin for spacing */
 }
 
 .card img {
@@ -47,3 +41,9 @@
     background-color: whitesmoke;
     color: black;
 }
+
+.listingCard {
+    width: 300px; /* Adjust the width as needed */
+    display: flex;
+    margin: auto;
+  }
