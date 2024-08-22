@@ -25,6 +25,8 @@ export default function Home() {
           <Navbar showLogin={showLogin} setShowLogin={setShowLogin} isLogin={isLogin} setIsLogin={setIsLogin}
             isAccountClick={isAccountClick} setIsAccountClick={setIsAccountClick} />
 
+            
+
           <div className={styles.listing}>
             {products.map((item, key) => {
               return (
@@ -33,7 +35,21 @@ export default function Home() {
             })}
           </div>
 
-          {isAccountClick && <AccountMenu />}
+          {isAccountClick ? (
+
+            <div className="dropdown">
+              <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Account Menu
+              </button>
+              <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a className="dropdown-item" href="#">Action</a>
+                <a className="dropdown-item" href="#">Another action</a>
+                <a className="dropdown-item" href="#">Something else here</a>
+              </div>
+            </div>
+
+
+          ) : (<p></p>)}
 
         </>
 

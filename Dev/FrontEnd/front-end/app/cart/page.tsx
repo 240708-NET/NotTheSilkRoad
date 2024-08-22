@@ -5,12 +5,14 @@ import ExpirationDateDropdown from '@/components/DropdownExpirationDate/Dropdown
 function Cart() {
 
   return (
-    <section className="h-100 h-custom" style={{ backgroundColor: '#eee' }}>
+    <div className={CartStyles.pageBackground}>
+      
+    <section className={CartStyles.section} style={{ backgroundColor: '#eee'}}>
       <a href="/" className="navbar-brand">
-        <img src="images/NotTheSilkRoadLogo.png" alt="Logo" className={CartStyles.logo} style={{ height: '100%', objectFit: 'contain' }} />
+        <img src="images/NotTheSilkRoadLogo.png" alt="Logo" className={CartStyles.logo} />
       </a>
       <div className="container py-5 h-100">
-        <div className="row   
+        <div className="row
  d-flex justify-content-center align-items-center h-100">
           <div className="col">
             <div className="card">
@@ -186,6 +188,7 @@ function Cart() {
         </div>
       </div>
     </section>
+    </div>
   );
 };
 

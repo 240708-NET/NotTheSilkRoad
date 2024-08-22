@@ -3,6 +3,7 @@ import NavbarStyles from "./Navbar.module.css";
 import Login from "@/components/Login/Login";
 import AccountMenu from "@/components/AccountMenu/AccountMenu";
 import Link from 'next/link';
+import { Dropdown, DropdownButton, DropdownItem } from 'react-bootstrap';
 const Navbar = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, setIsAccountClick }: { showLogin: boolean, setShowLogin: any, isLogin: boolean, setIsLogin: any, isAccountClick: boolean, setIsAccountClick: any }) => {
     const handleLogin = () => {
         if (showLogin) {
@@ -57,9 +58,11 @@ const Navbar = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, 
 
                     {isLogin ? (
                         <>
-                            <button onClick={handleAccountButton} className="btn btn-primary">
-                                Account
-                            </button>
+                            <DropdownButton id="dropdown-basic-button" title="Account">
+                                <Dropdown.Item><Link href="/account">Manage Account</Link></Dropdown.Item>
+                                <Dropdown.Item><Link href="#">Order History</Link></Dropdown.Item>
+                                <Dropdown.Item><Link href="/cart">Cart</Link></Dropdown.Item>
+                            </DropdownButton>;
                             <button onClick={handleLogout} className="btn btn-primary">
                                 Logout
                             </button>
