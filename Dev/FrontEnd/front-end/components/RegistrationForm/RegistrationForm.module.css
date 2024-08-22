@@ -1,16 +1,16 @@
-.accountMenu
+.registrationForm
 {
     margin: auto;
-    min-width: 400px;
-    background-color: black;
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.AccountMenu input
+.logo
 {
-    width: 100%;
-    padding: 1rem;
+    width: 400px;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
 }

@@ -1,32 +1,16 @@
 .login
 {
     margin: auto;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.login input
+.logo
 {
-    padding: 1rem;
-}
-
-.title
-{
-    color: white;
-
-}
-
-.container
-{
-    color: black;
-    background-color: rgb(255, 217, 0);
-    width: 400%;
-    height: 400px;
+    width: 600px;
+    margin-right: 10px;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: auto;
 }

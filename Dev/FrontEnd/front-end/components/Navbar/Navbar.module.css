@@ -1,19 +1,6 @@
-.navbar
+.logo
 {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    color: blue;
-    align-items: center;
-}
-
-.search
-{
-    flex: 1; /* additionally, equal width */
-    padding: 0 5rem;
-}
-
-.search input
-{
-    width: 85%;
+    width: 300px;
+    height: 300px;
+    margin-right: 10px;
 }
