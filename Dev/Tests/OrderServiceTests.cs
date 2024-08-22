@@ -103,6 +103,47 @@ namespace Tests
         }
 
         [Fact]
+        public void GetByCustomerId_CorrectOutput()
+        {
+            // Arrange
+            List<Order> expectedOrders = new List<Order>
+            {
+                new Order { Id = 1, Customer = new Customer { Id = 1, Name = "Customer 1", Email = "customer1@rev.net", Password = "customerPass1", Address = "123 Aurora Ln. Austin, TX" }, ShippingAddress = "123 Aurora Ln. Austin, TX" },
+                new Order { Id = 2, Customer = new Customer { Id = 1, Name = "Customer 1", Email = "customer1@rev.net", Password = "customerPass1", Address = "123 Aurora Ln. Austin, TX" }, ShippingAddress = "123 Aurora Ln. Austin, TX" },
+                new Order { Id = 3, Customer = new Customer { Id = 2, Name = "Customer 2", Email = "customer2@rev.net", Password = "customerPass2", Address = "123 Bravo Ln. Houston, TX" }, ShippingAddress = "123 Bravo Ln. Houston, TX" }
+            };
+            _repoMock.Setup(x => x.GetByCustomerId(1)).Returns(expectedOrders);
+            List<OrderDTO> expectedDTOs = expectedOrders.Select(i => new OrderDTO(i)).ToList();
+
+            // Act
+            var result = _orderService.GetByCustomerId(1);
+            
+            // Assert
+            result.Should().BeEquivalentTo(expectedDTOs);
+        }
+
+        [Fact]
+        public void GetByCustomerId_WhenExceptionThrown_ShouldLogErrorAndReturnNull()
+        {
+            // Arrange
+            _repoMock.Setup(repo => repo.GetByCustomerId(It.IsAny<int>())).Throws(new Exception("Test exception"));
+
+            // Act
+            var result = _orderService.GetByCustomerId(1);
+
+            // Assert
+            Assert.Null(result);
+            _loggerMock.Verify(
+                logger => logger.Log(
+                    It.Is<LogLevel>(logLevel => logLevel == LogLevel.Error),
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((v, t) => true),
+                    It.IsAny<Exception>(),
+                    (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()),
+                Times.Once);
+        }
+
+        [Fact]
         public void Save_CorrectOutput()
         {
             // Arrange

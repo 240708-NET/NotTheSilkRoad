@@ -31,9 +31,9 @@ namespace Tests
             // Arrange
             List<Product> expectedProducts = new List<Product>
             {
-                new Product {Id = 1, Title = "Name 1", Description = "Product 1", Price = 1.00M},
-                new Product {Id = 2, Title = "Name 2", Description = "Product 2", Price = 2.00M},
-                new Product {Id = 3, Title = "Name 3", Description = "Product 3", Price = 3.00M}
+                new Product { Id = 1, Title = "Name 1", Description = "Product 1", Price = 1.00M },
+                new Product { Id = 2, Title = "Name 2", Description = "Product 2", Price = 2.00M },
+                new Product { Id = 3, Title = "Name 3", Description = "Product 3", Price = 3.00M }
             };
             _repoMock.Setup(x => x.List()).Returns(expectedProducts);
             List<ProductDTO> expectedDTOs = expectedProducts.Select(i => new ProductDTO(i, true)).ToList();
@@ -89,6 +89,47 @@ namespace Tests
 
             // Act
             var result = _productService.GetById(1);
+
+            // Assert
+            Assert.Null(result);
+            _loggerMock.Verify(
+                logger => logger.Log(
+                    It.Is<LogLevel>(logLevel => logLevel == LogLevel.Error),
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((v, t) => true),
+                    It.IsAny<Exception>(),
+                    (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()),
+                Times.Once);
+        }
+
+        [Fact]
+        public void GetBySellerId_CorrectOutput()
+        {
+            // Arrange
+            List<Product> expectedProducts = new List<Product>
+            {
+                new Product { Id = 1, Title = "Name 1", Description = "Product 1", Price = 1.00M, Seller = new Seller { Id = 1, Name = "Seller 1", Email = "seller1@rev.net", Password = "sellerPass1" }},
+                new Product { Id = 2, Title = "Name 2", Description = "Product 2", Price = 2.00M, Seller = new Seller { Id = 1, Name = "Seller 1", Email = "seller1@rev.net", Password = "sellerPass1" }},
+                new Product { Id = 3, Title = "Name 3", Description = "Product 3", Price = 3.00M, Seller = new Seller { Id = 2, Name = "Seller 2", Email = "seller2@rev.net", Password = "sellerPass2" }}
+            };
+            _repoMock.Setup(x => x.GetBySellerId(1)).Returns(expectedProducts);
+            List<ProductDTO> expectedDTOs = expectedProducts.Select(i => new ProductDTO(i, true)).ToList();
+
+            // Act
+            var result = _productService.GetBySellerId(1);
+            
+            // Assert
+            result.Should().BeEquivalentTo(expectedDTOs);
+        }
+
+        [Fact]
+        public void GetBySellerId_WhenExceptionThrown_ShouldLogErrorAndReturnNull()
+        {
+            // Arrange
+            _repoMock.Setup(repo => repo.GetBySellerId(It.IsAny<int>())).Throws(new Exception("Test exception"));
+
+            // Act
+            var result = _productService.GetBySellerId(1);
 
             // Assert
             Assert.Null(result);
