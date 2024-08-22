@@ -43,5 +43,10 @@ namespace Repository
         {
             return _context.Products.Find(Id);
         }
+
+        public List<Product> GetBySellerId(int Id)
+        {
+            return _context.Products.Where(p => p.Seller.Id == Id).Include(p => p.Categories).ToList();
+        }
     }
 }

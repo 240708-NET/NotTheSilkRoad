@@ -94,11 +94,12 @@ public class CustomerServices
     private Customer CopyDtoToEntity(CustomerDTO dto, Customer entity){
         try
         {
+            
             entity.Id = dto.Id;
             entity.Address = dto.Address;
             entity.Name = dto.Name;
             entity.Email = dto.Email;
-            entity.Password = dto.Password;
+            entity.Password = BCrypt.Net.BCrypt.HashPassword(dto.Password);
             entity.Orders = [];
             foreach(OrderDTO orderDTO in dto.Orders){
                 Order order = _repoOrder.GetById(orderDTO.Id);

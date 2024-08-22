@@ -53,6 +53,20 @@ public class OrderServices
         }
     }
 
+    public List<OrderDTO> GetByCustomerId(int id)
+    {
+        try
+        {
+            //return new List<OrderDTO>(_repo.GetByCustomerId(id).Select(o => new OrderDTO(o)));
+            return new List<OrderDTO>();
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return null;
+        }
+    }
+
     public OrderDTO? Save(OrderDTO dto)
     {
         try

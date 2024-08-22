@@ -36,6 +36,8 @@ builder.Services.AddScoped<IRepository<Product>, ProductRepository>();
 builder.Services.AddScoped<ProductServices>();
 builder.Services.AddScoped<IRepository<Category>, CategoryRepository>();
 builder.Services.AddScoped<CategoryServices>();
+builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<UserServices>();
 
 builder.Services.AddCors();
 
