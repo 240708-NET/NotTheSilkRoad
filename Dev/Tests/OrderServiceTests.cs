@@ -114,8 +114,6 @@ namespace Tests
 
             OrderDTO newOrderDTO = new OrderDTO(newOrder);
 
-            OrderDTO newOrderDTO = new OrderDTO(newOrder);
-
             // Act
             var result = _orderService.Save(newOrderDTO);
 
