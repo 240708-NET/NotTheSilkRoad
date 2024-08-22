@@ -3,6 +3,7 @@ using Moq;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using FluentAssertions;
 using Services;
 using Repository;
 using Models;
@@ -44,7 +45,7 @@ namespace Tests
             var result = _orderService.GetAll();
 
             // Assert
-            Assert.Equal(expectedDTOs, result);
+            result.Should().BeEquivalentTo(expectedDTOs);
         }
 
         [Fact]
@@ -72,7 +73,7 @@ namespace Tests
         public void GetById_CorrectOutput()
         {
             // Arrange
-            Order expectedOrder = new Order {Id = 1, Customer = new Customer{Name = "John", Email = "John.Doe@Revature.net", Password = "StrongPassword123", Address = "123 Main St. Reston, VA"}, ShippingAddress = "123 Main St. Reston, VA"};
+            Order expectedOrder = new Order { Id = 1, Customer = new Customer { Name = "John", Email = "John.Doe@Revature.net", Password = "StrongPassword123", Address = "123 Main St. Reston, VA" }, ShippingAddress = "123 Main St. Reston, VA" };
             _repoMock.Setup(x => x.GetById(1)).Returns(expectedOrder);
             OrderDTO expectedDTO = new OrderDTO(expectedOrder);
 
@@ -80,7 +81,7 @@ namespace Tests
             var result = _orderService.GetById(1);
 
             // Assert
-            Assert.Equal(expectedDTO, result);
+            result.Should().BeEquivalentTo(expectedDTO);
         }
 
         [Fact]
@@ -108,8 +109,10 @@ namespace Tests
         public void Save_CorrectOutput()
         {
             // Arrange
-            Order newOrder = new Order {Id = 1, Customer = new Customer{Name = "John", Email = "John.Doe@Revature.net", Password = "StrongPassword123", Address = "123 Main St. Reston, VA"}, ShippingAddress = "123 Main St. Reston, VA"};
-            _repoMock.Setup(x => x.Save(newOrder)).Returns(newOrder);
+            Order newOrder = new Order { Id = 1, Customer = new Customer { Name = "John", Email = "John.Doe@Revature.net", Password = "StrongPassword123", Address = "123 Main St. Reston, VA" }, ShippingAddress = "123 Main St. Reston, VA" };
+            _repoMock.Setup(x => x.Save(It.IsAny<Order>())).Returns(newOrder);
+
+            OrderDTO newOrderDTO = new OrderDTO(newOrder);
 
             OrderDTO newOrderDTO = new OrderDTO(newOrder);
 
@@ -117,7 +120,7 @@ namespace Tests
             var result = _orderService.Save(newOrderDTO);
 
             // Assert
-            Assert.Equal(newOrderDTO, result);
+            result.Should().BeEquivalentTo(newOrderDTO);
         }
 
         [Fact]
@@ -127,7 +130,8 @@ namespace Tests
             _repoMock.Setup(repo => repo.Save(It.IsAny<Order>())).Throws(new Exception("Test exception"));
 
             // Act
-            var result = _orderService.Save(new OrderDTO {Id = 1, Customer = new CustomerDTO{Name = "John", Email = "John.Doe@Revature.net", Password = "StrongPassword123", Address = "123 Main St. Reston, VA"}, ShippingAddress = "123 Main St. Reston, VA"});
+            var result = _orderService.Save(new OrderDTO { Id = 1, Customer = new CustomerDTO { Name = "John", Email = "John.Doe@Revature.net", Password = "StrongPassword123", Address = "123 Main St. Reston, VA" }, ShippingAddress = "123 Main St. Reston, VA" });
+
 
             // Assert
             Assert.Null(result);
@@ -145,7 +149,7 @@ namespace Tests
         public void Delete_ShouldInvokeRepositoryDelete()
         {
             // Arrange
-            Order orderToDelete = new Order {Id = 1, Customer = new Customer{Name = "John", Email = "John.Doe@Revature.net", Password = "StrongPassword123", Address = "123 Main St. Reston, VA"}, ShippingAddress = "123 Main St. Reston, VA"};
+            Order orderToDelete = new Order { Id = 1, Customer = new Customer { Name = "John", Email = "John.Doe@Revature.net", Password = "StrongPassword123", Address = "123 Main St. Reston, VA" }, ShippingAddress = "123 Main St. Reston, VA" };
             OrderDTO orderToDeleteDTO = new OrderDTO(orderToDelete);
 
             _repoMock.Setup(repo => repo.GetById(orderToDeleteDTO.Id)).Returns(orderToDelete);
@@ -161,7 +165,7 @@ namespace Tests
         public void Delete_WhenExceptionThrown_ShouldLogError()
         {
             // Arrange
-            OrderDTO orderToDeleteDTO = new OrderDTO {Id = 1, Customer = new CustomerDTO{Name = "John", Email = "John.Doe@Revature.net", Password = "StrongPassword123", Address = "123 Main St. Reston, VA"}, ShippingAddress = "123 Main St. Reston, VA"};
+            OrderDTO orderToDeleteDTO = new OrderDTO { Id = 1, Customer = new CustomerDTO { Name = "John", Email = "John.Doe@Revature.net", Password = "StrongPassword123", Address = "123 Main St. Reston, VA" }, ShippingAddress = "123 Main St. Reston, VA" };
             _repoMock.Setup(repo => repo.Delete(It.IsAny<Order>())).Throws(new Exception("Test exception"));
 
             // Act
@@ -182,23 +186,24 @@ namespace Tests
         public void Update_CorrectOutput()
         {
             // Arrange
-            Order updatedOrder = new Order {Id = 1, Customer = new Customer{Name = "John", Email = "John.Doe@Revature.net", Password = "StrongPassword123", Address = "123 Main St. Reston, VA"}, ShippingAddress = "123 Main St. Reston, VA"};
+            Order updatedOrder = new Order { Id = 1, Customer = new Customer { Name = "John", Email = "John.Doe@Revature.net", Password = "StrongPassword123", Address = "123 Main St. Reston, VA" }, ShippingAddress = "123 Main St. Reston, VA" };
             OrderDTO updatedOrderDTO = new OrderDTO(updatedOrder);
-            
+          
             _repoMock.Setup(x => x.Update(It.IsAny<Order>())).Returns(updatedOrder);
 
             // Act
             var result = _orderService.Update(1, updatedOrderDTO);
 
             // Assert
-            Assert.Equal(updatedOrderDTO, result);
+            result.Should().BeEquivalentTo(updatedOrderDTO);
         }
 
         [Fact]
         public void Update_WhenExceptionThrown_ShouldLogErrorAndReturnNull()
         {
             // Arrange
-            OrderDTO orderToUpdateDTO = new OrderDTO {Id = 1, Customer = new CustomerDTO{Name = "John", Email = "John.Doe@Revature.net", Password = "StrongPassword123", Address = "123 Main St. Reston, VA"}, ShippingAddress = "123 Main St. Reston, VA"};
+            OrderDTO orderToUpdateDTO = new OrderDTO { Id = 1, Customer = new CustomerDTO { Name = "John", Email = "John.Doe@Revature.net", Password = "StrongPassword123", Address = "123 Main St. Reston, VA" }, ShippingAddress = "123 Main St. Reston, VA" };
+
             _repoMock.Setup(repo => repo.Update(It.IsAny<Order>())).Throws(new Exception("Test exception"));
 
             // Act
@@ -208,9 +213,9 @@ namespace Tests
             Assert.Null(result);
             _loggerMock.Verify(
                 logger => logger.Log(
-                    It.Is<LogLevel>(logLevel => logLevel == LogLevel.Error),
+                    LogLevel.Error,
                     It.IsAny<EventId>(),
-                    It.Is<It.IsAnyType>((v, t) => true),
+                    It.Is<It.IsAnyType>((v, t) => v.ToString().Contains("Test exception")),
                     It.IsAny<Exception>(),
                     (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()),
                 Times.Once);
