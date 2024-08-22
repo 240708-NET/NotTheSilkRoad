@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentAssertions;
 using Services;
 using Repository;
 using Models;
@@ -43,7 +44,7 @@ namespace Tests
             var result = _itemService.GetAll();
 
             // Assert
-            Assert.Equal(expectedDTOs, result);
+            result.Should().BeEquivalentTo(expectedDTOs);
         }
 
         [Fact]
@@ -79,7 +80,7 @@ namespace Tests
             var result = _itemService.GetById(1);
 
             // Assert
-            Assert.Equal(expectedDTO, result);
+            result.Should().BeEquivalentTo(expectedDTO);
         }
 
         [Fact]
@@ -116,7 +117,7 @@ namespace Tests
             var result = _itemService.Save(newItemDTO);
 
             // Assert
-            Assert.Equal(newItemDTO, result);
+            result.Should().BeEquivalentTo(newItemDTO);
         }
 
 
@@ -191,7 +192,7 @@ namespace Tests
             var result = _itemService.Update(1, updatedItemDTO);
 
             // Assert
-            Assert.Equal(updatedItemDTO, result);
+            result.Should().BeEquivalentTo(updatedItemDTO);
         }
 
 
@@ -213,9 +214,9 @@ namespace Tests
                 logger => logger.Log(
                     LogLevel.Error,
                     It.IsAny<EventId>(),
-                    It.IsAny<object>(),
+                    It.Is<It.IsAnyType>((v, t) => v.ToString().Contains("Test exception")),
                     It.IsAny<Exception>(),
-                    It.IsAny<Func<object, Exception, string>>()),
+                    (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()),
                 Times.Once);
         }
     }
