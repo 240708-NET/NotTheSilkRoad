@@ -1,9 +1,5 @@
-using Xunit;
 using Moq;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using FluentAssertions;
 using Services;
 using Repository;
@@ -14,15 +10,15 @@ namespace Tests
 {
     public class ItemServiceTests
     {
-        private readonly Mock<IRepository<Item>> _repoMock;
-        private readonly Mock<IRepository<Product>> _repoProductMock;
+        private readonly Mock<IItemRepository> _repoMock;
+        private readonly Mock<IProductRepository> _repoProductMock;
         private readonly Mock<ILogger<Item>> _loggerMock;
         private readonly ItemServices _itemService;
 
         public ItemServiceTests()
         {
-            _repoMock = new Mock<IRepository<Item>>();
-            _repoProductMock = new Mock<IRepository<Product>>();
+            _repoMock = new Mock<IItemRepository>();
+            _repoProductMock = new Mock<IProductRepository>();
             _loggerMock = new Mock<ILogger<Item>>();
             _itemService = new ItemServices(_repoMock.Object, _repoProductMock.Object, _loggerMock.Object);
         }

@@ -9,12 +9,12 @@ public class CategoryServices
 {
     private readonly ILogger<Category> _logger;
 
-    private IRepository<Category> _repo;
+    private ICategoryRepository _repo;
 
-    private IRepository<Product> _repoProduct;
+    private IProductRepository _repoProduct;
 
-    public CategoryServices(IRepository<Category> repo,
-                            IRepository<Product> repoProduct,
+    public CategoryServices(ICategoryRepository repo,
+                            IProductRepository repoProduct,
                              ILogger<Category> logger)
     {
         _repo = repo;

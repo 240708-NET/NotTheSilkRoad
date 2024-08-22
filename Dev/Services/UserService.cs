@@ -6,9 +6,9 @@ namespace Services;
 public class UserServices
 {
     private readonly ILogger<Seller> _logger;
-    private UserRepository _repo;
+    private IUserRepository _repo;
 
-    public UserServices(UserRepository repo,
+    public UserServices(IUserRepository repo,
                             ILogger<Seller> logger)
     {
         _repo = repo;

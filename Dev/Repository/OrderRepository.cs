@@ -3,7 +3,7 @@ using Models;
 
 namespace Repository
 {
-    public class OrderRepository : IRepository<Order>
+    public class OrderRepository : IOrderRepository
     {
         DataContext _context;
         public OrderRepository(DataContext context)
@@ -46,7 +46,10 @@ namespace Repository
 
         public List<Order> GetByCustomerId(int Id)
         {
-            return _context.Orders.Where(o => o.Customer.Id == Id).Include(o => o.Items).ToList();
+            return _context.Orders.Where(o => o.Customer.Id == Id)
+            .Include(o => o.Items)
+            .ThenInclude(i => i.Product)
+            .ToList();
         }
     }
 }

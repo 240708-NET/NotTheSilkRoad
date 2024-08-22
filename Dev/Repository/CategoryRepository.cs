@@ -3,7 +3,7 @@ using Models;
 
 namespace Repository
 {
-    public class CategoryRepository : IRepository<Category>
+    public class CategoryRepository : ICategoryRepository
     {
         DataContext _context;
         public CategoryRepository(DataContext context)

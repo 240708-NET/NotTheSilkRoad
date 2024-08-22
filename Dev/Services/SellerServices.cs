@@ -8,13 +8,13 @@ namespace Services;
 public class SellerServices
 {
     private readonly ILogger<Seller> _logger;
-    private IRepository<Seller> _repo;
+    private ISellerRepository _repo;
 
-    private IRepository<Product> _repoProduct;
+    private IProductRepository _repoProduct;
 
 
-    public SellerServices(IRepository<Seller> repo,
-                            IRepository<Product> repoProduct,
+    public SellerServices(ISellerRepository repo,
+                            IProductRepository repoProduct,
                             ILogger<Seller> logger)
     {
         _repo = repo;

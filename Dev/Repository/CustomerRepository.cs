@@ -3,7 +3,7 @@ using Models;
 
 namespace Repository
 {
-    public class CustomerRepository : IRepository<Customer>
+    public class CustomerRepository : ICustomerRepository
     {
         DataContext _context;
         public CustomerRepository(DataContext context)

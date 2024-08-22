@@ -9,16 +9,16 @@ public class OrderServices
 {
     private readonly ILogger<Order> _logger;
 
-    private IRepository<Order> _repo;
+    private IOrderRepository _repo;
 
-    private IRepository<Customer> _repoCustomer;
+    private ICustomerRepository _repoCustomer;
 
-    private IRepository<Item> _repoItem;
+    private IItemRepository _repoItem;
 
 
-    public OrderServices(IRepository<Order> repo,
-                        IRepository<Customer> repoCustomer,
-                        IRepository<Item> repoItem,
+    public OrderServices(IOrderRepository repo,
+                        ICustomerRepository repoCustomer,
+                        IItemRepository repoItem,
                          ILogger<Order> logger)
     {
         _repo = repo;
@@ -57,8 +57,7 @@ public class OrderServices
     {
         try
         {
-            //return new List<OrderDTO>(_repo.GetByCustomerId(id).Select(o => new OrderDTO(o)));
-            return new List<OrderDTO>();
+            return new List<OrderDTO>(_repo.GetByCustomerId(id).Select(o => new OrderDTO(o)));
         }
         catch (Exception e)
         {
