@@ -36,7 +36,9 @@ const Navbar = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, 
     return (
         <nav className="navbar navbar-light bg-body-tertiary">
             <div className="container-fluid">
-                <a className="navbar-brand">Navbar</a>
+                <a href="/" className="navbar-brand">
+                    <img src="images/NotTheSilkRoadLogo.png" alt="Logo" className={NavbarStyles.logo} style={{ height: '100%', objectFit: 'contain' }} />
+                </a>
                 <form className="d-flex input-group w-auto">
                     <input
                         type="search"
