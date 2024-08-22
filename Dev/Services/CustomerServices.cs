@@ -9,12 +9,12 @@ public class CustomerServices
 {
     private readonly ILogger<Customer> _logger;
 
-    private IRepository<Customer> _repo;
+    private ICustomerRepository _repo;
 
-    private IRepository<Order> _repoOrder;
+    private IOrderRepository _repoOrder;
 
-    public CustomerServices(IRepository<Customer> repo,
-                            IRepository<Order> repoOrder,
+    public CustomerServices(ICustomerRepository repo,
+                            IOrderRepository repoOrder,
                             ILogger<Customer> logger)
     {
         _repo = repo;

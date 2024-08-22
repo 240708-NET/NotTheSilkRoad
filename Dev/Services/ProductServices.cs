@@ -8,13 +8,13 @@ namespace Services;
 public class ProductServices
 {
     private readonly ILogger<Product> _logger;
-    private IRepository<Product> _repo;
-    private IRepository<Seller> _repoSeller;
-    private IRepository<Category> _repoCategory;
+    private IProductRepository _repo;
+    private ISellerRepository _repoSeller;
+    private ICategoryRepository _repoCategory;
 
-    public ProductServices(IRepository<Product> repo,
-                            IRepository<Seller> repoSeller,
-                            IRepository<Category> repoCategory,
+    public ProductServices(IProductRepository repo,
+                            ISellerRepository repoSeller,
+                            ICategoryRepository repoCategory,
                             ILogger<Product> logger)
     {
         _repo = repo;
@@ -53,8 +53,7 @@ public class ProductServices
     {
         try
         {
-            //return new List<ProductDTO>(_repo.GetBySellerId(id).Select(o => new ProductDTO(o)));
-            return new List<ProductDTO>();
+            return new List<ProductDTO>(_repo.GetBySellerId(id).Select(p => new ProductDTO(p, true)));
         }
         catch (Exception e)
         {

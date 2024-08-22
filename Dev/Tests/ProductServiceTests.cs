@@ -1,7 +1,4 @@
 using Moq;
-using System;
-using System.Collections.Generic;
-using Xunit;
 using Models;
 using Services;
 using Repository;
@@ -13,18 +10,18 @@ namespace Tests
 {
     public class ProductServiceTests
     {
-        private readonly Mock<IRepository<Product>> _repoMock;
-        private readonly Mock<IRepository<Seller>> _repoSellerMock;
-        private readonly Mock<IRepository<Category>> _repoCategoryMock;
+        private readonly Mock<IProductRepository> _repoMock;
+        private readonly Mock<ISellerRepository> _repoSellerMock;
+        private readonly Mock<ICategoryRepository> _repoCategoryMock;
         private readonly Mock<ILogger<Product>> _loggerMock;
         private readonly ProductServices _productService;
 
         public ProductServiceTests()
         {
             _loggerMock = new Mock<ILogger<Product>>();
-            _repoMock = new Mock<IRepository<Product>>();
-            _repoSellerMock = new Mock<IRepository<Seller>>();
-            _repoCategoryMock = new Mock<IRepository<Category>>();
+            _repoMock = new Mock<IProductRepository>();
+            _repoSellerMock = new Mock<ISellerRepository>();
+            _repoCategoryMock = new Mock<ICategoryRepository>();
             _productService = new ProductServices(_repoMock.Object, _repoSellerMock.Object, _repoCategoryMock.Object, _loggerMock.Object);
         }
 

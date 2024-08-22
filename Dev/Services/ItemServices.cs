@@ -9,12 +9,12 @@ public class ItemServices
 {
     private readonly ILogger<Item> _logger;
 
-    private IRepository<Item> _repo;
+    private IItemRepository _repo;
 
-    private IRepository<Product> _repoProduct;
+    private IProductRepository _repoProduct;
 
-    public ItemServices(IRepository<Item> repo,
-                        IRepository<Product> repoProduct,
+    public ItemServices(IItemRepository repo,
+                        IProductRepository repoProduct,
                         ILogger<Item> logger)
     {
         _repo = repo;
