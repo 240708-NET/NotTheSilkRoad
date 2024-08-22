@@ -33,6 +33,9 @@ namespace Repository
             .HasValue<Customer>("Customer")
             .HasValue<Seller>("Seller");
 
+        modelBuilder.Entity<User>()
+            .HasIndex(u => u.Email)
+            .IsUnique();
     }
 
     }

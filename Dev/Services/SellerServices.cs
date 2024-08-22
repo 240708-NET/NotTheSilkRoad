@@ -1,6 +1,7 @@
 using System.Runtime.CompilerServices;
 using DTO;
 using Microsoft.Extensions.Logging;
+using Microsoft.Data.SqlClient;
 using Models;
 using Repository;
 
@@ -58,6 +59,16 @@ public class SellerServices
 
             return new SellerDTO(sellerCreated, true);
         }
+        catch (SqlException ex) when (ex.Number == 2601)
+        {
+            _logger.LogError(ex.Message);
+            return null;
+        }
+        catch (SqlException ex) when (ex.Number == 2627)
+        {
+            _logger.LogError("This email is already in use.");
+            return null;
+        }
         catch (Exception e)
         {
             _logger.LogError(e.Message);
@@ -91,7 +102,8 @@ public class SellerServices
         }
     }
 
-    private Seller CopyDtoToEntity(SellerDTO dto, Seller entity){
+    private Seller CopyDtoToEntity(SellerDTO dto, Seller entity)
+    {
         try
         {
             entity.Id = dto.Id;
@@ -99,7 +111,8 @@ public class SellerServices
             entity.Email = dto.Email;
             entity.Password = BCrypt.Net.BCrypt.HashPassword(dto.Password);
             entity.Products = [];
-            foreach(ProductDTO productDTO in dto.Products){
+            foreach (ProductDTO productDTO in dto.Products)
+            {
                 Product product = _repoProduct.GetById(productDTO.Id);
                 entity.Products.Add(product);
             }
