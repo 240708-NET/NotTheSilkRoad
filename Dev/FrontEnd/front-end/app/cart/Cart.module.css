@@ -1,5 +1,4 @@
-.cart
-{
+.cart {
     margin: auto;
     min-width: 400px;
     background-color: white;
@@ -9,12 +8,22 @@
     align-items: center;
 }
 
-.logo
-{
+.logo {
     width: 600px;
     margin-right: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: auto;
+}
+
+.paymentInfo {
+    margin: auto;
+    justify-content: center;
+}
+
+.expDate {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }

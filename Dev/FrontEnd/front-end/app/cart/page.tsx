@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import CartStyles from './Cart.module.css';
+import ExpirationDateDropdown from '@/components/DropdownExpirationDate/DropdownExpirationDate';
 
 function Cart() {
 
@@ -19,8 +20,7 @@ function Cart() {
                     <h5 className="mb-3">
                       <a href="#!" className="text-body">
                         <img src="images/arrow-90deg-left.svg" alt="Arrow Back" />
-                        <i className="fas fa-long-arrow-alt-left   
- me-2"></i>
+                        <i className="fas fa-long-arrow-alt-left me-2"></i>
                         Continue Shopping
                       </a>
                     </h5>
@@ -40,8 +40,7 @@ function Cart() {
                         </p>
                       </div>
                     </div>
-
-
+                    
                     {/* List of shopping cart items */}
                     <div className="card mb-3">
                       <div className="card-body">
@@ -85,31 +84,11 @@ function Cart() {
                     className="col-lg-5">
                     <div className="card bg-primary text-white rounded-3">
                       <div className="card-body">
-                        <div className="d-flex justify-content-between align-items-center mb-4">
-                          <h5 className="mb-0">Payment Information</h5>
-                          <img
-                            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp"
-
-                            alt="Avatar"
-                            className="img-fluid rounded-3"
-                            style={{ width: '45px' }}
-                          />
+                        <div className="d-flex justify-content-between align-items-center mb-2">
+                          <div className={CartStyles.paymentInfo}>
+                            <h1 className="mb-0">Payment Information</h1>
+                          </div>
                         </div>
-
-                        <p className="small mb-2">Card type</p>
-
-                        <a href="#!" type="submit" className="text-white me-2">
-                          <i className="fab fa-cc-mastercard fa-2x"></i>
-                        </a>
-                        <a href="#!" type="submit" className="text-white me-2">
-                          <i className="fab fa-cc-visa fa-2x"></i>
-                        </a>
-                        <a href="#!" type="submit" className="text-white me-2">
-                          <i className="fab fa-cc-amex fa-2x"></i>
-                        </a>
-                        <a href="#!" type="submit" className="text-white">
-                          <i className="fab fa-cc-paypal fa-2x"></i>
-                        </a>
 
                         <form className="mt-4">
                           <div data-mdb-input-init className="form-outline form-white mb-4">
@@ -117,7 +96,6 @@ function Cart() {
                               type="text"
                               id="typeName"
                               className="form-control form-control-lg"
-                              size="17"
                               placeholder="Cardholder's Name"
                             />
                             <label className="form-label" htmlFor="typeName">
@@ -130,10 +108,7 @@ function Cart() {
                               type="text"
                               id="typeText"
                               className="form-control form-control-lg"
-                              size="17"
                               placeholder="1234 5678 9012 3457"
-                              minLength="19"
-                              maxLength="19"
                             />
                             <label className="form-label" htmlFor="typeText">
                               Card Number
@@ -143,20 +118,28 @@ function Cart() {
                           <div className="row mb-4">
                             <div className="col-md-6">
                               <div data-mdb-input-init className="form-outline form-white">
-                                <input
-                                  type="text"
-                                  id="typeExp"
-                                  className="form-control form-control-lg"
-                                  placeholder="MM/YYYY"
-                                  size="7"
-                                  minLength="7"
-                                  maxLength="7"
-                                />
+                                <div className={CartStyles.expDate}>
+                                  <input
+                                    type="text"
+                                    id="typeExp"
+                                    className="form-control form-control-lg"
+                                    placeholder="MM"
+                                  />
+
+                                  <input
+                                    type="text"
+                                    id="typeExp"
+                                    className="form-control form-control-lg"
+                                    placeholder="YYYY"
+                                  />
+                                </div>
+
                                 <label className="form-label" htmlFor="typeExp">
                                   Expiration
                                 </label>
                               </div>
                             </div>
+
                             <div className="col-md-6">
                               <div data-mdb-input-init className="form-outline form-white">
                                 <input
@@ -164,9 +147,7 @@ function Cart() {
                                   id="typeText"
                                   className="form-control form-control-lg"
                                   placeholder="&#9679;&#9679;&#9679;"
-                                  size="1"
-                                  minLength="3"
-                                  maxLength="3"
+
                                 />
                                 <label className="form-label" htmlFor="typeText">
                                   Cvv
@@ -179,19 +160,9 @@ function Cart() {
                         <hr className="my-4" />
 
                         <div className="d-flex justify-content-between">
-                          <p className="mb-2">Subtotal</p>
-                          <p className="mb-2">$4798.00</p>
+                          <h2 className="mb-2">Total</h2>
                         </div>
-
-                        <div className="d-flex justify-content-between">
-                          <p className="mb-2">Shipping</p>
-                          <p className="mb-2">$20.00</p>
-                        </div>
-
-                        <div className="d-flex justify-content-between mb-4">
-                          <p className="mb-2">Total(Incl. taxes)</p>
-                          <p className="mb-2">$4818.00</p>
-                        </div>
+                        <h4 className="mb-2">$4798.00</h4>
 
                         <button
                           type="button"
@@ -200,7 +171,6 @@ function Cart() {
                           className="btn btn-info btn-block btn-lg"
                         >
                           <div className="d-flex justify-content-between">
-                            <span>$4818.00</span>
                             <span>
                               Checkout <i className="fas fa-long-arrow-alt-right ms-2"></i>
                             </span>
