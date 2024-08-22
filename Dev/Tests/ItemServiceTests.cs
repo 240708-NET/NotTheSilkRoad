@@ -214,9 +214,9 @@ namespace Tests
                 logger => logger.Log(
                     LogLevel.Error,
                     It.IsAny<EventId>(),
-                    It.Is<It.IsAnyType>((v, t) => v.ToString().Contains("Test exception")),
+                    It.Is<It.IsAnyType>((v, t) => v.ToString().Contains("Test exception"))
                     It.IsAny<Exception>(),
-                    (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()),
+                    It.IsAny<Func<object, Exception, string>>()),
                 Times.Once);
         }
     }

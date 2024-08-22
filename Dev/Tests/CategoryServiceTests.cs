@@ -112,6 +112,8 @@ namespace Tests
 
             CategoryDTO newCategoryDTO = new CategoryDTO(newCategory, true);
 
+            CategoryDTO newCategoryDTO = new CategoryDTO(newCategory, true);
+
             // Act
             var result = _categoryService.Save(newCategoryDTO);
 

@@ -114,6 +114,8 @@ namespace Tests
 
             OrderDTO newOrderDTO = new OrderDTO(newOrder);
 
+            OrderDTO newOrderDTO = new OrderDTO(newOrder);
+
             // Act
             var result = _orderService.Save(newOrderDTO);
 
@@ -129,6 +131,7 @@ namespace Tests
 
             // Act
             var result = _orderService.Save(new OrderDTO { Id = 1, Customer = new CustomerDTO { Name = "John", Email = "John.Doe@Revature.net", Password = "StrongPassword123", Address = "123 Main St. Reston, VA" }, ShippingAddress = "123 Main St. Reston, VA" });
+
 
             // Assert
             Assert.Null(result);
@@ -185,7 +188,7 @@ namespace Tests
             // Arrange
             Order updatedOrder = new Order { Id = 1, Customer = new Customer { Name = "John", Email = "John.Doe@Revature.net", Password = "StrongPassword123", Address = "123 Main St. Reston, VA" }, ShippingAddress = "123 Main St. Reston, VA" };
             OrderDTO updatedOrderDTO = new OrderDTO(updatedOrder);
-
+          
             _repoMock.Setup(x => x.Update(It.IsAny<Order>())).Returns(updatedOrder);
 
             // Act
@@ -200,6 +203,7 @@ namespace Tests
         {
             // Arrange
             OrderDTO orderToUpdateDTO = new OrderDTO { Id = 1, Customer = new CustomerDTO { Name = "John", Email = "John.Doe@Revature.net", Password = "StrongPassword123", Address = "123 Main St. Reston, VA" }, ShippingAddress = "123 Main St. Reston, VA" };
+
             _repoMock.Setup(repo => repo.Update(It.IsAny<Order>())).Throws(new Exception("Test exception"));
 
             // Act
