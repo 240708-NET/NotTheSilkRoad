@@ -36,9 +36,9 @@ public class CustomerController : ControllerBase
     [HttpPost]
     public ActionResult<CustomerDTO> Insert(CustomerDTO customer)
     {
-        Customer customerFound = (Customer)_serviceUser.GetByEmail(customer.Email);
+        User userFound = _serviceUser.GetByEmail(customer.Email);
 
-        if(customerFound != null){
+        if(userFound != null){
             return BadRequest("Email is already taken!");
         }
 
@@ -51,9 +51,9 @@ public class CustomerController : ControllerBase
     public ActionResult<CustomerDTO> Update(int id, CustomerDTO customer)
     {
 
-        Customer customerEmailFound = (Customer)_serviceUser.GetByEmail(customer.Email);
+        User userFound = _serviceUser.GetByEmail(customer.Email);
 
-        if(customerEmailFound != null){
+        if(userFound != null){
             return BadRequest("Email is already taken!");
         }
 

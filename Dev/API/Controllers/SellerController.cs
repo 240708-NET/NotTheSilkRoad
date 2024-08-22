@@ -36,11 +36,11 @@ public class SellerController : ControllerBase
     [HttpPost]
     public ActionResult<SellerDTO> Insert(SellerDTO seller)
     {
-        Seller customerFound = (Seller)_serviceUser.GetByEmail(seller.Email);
+        User userFound = _serviceUser.GetByEmail(seller.Email);
 
-        if(customerFound != null){
+        if(userFound != null){
             return BadRequest("Email is already taken!");
-        }
+        } 
 
         SellerDTO sellerCreated = _service.Save(seller);
 
@@ -51,9 +51,9 @@ public class SellerController : ControllerBase
     public ActionResult<SellerDTO> Update(int id, SellerDTO seller)
     {
 
-        Seller customerEmailFound = (Seller)_serviceUser.GetByEmail(seller.Email);
+        User userFound = _serviceUser.GetByEmail(seller.Email);
 
-        if(customerEmailFound != null){
+        if(userFound != null){
             return BadRequest("Email is already taken!");
         } 
 
