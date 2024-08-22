@@ -1,5 +1,6 @@
 using DTO;
 using Microsoft.AspNetCore.Mvc;
+using Models;
 using Services;
 
 namespace API.Controllers;
@@ -10,9 +11,13 @@ public class CustomerController : ControllerBase
 {
     private CustomerServices _service;
 
-    public CustomerController(CustomerServices service)
+    private UserServices _serviceUser;
+
+    public CustomerController(CustomerServices service,
+                                UserServices serviceUser)
     {
         _service = service;
+        _serviceUser = serviceUser;
     }
 
     [HttpGet]
@@ -31,6 +36,12 @@ public class CustomerController : ControllerBase
     [HttpPost]
     public ActionResult<CustomerDTO> Insert(CustomerDTO customer)
     {
+        Customer customerFound = (Customer)_serviceUser.GetByEmail(customer.Email);
+
+        if(customerFound != null){
+            return BadRequest("Email is already taken!");
+        }
+
         CustomerDTO customerCreated = _service.Save(customer);
 
         return CreatedAtAction(nameof(GetById), new { id = customerCreated.Id }, customerCreated);
@@ -39,6 +50,13 @@ public class CustomerController : ControllerBase
     [HttpPut("{id}")]
     public ActionResult<CustomerDTO> Update(int id, CustomerDTO customer)
     {
+
+        Customer customerEmailFound = (Customer)_serviceUser.GetByEmail(customer.Email);
+
+        if(customerEmailFound != null){
+            return BadRequest("Email is already taken!");
+        }
+
         if(id != customer.Id){
             return BadRequest("Customer Id mismatch.");
         }

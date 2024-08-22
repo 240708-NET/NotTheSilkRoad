@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using DTO;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 using Models;
 using Repository;
@@ -58,9 +59,9 @@ public class CustomerServices
 
             return new CustomerDTO(customerCreated, true);
         }
-        catch (Exception e)
+        catch (SqlException ex) when (ex.Number == 2601)
         {
-            _logger.LogError(e.Message);
+            _logger.LogError(ex.Message);
             return null;
         }
     }

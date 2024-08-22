@@ -64,16 +64,6 @@ public class SellerServices
             _logger.LogError(ex.Message);
             return null;
         }
-        catch (SqlException ex) when (ex.Number == 2627)
-        {
-            _logger.LogError("This email is already in use.");
-            return null;
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e.Message);
-            return null;
-        }
     }
 
     public void Delete(SellerDTO dto)
