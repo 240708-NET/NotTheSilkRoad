@@ -37,4 +37,8 @@
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
+  <ItemGroup>
+    <CoverletExclude Include="**Dev/Repository/**" />
+  </ItemGroup>
+
 </Project>
