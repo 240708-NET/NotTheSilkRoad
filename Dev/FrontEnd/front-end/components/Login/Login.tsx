@@ -2,16 +2,42 @@ import LoginStyles from "./Login.module.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import RegistrationForm from "../RegistrationForm/RegistrationForm";
+import { LoginContext } from "@/app/contexts/LoginContext";
+import { useState, useContext } from "react";
 
 const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, setIsAccountClick, registrationClick, setRegistrationClick }: { showLogin: boolean, setShowLogin: any, isLogin: boolean, setIsLogin: any, isAccountClick: boolean, setIsAccountClick: any, registrationClick: boolean, setRegistrationClick: any }) => {
 
-    const handleLogin = () => {
+    const { user, setUser, isSeller, setIsSeller } : { user: any, setUser: any, isSeller: boolean, setIsSeller: any } = useContext(LoginContext);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleLogin = async () => {
         if (showLogin) {
             console.log("Logout");
             setShowLogin(false);
             setIsLogin(true);
-            setIsAccountClick(false);
-        } else {
+            //setIsAccountClick(false);
+
+                console.log(email);
+                const response = await fetch("http://localhost:5224/auth", {
+                    method: "POST",
+                    body: JSON.stringify({ email, password }),
+                    headers: {
+                        "Content-Type": "application/json",
+                      },
+                })
+
+                if (response.ok) {
+                    const user = await response.json();
+                    setUser(user);
+                    console.log(user);
+                }
+                else {
+                    console.log("Error");
+                    throw Error("Could not find seller profile!");
+                }
+        }
+        else {
             console.log("Login");
             setShowLogin(true);
             setIsLogin(true);
@@ -35,6 +61,7 @@ const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, s
                         <form>
                             <div className="form-outline mb-4">
                                 <input
+                                    onChange={(e) => setEmail(e.target.value)}
                                     type="email"
                                     id="form2Example17"
                                     className="form-control form-control-lg"
@@ -44,11 +71,45 @@ const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, s
 
                             <div className="form-outline mb-4">
                                 <input
-                                    type="password"
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    type="text"
                                     id="form2Example27"
                                     className="form-control form-control-lg"
                                     placeholder="Password"
                                 />
+                            </div>
+
+                            <div className="d-flex justify-content-start align-items-center mb-3">
+                                <h6 className="mb-0 me-4">Role:</h6>
+
+                                <div className="form-check form-check-inline mb-0">
+                                    <input
+                                        onChange={(e) => setIsSeller(false)}
+                                        className="form-check-input"
+                                        type="radio"
+                                        name="role"
+                                        id="customerRole"
+                                        value="customer"
+                                        defaultChecked
+                                    />
+                                    <label className="form-check-label" htmlFor="customerRole">
+                                        Customer
+                                    </label>
+                                </div>
+
+                                <div className="form-check form-check-inline mb-0 me-4">
+                                    <input
+                                        onChange={(e) => setIsSeller(true)}
+                                        className="form-check-input"
+                                        type="radio"
+                                        name="role"
+                                        id="sellerRole"
+                                        value="seller"
+                                    />
+                                    <label className="form-check-label" htmlFor="sellerRole">
+                                        Seller
+                                    </label>
+                                </div>
                             </div>
 
                             <div className="pt-1 mb-4">
