@@ -40,7 +40,9 @@ public class SellerController : ControllerBase
 
         if(userFound != null){
             return BadRequest("Email is already taken!");
-        } 
+        }
+
+        seller.Email = seller.Email.ToLower();
 
         SellerDTO sellerCreated = _service.Save(seller);
 

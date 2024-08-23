@@ -41,6 +41,8 @@ public class CustomerController : ControllerBase
         if(userFound != null){
             return BadRequest("Email is already taken!");
         }
+        
+        customer.Email = customer.Email.ToLower();
 
         CustomerDTO customerCreated = _service.Save(customer);
 
