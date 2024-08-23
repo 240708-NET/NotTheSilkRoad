@@ -1,7 +1,7 @@
 import { useRouter } from 'next/navigation';
 import listingstyles from './Listing.module.css'; // Keep your custom CSS for specific styles
 
-function Listing({ title, image, price }: { title: string; image: string; price: number }) {
+function Listing({title, image, price, isAccountPage, productId, deleteProduct}: { title: string; image: string; price: number, isAccountPage: boolean, productId: string, deleteProduct: () => void }) {
   const router = useRouter();
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -42,9 +42,12 @@ function Listing({ title, image, price }: { title: string; image: string; price:
         </div>
         <div className="d-flex justify-content-between mb-2">
         </div>
-        <button className="btn btn-primary" onClick={() => createRoute(title)}>
+        {!isAccountPage ? (<button className="btn btn-primary" onClick={() => createRoute(title)}>
           View
-        </button>
+        </button>) : (<button className="btn btn-primary" onClick={() => deleteProduct(productId)}>
+          Delete
+        </button>)}
+        
       </div>
     </div>
     </div>

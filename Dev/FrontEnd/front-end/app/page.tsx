@@ -4,15 +4,57 @@ import Navbar from "@/components/Navbar/Navbar";
 import styles from "./page.module.css";
 import Login from "@/components/Login/Login";
 import Listing from "@/components/Listing/Listing"
-import { products } from "@/components/Listing/listings.js"
-import AccountMenu from "@/components/AccountMenu/AccountMenu";
 import RegistrationForm from "@/components/RegistrationForm/RegistrationForm";
+import { useRouter } from "next/navigation";
+import { LoginContext } from "./contexts/LoginContext";
+import { useContext } from "react";
 
 export default function Home() {
+
+  const router = useRouter();
+
+  const { isSeller, user} = useContext(LoginContext); // isSeller
+
   const [isLogin, setIsLogin] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [isAccountClick, setIsAccountClick] = useState(false);
   const [registrationClick, setRegistrationClick] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState([]);
+
+  useEffect (() => {
+    if (isLogin) {
+      console.log(isLogin);
+      console.log(user);
+      console.log(isSeller);
+      console.log("Context is Working!");
+    }
+  }, [isLogin])
+
+  useEffect(() => {
+
+    const getCustomer = async () => {
+      const response = await fetch("http://localhost:5224/customer");
+      const data = await response.json();
+    };
+
+  }, [])
+
+  useEffect(() => {
+    getProducts();
+  },[])
+
+  const getProducts = async () => {
+    setLoading(true);
+    const response = await fetch("http://localhost:5224/product");
+    const data = await response.json();
+    console.log(data);
+    setProducts(data);
+    setLoading(false);
+  }
+
+  if(loading) return <div>Loading...</div>
+  
 
   return (
     <main className={styles.main}>
@@ -25,12 +67,10 @@ export default function Home() {
           <Navbar showLogin={showLogin} setShowLogin={setShowLogin} isLogin={isLogin} setIsLogin={setIsLogin}
             isAccountClick={isAccountClick} setIsAccountClick={setIsAccountClick} />
 
-            
-
           <div className={styles.listing}>
             {products.map((item, key) => {
               return (
-                <Listing key={key} title={item.title} image={item.image} price={item.price} />
+                <Listing key={key} title={item.title} image={item.description} price={item.price} />
               )
             })}
           </div>

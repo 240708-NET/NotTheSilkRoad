@@ -23,3 +23,13 @@
     margin: auto;
     width: 50%;
 }
+
+.list
+{
+    padding: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 3rem;
+    row-gap: 3rem;
+    margin: auto;
+}
