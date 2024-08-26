@@ -70,7 +70,7 @@ export default function Home() {
           <div className={styles.listing}>
             {products.map((item, key) => {
               return (
-                <Listing key={key} title={item.title} image={item.description} price={item.price} />
+                <Listing key={key} title={item.title} description={item.description} imageUrl={item.imageUrl} price={item.price} quantity={item.quantity} />
               )
             })}
           </div>
