@@ -18,4 +18,7 @@ public class Product
     public Seller? Seller { get; set; }
 
     public List<Category> Categories { get; set; } = [];
+    public int Quantity {get;set;}
+
+    public string? ImageUrl {get;set;}
 }

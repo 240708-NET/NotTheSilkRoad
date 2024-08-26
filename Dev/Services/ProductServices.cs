@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using DTO;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Microsoft.Extensions.Logging;
 using Models;
 using Repository;
@@ -113,6 +114,8 @@ public class ProductServices
             entity.Description = dto.Description;
             entity.Price = dto.Price;
             entity.Seller = dto.Seller != null ? _repoSeller.GetById(dto.Seller.Id) : null;
+            entity.Quantity = dto.Quantity;
+            entity.ImageUrl = dto.ImageUrl;
             entity.Categories = [];
             foreach(CategoryDTO categoryDTO in dto.Categories){
                 Category category = _repoCategory.GetById(categoryDTO.Id);
