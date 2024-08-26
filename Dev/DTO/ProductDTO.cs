@@ -16,9 +16,9 @@ public class ProductDTO
 
     public List<CategoryDTO> Categories { get; set; } = [];
 
-    public int Quantity {get;set;} = 1;
+    public int Quantity {get;set;}
 
-    public string ImageUrl {get;set;}
+    public string? ImageUrl {get;set;}
 
     public ProductDTO(Product entity, bool withCategoryList){
         this.Id = entity.Id;
