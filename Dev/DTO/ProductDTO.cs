@@ -18,7 +18,7 @@ public class ProductDTO
 
     public int Quantity {get;set;} = 1;
 
-    public string imageUrl {get;set;}
+    public string ImageUrl {get;set;}
 
     public ProductDTO(Product entity, bool withCategoryList){
         this.Id = entity.Id;
@@ -30,7 +30,7 @@ public class ProductDTO
             entity.Categories.ForEach(p => this.Categories.Add(new CategoryDTO(p, false)));
         }
         this.Quantity = entity.Quantity;
-        this.imageUrl = entity.imageUrl;
+        this.ImageUrl = entity.ImageUrl;
     }   
 
     public ProductDTO(){

@@ -115,7 +115,7 @@ public class ProductServices
             entity.Price = dto.Price;
             entity.Seller = dto.Seller != null ? _repoSeller.GetById(dto.Seller.Id) : null;
             entity.Quantity = dto.Quantity;
-            entity.imageUrl = dto.imageUrl;
+            entity.ImageUrl = dto.ImageUrl;
             entity.Categories = [];
             foreach(CategoryDTO categoryDTO in dto.Categories){
                 Category category = _repoCategory.GetById(categoryDTO.Id);

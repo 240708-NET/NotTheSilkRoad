@@ -20,5 +20,5 @@ public class Product
     public List<Category> Categories { get; set; } = [];
     public int Quantity {get;set;}
 
-    public string? imageUrl {get;set;}
+    public string? ImageUrl {get;set;}
 }
