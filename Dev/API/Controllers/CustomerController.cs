@@ -55,7 +55,7 @@ public class CustomerController : ControllerBase
 
         User userFound = _serviceUser.GetByEmail(customer.Email);
 
-        if(userFound != null){
+        if(userFound != null && userFound.Id != id){
             return BadRequest("Email is already taken!");
         }
 

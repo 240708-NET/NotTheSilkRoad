@@ -104,7 +104,9 @@ public class SellerServices
             entity.Id = dto.Id;
             entity.Name = dto.Name;
             entity.Email = dto.Email;
-            entity.Password = BCrypt.Net.BCrypt.HashPassword(dto.Password);
+            if(dto.Password != null && !dto.Password.Equals("")){
+                entity.Password = BCrypt.Net.BCrypt.HashPassword(dto.Password) ;
+            }
             entity.Products = [];
             foreach (ProductDTO productDTO in dto.Products)
             {
