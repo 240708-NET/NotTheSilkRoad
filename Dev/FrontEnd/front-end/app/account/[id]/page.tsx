@@ -6,6 +6,7 @@ import { useContext } from 'react';
 import { LoginContext } from "../../contexts/LoginContext";
 import Listing from "@/components/Listing/Listing";
 import accountstyles from "./page.module.css";
+import Navbar from "@/components/Navbar/Navbar";
 
 const Account = () => {
   const path = usePathname();
@@ -22,6 +23,8 @@ const Account = () => {
     title: "",
     price: "",
     description: "",
+    imageUrl: "",
+    quantity: "",
   });
 
   const [userInfo, setUserInfo] = useState({
@@ -89,6 +92,8 @@ const Account = () => {
         title: productInfo.title,
         price: productInfo.price,
         description: productInfo.description,
+        imageUrl: productInfo.imageUrl,
+        quantity: productInfo.quantity,
         seller: user,
       }),
 
@@ -195,7 +200,8 @@ const Account = () => {
                         </div>
                       </div>
                       <ul className="nav nav-tabs">
-                        <li className="nav-item"><a href="" className="active nav-link">Settings</a></li>
+                        <li className="nav-item"><a href="#" className="active nav-link">Settings</a></li>
+                        <li className="nav-item"><a href="#" className="nav-link">Update Listings</a></li>
                       </ul>
                       <div className="tab-content pt-3">
                         <div className="tab-pane active">
@@ -302,7 +308,9 @@ const Account = () => {
             <h2>Add a Product</h2>
             <input type="text" placeholder="product name" onChange={(e) => setProductInfo({ ...productInfo, title: e.target.value })} />
             <input type="number" placeholder="price" onChange={(e) => setProductInfo({ ...productInfo, price: e.target.value })} />
-            <input type="text" placeholder="image" onChange={(e) => setProductInfo({ ...productInfo, description: e.target.value })} />
+            <input type="text" placeholder="description" onChange={(e) => setProductInfo({ ...productInfo, description: e.target.value })} />
+            <input type="number" placeholder="quantity" onChange={(e) => setProductInfo({ ...productInfo, quantity: e.target.value })} />
+            <input type="text" placeholder="image url" onChange={(e) => setProductInfo({ ...productInfo, imageUrl: e.target.value })} />
             {/* <textarea rows="3" type="number" placeholder="description" /> */}
 
             <button onClick={addProduct}>Add Product</button>
@@ -312,7 +320,7 @@ const Account = () => {
           {!listLoading && (
             <>
               {products && products.map((item, key) => {
-                return (<Listing key={key} title={item.title} image={item.description} price={item.price} isAccountPage={true} productId={item.id} deleteProduct={deleteProduct} />)
+                return (<Listing key={key} title={item.title} description={item.description} imageUrl={item.imageUrl} price={item.price} isAccountPage={true} productId={item.id} quantity={item.quantity} deleteProduct={deleteProduct} />)
               })}
             </>
           )

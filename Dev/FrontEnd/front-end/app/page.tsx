@@ -13,7 +13,7 @@ export default function Home() {
 
   const router = useRouter();
 
-  const { isSeller, user} = useContext(LoginContext); // isSeller
+  const { isSeller, user } = useContext(LoginContext); // isSeller
 
   const [isLogin, setIsLogin] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
@@ -22,7 +22,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
 
-  useEffect (() => {
+  useEffect(() => {
     if (isLogin) {
       console.log(isLogin);
       console.log(user);
@@ -42,7 +42,7 @@ export default function Home() {
 
   useEffect(() => {
     getProducts();
-  },[])
+  }, [])
 
   const getProducts = async () => {
     setLoading(true);
@@ -53,8 +53,8 @@ export default function Home() {
     setLoading(false);
   }
 
-  if(loading) return <div>Loading...</div>
-  
+  if (loading) return <div>Loading...</div>
+
 
   return (
     <main className={styles.main}>
@@ -70,7 +70,7 @@ export default function Home() {
           <div className={styles.listing}>
             {products.map((item, key) => {
               return (
-                <Listing key={key} title={item.title} image={item.description} price={item.price} />
+                <Listing key={key} title={item.title} description={item.description} imageUrl={item.imageUrl} price={item.price} quantity={item.quantity} />
               )
             })}
           </div>
