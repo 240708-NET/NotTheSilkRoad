@@ -6,6 +6,8 @@
 *connectionstring*
 # dotenv files
 .env
+# app settings
+appsettings.json
 
 # User-specific files
 *.rsuser
