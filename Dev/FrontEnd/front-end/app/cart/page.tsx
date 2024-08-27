@@ -6,6 +6,7 @@ import { LoginContext } from '../contexts/LoginContext';
 import NavbarLogo from '@/components/NavbarLogo/NavbarLogo';
 import styles from "../page.module.css";
 
+
 function Cart() {
   const {cart, cartId} = useContext(CartContext)
   const {user} = useContext(LoginContext)

@@ -24,7 +24,7 @@ function ListItem() {
     setLoading(true);
     console.log("Update Product: ", productInfo.id);
 
-    const response = await fetch(`http://localhost:5224/product/${productInfo.id}`, {
+    const response = await fetch(`http://localhost:${process.env.PORT}/product/${productInfo.id}`, {
       method: "PUT",
 
       body: JSON.stringify({
@@ -58,7 +58,7 @@ function ListItem() {
     const testProd = async () => {
 
       setLoading(true);
-      const response = await fetch("http://localhost:5224/product");
+      const response = await fetch("http://localhost:${process.env.PORT}/product");
       const products = await response.json();
       setLoading(false);
 

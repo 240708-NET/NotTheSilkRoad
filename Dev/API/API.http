@@ -1,4 +1,4 @@
-@API_HostAddress = http://localhost:5224
+@API_HostAddress = http://localhost:${process.env.PORT}
 
 GET {{API_HostAddress}}/weatherforecast/
 Accept: application/json

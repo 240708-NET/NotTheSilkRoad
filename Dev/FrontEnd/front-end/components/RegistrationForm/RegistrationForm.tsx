@@ -17,7 +17,7 @@ const RegistrationForm = () => {
 
     const createUser = async () => {
         if(isSeller) {
-            const response = fetch('http://localhost:5224/seller', {
+            const response = fetch(`http://localhost:${process.env.PORT}/seller`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -29,7 +29,7 @@ const RegistrationForm = () => {
         }
         else
         {
-            const response = fetch('http://localhost:5224/customer', {
+            const response = fetch(`http://localhost:${process.env.PORT}/customer`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

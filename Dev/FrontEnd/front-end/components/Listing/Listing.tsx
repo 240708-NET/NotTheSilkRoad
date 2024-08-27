@@ -26,7 +26,7 @@ function Listing({title, description, imageUrl, price, isAccountPage, productId,
 
     let list = [];
 
-    const response = await fetch(`http://localhost:5224/category`)
+    const response = await fetch(`http://localhost:${process.env.PORT}/category`)
 
     if(response.ok){
       const data = await response.json();

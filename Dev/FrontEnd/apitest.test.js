@@ -1,5 +1,5 @@
 const getData = async () => {
-const response = await fetch("http://localhost:5224")
+const response = await fetch("http://localhost:${process.env.PORT}")
 if (!response.ok) {
     throw new Error(`Response status: ${response.status}`);
   }
