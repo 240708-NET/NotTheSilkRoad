@@ -7,6 +7,9 @@ using Models;
 using Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.WebHost.UseUrls("http://[::]:80");
+
 var connectionString = builder.Configuration["ConnectionString"];
 
 builder.Services.AddControllers();
