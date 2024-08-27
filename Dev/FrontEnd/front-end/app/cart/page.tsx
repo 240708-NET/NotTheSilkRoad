@@ -1,15 +1,19 @@
 "use client"
 import React, { useState, useEffect, useContext } from 'react';
 import CartStyles from './Cart.module.css';
-import ExpirationDateDropdown from '@/components/DropdownExpirationDate/DropdownExpirationDate';
 import { CartContext } from '@/app/contexts/CartContext';
 import { LoginContext } from '../contexts/LoginContext';
+import NavbarLogo from '@/components/NavbarLogo/NavbarLogo';
+import styles from "../page.module.css";
 
 function Cart() {
   const {cart, cartId} = useContext(CartContext)
   const {user} = useContext(LoginContext)
 
- 
+  const [isLogin, setIsLogin] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [isAccountClick, setIsAccountClick] = useState(false);
+  const [registrationClick, setRegistrationClick] = useState(false);
 
   
 
@@ -91,15 +95,26 @@ function Cart() {
   
 
   return (
+    
     <div className={CartStyles.pageBackground}>
+
+
       
     <section className={CartStyles.section} style={{ backgroundColor: '#eee'}}>
-      <a href="/" className="navbar-brand">
+      
+      {/* <a href="/" className="navbar-brand">
         <img src="images/NotTheSilkRoadLogo.png" alt="Logo" className={CartStyles.logo} />
-      </a>
+      </a> */}
       <div className="container py-5 h-100">
         <div className="row
  d-flex justify-content-center align-items-center h-100">
+
+
+<div className={styles.navbar}>
+    <NavbarLogo showLogin={showLogin} setShowLogin={setShowLogin} isLogin={isLogin} setIsLogin={setIsLogin}
+            isAccountClick={isAccountClick} setIsAccountClick={setIsAccountClick}  />
+    </div>
+
           <div className="col">
             <div className="card">
               <div className="card-body p-4">

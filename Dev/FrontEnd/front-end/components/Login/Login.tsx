@@ -5,6 +5,8 @@ import RegistrationForm from "../RegistrationForm/RegistrationForm";
 import { LoginContext } from "@/app/contexts/LoginContext";
 import { CartContext } from "@/app/contexts/CartContext";
 import { useState, useContext } from "react";
+import router from "next/router";
+import Link from "next/link";
 
 
 const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, setIsAccountClick, registrationClick, setRegistrationClick }: { showLogin: boolean, setShowLogin: any, isLogin: boolean, setIsLogin: any, isAccountClick: boolean, setIsAccountClick: any, registrationClick: boolean, setRegistrationClick: any }) => {
@@ -19,7 +21,6 @@ const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, s
             console.log("Logout");
             setShowLogin(false);
             setIsLogin(true);
-            //setIsAccountClick(false);
 
                 console.log(email);
                 const response = await fetch("http://localhost:5224/auth", {
@@ -33,15 +34,21 @@ const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, s
                 if (response.ok) {
                     const user = await response.json();
                     setUser(user);
-                    console.log(user);
 
-                  
+                    //Only customers have an address, so this determines if the signing in user is a seller or not
+                    if(user.address == null){
+                        setIsSeller(true);
+                    }
+                    else
+                    {
+                        setIsSeller(false);
+                    }
+                    console.log(user);
                         const orderresponse = await fetch(`http://localhost:5224/order`)
                   
                         const data = await orderresponse.json();
                         
-                  
-                         const filteredData = data.filter(x => x.customer.id === user.id && x.active === true);
+                        const filteredData = data.filter(x => x.customer.id === user.id && x.active === true);
                         console.log(filteredData)
                        
                   
@@ -73,16 +80,13 @@ const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, s
                           console.log(filteredData[0].items)
                           setCart(filteredData[0].items)
                           setCartId(filteredData[0].id)
-                        }
-                      
-                    
-                
-                     
-                  
+                        }              
                 }
                 else {
                     console.log("Error");
-                    throw Error("Could not find seller profile!");
+                    setShowLogin(true);
+                    setIsLogin(false);
+                    alert("Invalid email or password. Please try again.");
                 }
         }
         else {
@@ -107,10 +111,6 @@ const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, s
         }
 
         return `${new Date(Date.now()).getFullYear()}-${month}-${day}`
-
-
-        
-
     }
 
     const handleRegistrationClick = () => {
@@ -122,7 +122,7 @@ const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, s
             {!registrationClick ? (
                 <div className={LoginStyles.login}>
                     <a href="/" className="navbar-brand">
-                        <img src="images/NotTheSilkRoadLogo.png" alt="Logo" className={LoginStyles.logo} style={{ height: '100%', objectFit: 'contain' }} />
+                        <img src="/images/NotTheSilkRoadLogo.png" alt="Logo" className={LoginStyles.logo} style={{ height: '100%', objectFit: 'contain' }} />
                     </a>
                     <Container className="card card-registration py-4 px-4">
                         <h3 className="mb-4 text-uppercase">Login</h3>
@@ -148,7 +148,7 @@ const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, s
                                 />
                             </div>
 
-                            <div className="d-flex justify-content-start align-items-center mb-3">
+                            {/* <div className="d-flex justify-content-start align-items-center mb-3">
                                 <h6 className="mb-0 me-4">Role:</h6>
 
                                 <div className="form-check form-check-inline mb-0">
@@ -179,7 +179,7 @@ const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, s
                                         Seller
                                     </label>
                                 </div>
-                            </div>
+                            </div> */}
 
                             <div className="pt-1 mb-4">
                                 <button className="btn btn-dark btn-lg btn-block" type="submit" onClick={handleLogin}>
@@ -187,9 +187,9 @@ const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, s
                                 </button>
                             </div>
 
-                            <a className="small text-muted" href="#!">
+                            {/* <a className="small text-muted" href="#!">
                                 Forgot password?
-                            </a>
+                            </a> */}
 
                             <p className="mb-5 pb-lg-2">
                                 Don't have an account? <button onClick={handleRegistrationClick} className="btn btn-link">
@@ -197,12 +197,12 @@ const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, s
                                 </button>
                             </p>
 
-                            <a href="#!" className="small text-muted">
+                            {/* <a href="#!" className="small text-muted">
                                 Terms of use.
                             </a>
                             <a href="#!" className="small text-muted">
                                 Privacy policy
-                            </a>
+                            </a> */}
                         </form>
                     </Container>
                 </div>

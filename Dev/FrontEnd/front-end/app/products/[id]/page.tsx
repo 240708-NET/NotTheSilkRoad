@@ -5,7 +5,12 @@ import {usePathname, useRouter} from 'next/navigation'
 import productstyles from './page.module.css'
 import { LoginContext } from '@/app/contexts/LoginContext'
 import { CartContext } from '@/app/contexts/CartContext'
-import { Form, Button, Col, Row, Container } from 'react-bootstrap';
+import { Form, Button, Col, Row, Container, Navbar } from 'react-bootstrap';
+import NavbarLogo from '@/components/NavbarLogo/NavbarLogo'
+import NavbarNavbar from '@/components/Navbar/Navbar'
+import Login from '@/components/Login/Login'
+import RegistrationForm from '@/components/RegistrationForm/RegistrationForm'
+import styles from "./page.module.css";
 
 function ListItem(){
     const {isSeller, user} = useContext(LoginContext)
@@ -17,6 +22,12 @@ function ListItem(){
     const [count, setCount] = useState(0)
     const [productInfo, setProductInfo] = useState({
     })
+
+    const [isLogin, setIsLogin] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [isAccountClick, setIsAccountClick] = useState(false);
+  const [registrationClick, setRegistrationClick] = useState(false);
+  const [products, setProducts] = useState([]);
 
     const updateProduct = async () => {
         setLoading(true);
@@ -133,8 +144,6 @@ function ListItem(){
 
             }))
         
-
-
         const itemresponse = await fetch(`http://localhost:5224/item`, {
             method: 'POST',
             body: JSON.stringify({
@@ -250,10 +259,23 @@ function ListItem(){
 
     console.log("Products Test:");
     console.log();
+
+
+
+    
+
     return (
 
+        <main className={styles.navbarLogoStyles}>
+
         <div>
-            <div className={productstyles.container}>
+                {!showLogin ? (
+        <>
+
+          <NavbarLogo showLogin={showLogin} setShowLogin={setShowLogin} isLogin={isLogin} setIsLogin={setIsLogin}
+            isAccountClick={isAccountClick} setIsAccountClick={setIsAccountClick}  />
+
+<div className={productstyles.container}>
                 <div className={productstyles.product}>
 
                 <img src={productInfo.imageUrl} alt="product image"/>
@@ -272,7 +294,35 @@ function ListItem(){
                  </div>
                  </div>
              </div>
+
+          
+
+          {isAccountClick ? (
+
+            <div className="dropdown">
+              <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Account Menu
+              </button>
+              <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a className="dropdown-item" href="#">Action</a>
+                <a className="dropdown-item" href="#">Another action</a>
+                <a className="dropdown-item" href="#">Something else here</a>
+              </div>
+            </div>
+
+
+          ) : (<></>)}
+
+        </>
+
+      ) : (
+
+        <Login showLogin={showLogin} setShowLogin={setShowLogin} isLogin={isLogin} setIsLogin={setIsLogin}
+          isAccountClick={isAccountClick} setIsAccountClick={setIsAccountClick} registrationClick={registrationClick} setRegistrationClick={setRegistrationClick} />
+
+      )}
              </div>
+             </main>
     )
 }
 
