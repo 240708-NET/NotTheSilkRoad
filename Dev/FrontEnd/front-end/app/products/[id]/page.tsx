@@ -68,7 +68,7 @@ function ListItem(){
         const testProd = async () => {
 
             setLoading(true);
-            const response = await fetch("http://localhost:${process.env.PORT}/product");
+            const response = await fetch(`http://localhost:${process.env.PORT}/product`);
             const products = await response.json();
             setLoading(false);
 
@@ -106,7 +106,7 @@ function ListItem(){
 
     const getProducts = async () => {
         setLoading(true);
-        const response = await fetch("http://localhost:${process.env.PORT}/product");
+        const response = await fetch(`http://localhost:${process.env.PORT}/product`);
         const data = await response.json();
         setLoading(false);
 

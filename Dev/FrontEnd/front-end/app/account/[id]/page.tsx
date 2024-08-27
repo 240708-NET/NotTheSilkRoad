@@ -100,7 +100,7 @@ const Account = () => {
 
   const getProducts = async () => {
     setLoading(true);
-    const response = await fetch("http://localhost:${process.env.PORT}/product");
+    const response = await fetch(`http://localhost:${process.env.PORT}/product`);
     const data = await response.json();
     console.log(data);
     const filteredData = data.filter((product: any) => product.seller.id === user.id);
@@ -111,7 +111,7 @@ const Account = () => {
   }
 
   const addProduct = async () => {
-    const response = await fetch("http://localhost:${process.env.PORT}/product", {
+    const response = await fetch(`http://localhost:${process.env.PORT}/product`, {
       method: "POST",
 
       body: JSON.stringify({
