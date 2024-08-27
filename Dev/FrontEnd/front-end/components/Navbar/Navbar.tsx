@@ -4,9 +4,11 @@ import Link from 'next/link';
 import { Dropdown, DropdownButton, DropdownItem } from 'react-bootstrap';
 import { useRouter } from "next/navigation";
 import { LoginContext } from "@/app/contexts/LoginContext";
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 
-const Navbar = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, setIsAccountClick }: { showLogin: boolean, setShowLogin: any, isLogin: boolean, setIsLogin: any, isAccountClick: boolean, setIsAccountClick: any }) => {
+const Navbar = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, setIsAccountClick, searchHandler }: { showLogin: boolean, setShowLogin: any, isLogin: boolean, setIsLogin: any, isAccountClick: boolean, setIsAccountClick: any, searchHandler: any }) => {
+
+    const inputEl = useRef("");
 
     const { isSeller, user } = useContext(LoginContext);
     const router = useRouter();
@@ -17,8 +19,12 @@ const Navbar = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, 
     }
 
     const toOrdersPage = () => {
-        router.push(`/orders/${user.id}`);
+        router.push(`/orders`);
     }
+
+    const getSearchTerm = () => {
+        searchHandler(inputEl.current.value);
+      };
 
     const handleLogin = () => {
         if (showLogin) {
@@ -61,6 +67,11 @@ const Navbar = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, 
                 </a>
                 <form className="d-flex input-group w-auto">
                     <input
+                    ref={inputEl}
+                    onChange={(e) => {
+                        e.preventDefault()
+                        getSearchTerm(e.target.value)
+                    }}
                         type="search"
                         className="form-control rounded"
                         placeholder="Search"
@@ -85,7 +96,7 @@ const Navbar = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, 
                                 
 
                                 <Dropdown.Item><div onClick={toAccountPage}> Manage Account </div></Dropdown.Item>
-                                <Dropdown.Item><Link href="/orders/7">Order History</Link></Dropdown.Item>
+                                <Dropdown.Item><div onClick={toOrdersPage}>Order History</div></Dropdown.Item>
                                 <Dropdown.Item><Link href="/cart">Cart</Link></Dropdown.Item>
                             </DropdownButton>
                             <button onClick={handleLogout} className="btn btn-primary">

@@ -1,8 +1,94 @@
-import React, { useState, useContext } from 'react';
+"use client"
+import React, { useState, useEffect, useContext } from 'react';
 import CartStyles from './Cart.module.css';
 import ExpirationDateDropdown from '@/components/DropdownExpirationDate/DropdownExpirationDate';
+import { CartContext } from '@/app/contexts/CartContext';
+import { LoginContext } from '../contexts/LoginContext';
 
 function Cart() {
+  const {cart, cartId} = useContext(CartContext)
+  const {user} = useContext(LoginContext)
+
+ 
+
+  
+
+  useEffect(() => {
+
+    console.log(cart)
+
+   
+   /*  const orderresponse = await fetch(`http://localhost:5224/order`)
+                  
+    const data = await orderresponse.json();
+    
+
+     const filteredData = data.filter(x => x.customer.id === user.id && x.active === true);
+    console.log(filteredData)
+     */
+
+        
+      
+    
+
+    
+  }, [])
+
+
+  const createOrder = async () => {
+    console.log(cart)
+    console.log(user)
+    try {
+    const response = await fetch(`http://localhost:5224/order/${cartId}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        id: cartId,
+        customer: {
+          id: user.id
+        },
+        items: cart,
+        date: formatDate(),
+        active: false,
+        shippingAddress: user.address
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      }, 
+    })
+
+    if(response.ok){
+      console.log('Items purchased successfully')
+   
+    } else {
+      console.error('Something went wrong')
+    }
+  } catch (err){
+    console.error(err)
+  }
+  }
+
+  const formatDate = () => {
+    let month = ''
+    let day = ''
+    if(new Date(Date.now()).getMonth() < 10){
+        month = '0'+new Date(Date.now()).getMonth()
+    } else {
+        month = String(new Date(Date.now()).getMonth())
+    }
+    if(new Date(Date.now()).getDate() < 10){
+        day = '0'+new Date(Date.now()).getDate()
+    } else {
+        day = String(new Date(Date.now()).getDate())
+    }
+
+    return `${new Date(Date.now()).getFullYear()}-${month}-${day}`
+
+
+    
+
+}
+
+  
 
   return (
     <div className={CartStyles.pageBackground}>
@@ -30,7 +116,7 @@ function Cart() {
                     <div className="d-flex justify-content-between align-items-center mb-4">
                       <div>
                         <p className="mb-1">Shopping cart</p>
-                        <p className="mb-0">You have 4 items in your cart</p>
+                        <p className="mb-0">You have {cart.length} items in your cart</p>
                       </div>
                       <div>
                         <p className="mb-0">
@@ -164,9 +250,10 @@ function Cart() {
                         <div className="d-flex justify-content-between">
                           <h2 className="mb-2">Total</h2>
                         </div>
-                        <h4 className="mb-2">$4798.00</h4>
+                        <h4 className="mb-2">{cart.reduce((acc, product) => acc + product.price, 0)}</h4>
 
                         <button
+                        onClick={createOrder}
                           type="button"
                           data-mdb-button-init
                           data-mdb-ripple-init

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Navbar from "@/components/Navbar/Navbar";
 import styles from "./page.module.css";
 import Login from "@/components/Login/Login";
@@ -7,13 +7,16 @@ import Listing from "@/components/Listing/Listing"
 import RegistrationForm from "@/components/RegistrationForm/RegistrationForm";
 import { useRouter } from "next/navigation";
 import { LoginContext } from "./contexts/LoginContext";
+import { CartContext } from "./contexts/CartContext";
 import { useContext } from "react";
 
 export default function Home() {
 
   const router = useRouter();
 
-  const { isSeller, user } = useContext(LoginContext); // isSeller
+  const { isSeller, user} = useContext(LoginContext); // isSeller
+  const {cart, setCart} = useContext(CartContext)
+
 
   const [isLogin, setIsLogin] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
@@ -28,6 +31,10 @@ export default function Home() {
       console.log(user);
       console.log(isSeller);
       console.log("Context is Working!");
+
+      
+
+
     }
   }, [isLogin])
 
@@ -53,7 +60,32 @@ export default function Home() {
     setLoading(false);
   }
 
-  if (loading) return <div>Loading...</div>
+
+  
+
+  const [searchInput, setSearchInput] = useState("");
+  const [searchResult, setSearchResults] = useState([]);
+  
+
+  
+
+  const searchHandler = (searchTerm) => {
+    setSearchInput(searchTerm);
+    if (searchTerm !== "") {
+      const newList = products.filter((item) => {
+        return Object.values(item)
+          .join(" ")
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase());
+      });
+      setSearchResults(newList);
+    } else {
+      setSearchResults(products);
+    }
+  };
+
+
+  if(loading) return <div>Loading...</div>
 
 
   return (
@@ -65,12 +97,15 @@ export default function Home() {
         <>
 
           <Navbar showLogin={showLogin} setShowLogin={setShowLogin} isLogin={isLogin} setIsLogin={setIsLogin}
-            isAccountClick={isAccountClick} setIsAccountClick={setIsAccountClick} />
+            isAccountClick={isAccountClick} setIsAccountClick={setIsAccountClick} searchHandler={searchHandler}  />
 
           <div className={styles.listing}>
-            {products.map((item, key) => {
+            {(searchResult.length > 0 ? searchResult : products).map((item, key) => {
               return (
-                <Listing key={key} title={item.title} description={item.description} imageUrl={item.imageUrl} price={item.price} quantity={item.quantity} />
+
+
+                <Listing key={key} title={item.title} description={item.description} imageUrl={item.imageUrl} price={item.price} productId={item.id} quantity={item.quantity} />
+
               )
             })}
           </div>

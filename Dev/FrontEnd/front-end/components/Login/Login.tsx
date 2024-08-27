@@ -3,11 +3,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import RegistrationForm from "../RegistrationForm/RegistrationForm";
 import { LoginContext } from "@/app/contexts/LoginContext";
+import { CartContext } from "@/app/contexts/CartContext";
 import { useState, useContext } from "react";
+
 
 const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, setIsAccountClick, registrationClick, setRegistrationClick }: { showLogin: boolean, setShowLogin: any, isLogin: boolean, setIsLogin: any, isAccountClick: boolean, setIsAccountClick: any, registrationClick: boolean, setRegistrationClick: any }) => {
 
     const { user, setUser, isSeller, setIsSeller } : { user: any, setUser: any, isSeller: boolean, setIsSeller: any } = useContext(LoginContext);
+    const {cart, setCart, cartId, setCartId} = useContext(CartContext)
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -31,6 +34,51 @@ const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, s
                     const user = await response.json();
                     setUser(user);
                     console.log(user);
+
+                  
+                        const orderresponse = await fetch(`http://localhost:5224/order`)
+                  
+                        const data = await orderresponse.json();
+                        
+                  
+                         const filteredData = data.filter(x => x.customer.id === user.id && x.active === true);
+                        console.log(filteredData)
+                       
+                  
+                        if(filteredData.length === 0){
+
+                          const newresponse = await fetch(`http://localhost:5224/order`, {
+                            method: 'POST',
+                            body: JSON.stringify({
+                              customer: user,
+                              items: [],
+                              date: formatDate(),
+                              active: true,
+                              shippingAddress: user.address
+                            }),
+                            headers: {
+                                "Content-Type": "application/json",
+                              },
+                          })
+                
+                          if(newresponse.ok){
+                            const data = await newresponse.json();
+                            console.log(data.items.length)
+                            setCart(data.items)
+                            setCartId(data.id)
+                            
+                          }
+                
+                        } else {
+                          console.log(filteredData[0].items)
+                          setCart(filteredData[0].items)
+                          setCartId(filteredData[0].id)
+                        }
+                      
+                    
+                
+                     
+                  
                 }
                 else {
                     console.log("Error");
@@ -43,6 +91,27 @@ const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, s
             setIsLogin(true);
         }
     };
+
+    const formatDate = () => {
+        let month = ''
+        let day = ''
+        if(new Date(Date.now()).getMonth() < 10){
+            month = '0'+new Date(Date.now()).getMonth()
+        } else {
+            month = String(new Date(Date.now()).getMonth())
+        }
+        if(new Date(Date.now()).getDate() < 10){
+            day = '0'+new Date(Date.now()).getDate()
+        } else {
+            day = String(new Date(Date.now()).getDate())
+        }
+
+        return `${new Date(Date.now()).getFullYear()}-${month}-${day}`
+
+
+        
+
+    }
 
     const handleRegistrationClick = () => {
         setRegistrationClick(true);

@@ -1,9 +1,11 @@
 import { useRouter } from 'next/navigation';
+import {useEffect, useState} from 'react'
 import listingstyles from './Listing.module.css'; // Keep your custom CSS for specific styles
 import { describe } from 'node:test';
 
 function Listing({title, description, imageUrl, price, isAccountPage, productId, quantity, deleteProduct}: { title: string; description: string; imageUrl: string; price: number, isAccountPage: boolean, productId: number, quantity: number, deleteProduct: () => void }) {
   const router = useRouter();
+  const [categories, setCategories] = useState([])
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
@@ -14,9 +16,42 @@ function Listing({title, description, imageUrl, price, isAccountPage, productId,
     router.push(`/products/${item}`);
   };
 
+
+  useEffect(() => {
+    getCategories();
+  }, [])
+
+
+  const getCategories = async () => {
+
+    let list = [];
+
+    const response = await fetch(`http://localhost:5224/category`)
+
+    if(response.ok){
+      const data = await response.json();
+
+      data.forEach(x => {
+        let y = x.products;
+        y.forEach( y => {
+          if(y.id === productId){
+            list.push(x.description)
+          }
+        })
+      })
+
+      console.log(list)
+      setCategories(list)
+    } else {
+      console.log("Something went wrong")
+    }
+    
+  }
+
   const createProductUpdateRoute = (item: string) => {
     router.push(`/products/update/${item}`);
   };
+
 
   return (
     <div className="card-deck">
@@ -37,6 +72,7 @@ function Listing({title, description, imageUrl, price, isAccountPage, productId,
             <a href="#!" className="text-muted">
               Category
             </a>
+            <p>{categories}</p>
           </p>
           <p className="small text-danger">
             <s>${formatter.format(price)}</s>
