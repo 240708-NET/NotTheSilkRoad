@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { LoginContext } from "./contexts/LoginContext";
 import { CartContext } from "./contexts/CartContext";
 import { useContext } from "react";
+import WaveLoading from "@/components/Loading/WaveLoading";
 
 export default function Home() {
 
@@ -85,7 +86,7 @@ export default function Home() {
   };
 
 
-  if(loading) return <div>Loading...</div>
+  if(loading) return <WaveLoading />
 
 
   return (

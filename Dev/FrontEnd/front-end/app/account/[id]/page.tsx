@@ -7,6 +7,7 @@ import { LoginContext } from "../../contexts/LoginContext";
 import Listing from "@/components/Listing/Listing";
 import accountstyles from "./page.module.css";
 import Navbar from "@/components/Navbar/Navbar";
+import WaveLoading from '@/components/Loading/WaveLoading';
 
 const Account = () => {
   const path = usePathname();
@@ -177,7 +178,7 @@ const Account = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>
+    return <WaveLoading />
   }
 
   return (
