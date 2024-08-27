@@ -42,7 +42,7 @@ export default function Home() {
   useEffect(() => {
 
     const getCustomer = async () => {
-      const response = await fetch("http://localhost:${process.env.PORT}/customer");
+      const response = await fetch(`http://localhost:${process.env.PORT}/customer`);
       const data = await response.json();
     };
 
@@ -54,7 +54,7 @@ export default function Home() {
 
   const getProducts = async () => {
     setLoading(true);
-    const response = await fetch("http://localhost:${process.env.PORT}/product");
+    const response = await fetch(`http://localhost:${process.env.PORT}/product`);
     const data = await response.json();
     console.log(data);
     setProducts(data);

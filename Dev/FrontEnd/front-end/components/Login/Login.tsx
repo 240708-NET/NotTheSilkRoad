@@ -23,7 +23,7 @@ const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, s
             setIsLogin(true);
 
                 console.log(email);
-                const response = await fetch("http://localhost:${process.env.PORT}/auth", {
+                const response = await fetch(`http://localhost:${process.env.PORT}/auth`, {
                     method: "POST",
                     body: JSON.stringify({ email, password }),
                     headers: {
