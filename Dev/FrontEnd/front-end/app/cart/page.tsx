@@ -9,6 +9,13 @@ function Cart() {
   const {cart, cartId} = useContext(CartContext)
   const {user} = useContext(LoginContext)
 
+
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  });
+
  
 
   
@@ -16,21 +23,6 @@ function Cart() {
   useEffect(() => {
 
     console.log(cart)
-
-   
-   /*  const orderresponse = await fetch(`http://localhost:5224/order`)
-                  
-    const data = await orderresponse.json();
-    
-
-     const filteredData = data.filter(x => x.customer.id === user.id && x.active === true);
-    console.log(filteredData)
-     */
-
-        
-      
-    
-
     
   }, [])
 
@@ -132,19 +124,24 @@ function Cart() {
                     {/* List of shopping cart items */}
                     <div className="card mb-3">
                       <div className="card-body">
-                        <div className="d-flex justify-content-between">
+
+                        {cart.map((item, key) => {
+                          console.log(item)
+
+                          return (
+                            <div key={key} className="d-flex justify-content-between">
                           <div className="d-flex flex-row align-items-center">
 
                             <img
-                              src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp"
+                              src={item.product.imageUrl}
 
                               alt="Shopping item"
                               className="img-fluid rounded-3"
                               style={{ width: '65px' }}
                             />
                             <div className="ms-3">
-                              <h5>Iphone 11 pro</h5>
-                              <p className="small mb-0">256GB, Navy Blue</p>
+                              <h5>{item.product.title}</h5>
+                              <p className="small mb-0">{item.product.description}</p>
                             </div>
                           </div>
                           <div className="d-flex flex-row align-items-center">
@@ -152,16 +149,19 @@ function Cart() {
                               width:
                                 '50px'
                             }}>
-                              <h5 className="fw-normal mb-0">2</h5>
+                              <h5 className="fw-normal mb-0">{item.quantity}</h5>
                             </div>
                             <div style={{ width: '80px' }}>
-                              <h5 className="mb-0">$900</h5>
+                              <h5 className="mb-0">{formatter.format(item.price)}</h5>
                             </div>
                             <a href="#!" style={{ color: '#cecece' }}>
                               <i className="fas fa-trash-alt"></i>
                             </a>
                           </div>
                         </div>
+                          )
+                        })}
+                        
                       </div>
                     </div>
 
@@ -250,7 +250,7 @@ function Cart() {
                         <div className="d-flex justify-content-between">
                           <h2 className="mb-2">Total</h2>
                         </div>
-                        <h4 className="mb-2">{cart.reduce((acc, product) => acc + product.price, 0)}</h4>
+                        <h4 className="mb-2">{formatter.format(cart.reduce((acc, product) => acc + product.price, 0))}</h4>
 
                         <button
                         onClick={createOrder}

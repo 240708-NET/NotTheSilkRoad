@@ -72,7 +72,7 @@ function Listing({title, description, imageUrl, price, isAccountPage, productId,
             <a href="#!" className="text-muted">
               Category
             </a>
-            <p>{categories}</p>
+            {/* <p>{categories}</p> */}
           </p>
           <p className="small text-danger">
             <s>${formatter.format(price)}</s>

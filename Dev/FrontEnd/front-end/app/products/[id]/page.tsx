@@ -6,6 +6,7 @@ import productstyles from './page.module.css'
 import { LoginContext } from '@/app/contexts/LoginContext'
 import { CartContext } from '@/app/contexts/CartContext'
 import { Form, Button, Col, Row, Container } from 'react-bootstrap';
+import WaveLoading from '@/components/Loading/WaveLoading'
 
 function ListItem(){
     const {isSeller, user} = useContext(LoginContext)
@@ -243,7 +244,7 @@ function ListItem(){
        
 
     if (loading) {
-        return <h1>Loading...</h1>
+        return <WaveLoading />
     }
     console.log("User: ");
     console.log(user);
