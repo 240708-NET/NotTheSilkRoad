@@ -1,7 +1,47 @@
 import React from 'react';
 import RegistrationFormStyles from './RegistrationForm.module.css';
 
+import { useContext, useState } from 'react';
+import { LoginContext } from '@/app/contexts/LoginContext';
+import { useRouter } from 'next/navigation';
+
+
 const RegistrationForm = () => {
+
+    const { user, setUser, isSeller, setIsSeller } = useContext(LoginContext);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [name, setName] = useState("");
+    const [address, setAddress] = useState("");
+
+
+    const createUser = async () => {
+        if(isSeller) {
+            const response = fetch('http://localhost:5224/seller', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email, password, name
+                })
+            })
+        }
+        else
+        {
+            const response = fetch('http://localhost:5224/customer', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email, password, name, address
+                })
+            })
+        }
+        
+    }
+
     return (
         <div className={RegistrationFormStyles.registrationForm}>
             <a href="/" className="navbar-brand">
@@ -14,10 +54,25 @@ const RegistrationForm = () => {
                     <div className="form-outline mb-3">
                         <input
                             required
+                            type="text"
+                            id="form3Example97"
+                            className="form-control form-control-lg"
+                            placeholder="Full Name"
+                            onChange={(e) => setName(e.target.value)}
+                        />
+                        <label className="form-label" htmlFor="form3Example97">
+                            Full Name
+                        </label>
+                    </div>
+
+                    <div className="form-outline mb-3">
+                        <input
+                            required
                             type="email"
                             id="form3Example97"
                             className="form-control form-control-lg"
                             placeholder="Email"
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                         <label className="form-label" htmlFor="form3Example97">
                             Email
@@ -31,6 +86,7 @@ const RegistrationForm = () => {
                             id="form3Example10"
                             className="form-control form-control-lg"
                             placeholder="Password"
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                         <label className="form-label" htmlFor="form3Example10">
                             Password
@@ -50,6 +106,8 @@ const RegistrationForm = () => {
                         </label>
                     </div>
 
+                    {!isSeller && 
+
                     <div className="form-outline mb-3">
                         <input
                             required
@@ -57,11 +115,13 @@ const RegistrationForm = () => {
                             id="form3Example8"
                             className="form-control form-control-lg"
                             placeholder="Street Address"
+                            onChange={(e) => setAddress(e.target.value)}
                         />
                         <label className="form-label" htmlFor="form3Example8">
                             Street Address
                         </label>
-                    </div>
+                    </div>}
+                    
 
                     <div className="d-flex justify-content-start align-items-center mb-3">
                         <h6 className="mb-0 me-4">Role:</h6>
@@ -74,6 +134,7 @@ const RegistrationForm = () => {
                                 id="customerRole"
                                 value="customer"
                                 defaultChecked
+                                onChange={() => setIsSeller(false)}
                             />
                             <label className="form-check-label" htmlFor="customerRole">
                                 Customer
@@ -87,13 +148,13 @@ const RegistrationForm = () => {
                                 name="role"
                                 id="sellerRole"
                                 value="seller"
+                                onChange={() => setIsSeller(true)}
                             />
                             <label className="form-check-label" htmlFor="sellerRole">
                                 Seller
                             </label>
                         </div>
 
-                        
                     </div>
 
                     <div className="d-flex justify-content-center">
@@ -102,7 +163,7 @@ const RegistrationForm = () => {
                             className="btn btn-warning btn-lg"
                             data-mdb-ripple-init=""
                             data-mdb-button-init=""
-                            onClick={() => window.location.href = '/'}
+                            onClick={() => createUser()}
                         >
                             Create Account
                         </button>

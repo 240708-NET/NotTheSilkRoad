@@ -13,6 +13,10 @@ const Navbar = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, 
     const { isSeller, user } = useContext(LoginContext);
     const router = useRouter();
 
+    const toHomePage = () => {
+        router.push(`/`);
+    }
+
     const toAccountPage = () => {
         console.log(user.id);
         router.push(`/account/${user.id}`);
@@ -62,9 +66,9 @@ const Navbar = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, 
         <nav className="navbar navbar-light bg-body-tertiary">
             {user && <p>Welcome, {user.name}</p>}
             <div className="container-fluid">
-                <a href="/" className="navbar-brand">
-                    <img src="images/NotTheSilkRoadLogo.png" alt="Logo" className={NavbarStyles.logo} style={{ height: '100%', objectFit: 'contain' }} />
-                </a>
+                <div style={{ cursor: 'pointer' }} onClick={toHomePage}>
+                    <img src="/images/NotTheSilkRoadLogo.png" alt="Logo" className={NavbarStyles.logo} style={{ height: '100%', objectFit: 'contain' }} />
+                </div>
                 <form className="d-flex input-group w-auto">
                     <input
                     ref={inputEl}
@@ -83,13 +87,9 @@ const Navbar = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, 
                         <i className="fas fa-search"></i>
                     </span>
                 </form>
-
-                
-
-
                 <div className="d-flex align-items-center">
 
-                    {isLogin ? (
+                    {isLogin || user ? (
                         <>
                             <DropdownButton id="dropdown-basic-button" title="Account">
 
