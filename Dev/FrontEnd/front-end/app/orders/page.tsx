@@ -48,18 +48,25 @@ function Orders(){
            <div className={orderstyles.navbar}>
             <NavbarLogo showLogin={showLogin} setShowLogin={setShowLogin} isLogin={isLogin} setIsLogin={setIsLogin}
             isAccountClick={isAccountClick} setIsAccountClick={setIsAccountClick}  />
+            
+            <h2 className={orderstyles.title + " h2 text-center mb-3 border-bottom border-dark"}>Previous Orders</h2>
+
            </div>
 
 
         {orders && orders.map((item, key) => {
 
             return (
+                
+                <div className={orderstyles.testStyle}>
+                    
                 <div className={orderstyles.info}>
                     <p>Customer Name: {item.customer.name}</p>
                     <p>Order #: {item.id}</p>
                     <p>Date Ordered: {item.date}</p>
                    <p>Total: {formatter.format(item.items.reduce((acc, product) => acc + product.price, 0))}</p>
 
+                </div>
                 </div>
             )
         })}
