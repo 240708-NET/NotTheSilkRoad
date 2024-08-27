@@ -249,7 +249,7 @@ function ListItem(){
     console.log(user);
 
     console.log("Products Test:");
-    console.log(products);
+    console.log();
     return (
 
         <div>
@@ -271,17 +271,9 @@ function ListItem(){
                  <p onClick={() => router.push('/cart')}> Go To Cart</p>
                  </div>
                  </div>
-                 
-
-          
              </div>
-
-        )}
-       
-        </>
-
+             </div>
     )
-
 }
 
 export default ListItem;
