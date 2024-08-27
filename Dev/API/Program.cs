@@ -7,16 +7,13 @@ using Models;
 using Services;
 
 var builder = WebApplication.CreateBuilder(args);
-
-Env.Load("../Repository/connectionstring.env");
+var connectionString = builder.Configuration["ConnectionString"];
 
 builder.Services.AddControllers();
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-var connectionString = Environment.GetEnvironmentVariable("DefaultConnection");
 
 if(string.IsNullOrEmpty(connectionString)){
     throw new InvalidOperationException("Connection string not found.");
