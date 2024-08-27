@@ -14,6 +14,10 @@ function Listing({title, description, imageUrl, price, isAccountPage, productId,
     router.push(`/products/${item}`);
   };
 
+  const createProductUpdateRoute = (item: string) => {
+    router.push(`/products/update/${item}`);
+  };
+
   return (
     <div className="card-deck">
     <div className={`card ${listingstyles.card}`}>  {/* Combine custom & Bootstrap classes */}
@@ -52,7 +56,7 @@ function Listing({title, description, imageUrl, price, isAccountPage, productId,
         </button>
         )}
 
-        {isAccountPage && <button className="btn btn-primary" onClick={() => createRoute(title)}>
+        {isAccountPage && <button className="btn btn-primary" onClick={() => createProductUpdateRoute(title)}>
           Edit Listing
         </button>}
         

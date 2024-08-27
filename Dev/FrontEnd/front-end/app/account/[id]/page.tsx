@@ -6,6 +6,7 @@ import { useContext } from 'react';
 import { LoginContext } from "../../contexts/LoginContext";
 import Listing from "@/components/Listing/Listing";
 import accountstyles from "./page.module.css";
+import Navbar from "@/components/Navbar/Navbar";
 
 const Account = () => {
   const path = usePathname();
@@ -199,7 +200,8 @@ const Account = () => {
                         </div>
                       </div>
                       <ul className="nav nav-tabs">
-                        <li className="nav-item"><a href="" className="active nav-link">Settings</a></li>
+                        <li className="nav-item"><a href="#" className="active nav-link">Settings</a></li>
+                        <li className="nav-item"><a href="#" className="nav-link">Update Listings</a></li>
                       </ul>
                       <div className="tab-content pt-3">
                         <div className="tab-pane active">
