@@ -1,33 +1,92 @@
 "use client"
+
 import {useEffect, useState, useContext} from 'react'
 import {usePathname, useRouter} from 'next/navigation'
 import productstyles from './page.module.css'
 import { LoginContext } from '@/app/contexts/LoginContext'
 import { CartContext } from '@/app/contexts/CartContext'
+import { Form, Button, Col, Row, Container } from 'react-bootstrap';
 
 function ListItem(){
-    const {user} = useContext(LoginContext)
+    const {isSeller, user} = useContext(LoginContext)
     const {cart, setCart, cartId, setCartId} = useContext(CartContext)
     const path = usePathname()
     const router = useRouter();
     const [prod, setProd] = useState()
     const [loading, setLoading] = useState(true)
     const [count, setCount] = useState(0)
+    const [productInfo, setProductInfo] = useState({
+    })
 
-    useEffect(() => {
+    const updateProduct = async () => {
+        setLoading(true);
+        console.log("Update Product: ", productInfo.id);
+
+        const response = await fetch(`http://localhost:5224/product/${productInfo.id}`, {
+            method: "PUT",
+
+            body: JSON.stringify({
+                id: productInfo.id,
+                title: productInfo.title,
+                price: productInfo.price,
+                description: productInfo.description,
+                imageUrl: productInfo.imageUrl,
+                quantity: productInfo.quantity,
+                seller: user,
+                categories: [],
+            }),
+
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        setLoading(false);
+    }
+
+   useEffect(() => {
+
         let itemArray = path.split('/products/');
         let itemName = itemArray[1]
+        itemName = itemName.replaceAll(/%20/g, " ")
+        console.log("Item Name:");
         console.log(itemName)
 
-        const getItem = async () => {
-        const products = await getProducts();
+        const testProd = async () => {
 
-        const item = products.find(x => x.title == itemName);
-        console.log(item)
-        setProd(item)
-        setLoading(false)
+            setLoading(true);
+            const response = await fetch("http://localhost:5224/product");
+            const products = await response.json();
+            setLoading(false);
+
+            console.log("Products:");
+            console.log(products);
+
+            const item = products.find((product: any) => product.title == itemName);
+            console.log("Item Object Being Found: ");
+            console.log(item);
+            setProd(item);
+
+            console.log("Prod: ");
+            console.log(prod);
+
+            setLoading(false);
+
+            //This section needs to be here for some reason in order for the productInfo variable to be set properly with correct data
+            setProductInfo({
+                id: item ? item.id : 0,
+                title: item ? item.title : '',
+                price: item ? item.price : 0,
+                description: item ? item.description : '',
+                imageUrl: item ? item.imageUrl : '',
+                quantity: item ? item.quantity : 0,
+                seller: user,
+                categories: item ? item.categories : [],
+            })
         }
-        getItem();
+        testProd();
+
+        console.log("Prod Item:");
+        console.log(prod);
 
     }, [path])
 
@@ -39,6 +98,8 @@ function ListItem(){
 
         return data;
       }
+            
+            
 
       const increment = () => {
         setCount(prevCount => prevCount + 1)
@@ -179,22 +240,28 @@ function ListItem(){
     }
    
 
-  
+       
 
-   if(loading){
-    return <h1>Loading...</h1>
-   }
-    
+    if (loading) {
+        return <h1>Loading...</h1>
+    }
+    console.log("User: ");
+    console.log(user);
+
+    console.log("Products Test:");
+    console.log(products);
     return (
-        <>
-        {prod  && (
+
+        <div>
             <div className={productstyles.container}>
                 <div className={productstyles.product}>
-                <img src={prod.image}/>
+
+                <img src={productInfo.imageUrl} alt="product image"/>
                 <div className={productstyles.info}>
-                 <h2>{prod.title}</h2>
-                 <p>{prod.description}</p>
-                 <p>{prod.price}</p>
+                 <h2>{productInfo.title}</h2>
+                 <p>{productInfo.description}</p>
+                 <p>Price: {productInfo.price}</p>
+                     <p>Available: {productInfo.quantity}</p>
                  <span className={productstyles.quantity}>
                    <button onClick={decrement}>-</button>
                    <input type="number" step="1" placeholder={count ? count : "Quantity"}/>
@@ -214,6 +281,7 @@ function ListItem(){
         </>
 
     )
+
 }
 
 export default ListItem;

@@ -105,7 +105,9 @@ public class CustomerServices
             entity.Address = dto.Address;
             entity.Name = dto.Name;
             entity.Email = dto.Email;
-            entity.Password = BCrypt.Net.BCrypt.HashPassword(dto.Password);
+            if(dto.Password != null && !dto.Password.Equals("")){
+                entity.Password = BCrypt.Net.BCrypt.HashPassword(dto.Password) ;
+            }
             entity.Orders = [];
             foreach(OrderDTO orderDTO in dto.Orders){
                 Order order = _repoOrder.GetById(orderDTO.Id);

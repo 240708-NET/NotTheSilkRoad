@@ -17,6 +17,7 @@ export default function Home() {
   const { isSeller, user} = useContext(LoginContext); // isSeller
   const {cart, setCart} = useContext(CartContext)
 
+
   const [isLogin, setIsLogin] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [isAccountClick, setIsAccountClick] = useState(false);
@@ -24,7 +25,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
 
-  useEffect (() => {
+  useEffect(() => {
     if (isLogin) {
       console.log(isLogin);
       console.log(user);
@@ -48,7 +49,7 @@ export default function Home() {
 
   useEffect(() => {
     getProducts();
-  },[])
+  }, [])
 
   const getProducts = async () => {
     setLoading(true);
@@ -58,6 +59,7 @@ export default function Home() {
     setProducts(data);
     setLoading(false);
   }
+
 
   
 
@@ -84,7 +86,7 @@ export default function Home() {
 
 
   if(loading) return <div>Loading...</div>
-  
+
 
   return (
     <main className={styles.main}>
@@ -100,7 +102,10 @@ export default function Home() {
           <div className={styles.listing}>
             {(searchResult.length > 0 ? searchResult : products).map((item, key) => {
               return (
-                <Listing key={key} title={item.title} image={item.description} price={item.price} productId={item.id} />
+
+
+                <Listing key={key} title={item.title} description={item.description} imageUrl={item.imageUrl} price={item.price} productId={item.id} quantity={item.quantity} />
+
               )
             })}
           </div>
