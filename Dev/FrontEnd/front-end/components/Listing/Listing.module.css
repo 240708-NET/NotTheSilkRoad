@@ -18,6 +18,12 @@
 
 }
 
+.buttonContainer
+{
+    display: flex;
+    justify-content: space-between;
+}
+
 #price {
     color: #10B981;
 }

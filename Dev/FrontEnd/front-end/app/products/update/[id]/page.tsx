@@ -2,10 +2,13 @@
 import { useEffect, useState, useContext } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import productstyles from './page.module.css'
+import updatePageStyles from './page.module.css'
 import { LoginContext } from '../../../contexts/LoginContext'
 import { Form, Button, Col, Row, Container } from 'react-bootstrap';
 import { products } from '@/components/Listing/listings.js'
+import NavbarLogo from '@/components/NavbarLogo/NavbarLogo'
 import WaveLoading from '@/components/Loading/WaveLoading'
+
 
 function ListItem() {
   const { isSeller, user } = useContext(LoginContext)
@@ -102,6 +105,8 @@ function ListItem() {
   return (
 
     <div>
+      <NavbarLogo />
+
       <div className="container-fluid">
         <div className="row flex-lg-nowrap">
           <div className="col">
@@ -113,7 +118,7 @@ function ListItem() {
                       <div className="row">
                         <div className="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                           <div className="text-center text-sm-left mb-2 mb-sm-0">
-                            <h4 className="pt-sm-2 pb-1 mb-0 text-nowrap">{productInfo.title}</h4>
+                            <h2 className="pt-sm-2 pb-1 mb-0 text-nowrap">Edit Product</h2>
                           </div>
                         </div>
                       </div>
@@ -127,7 +132,15 @@ function ListItem() {
                                     <div className="form-group">
                                       <label>Change Product Title</label>
                                       <input
-                                        onChange={(e) => setProductInfo({ ...productInfo, title: e.target.value })}
+                                        onChange={(e) => {
+                                          const value = e.target.value?.trim();
+                                          if (value) {
+                                            setProductInfo({ ...productInfo, title: value });
+                                          }
+                                          else {
+                                            setProductInfo({ ...productInfo, title: prod.title });
+                                          }
+                                        }}
                                         className="form-control"
                                         type="text"
                                         name="title"
@@ -141,7 +154,15 @@ function ListItem() {
                                     <div className="form-group">
                                       <label>Change Product Description</label>
                                       <input
-                                        onChange={(e) => setProductInfo({ ...productInfo, description: e.target.value })}
+                                        onChange={(e) => {
+                                          const value = e.target.value?.trim();
+                                          if (value) {
+                                            setProductInfo({ ...productInfo, description: value });
+                                          }
+                                          else {
+                                            setProductInfo({ ...productInfo, description: prod.description });
+                                          }
+                                        }}
                                         className="form-control"
                                         type="text"
                                         name="description"
@@ -155,7 +176,15 @@ function ListItem() {
                                     <div className="form-group">
                                       <label>Change Price</label>
                                       <input
-                                        onChange={(e) => setProductInfo({ ...productInfo, price: e.target.value })}
+                                        onChange={(e) => {
+                                          const value = e.target.value?.trim();
+                                          if (value) {
+                                            setProductInfo({ ...productInfo, price: value });
+                                          }
+                                          else {
+                                            setProductInfo({ ...productInfo, price: prod.price });
+                                          }
+                                        }}
                                         className="form-control"
                                         type="number"
                                         name="price"
@@ -171,7 +200,15 @@ function ListItem() {
                                     <div className="col">
                                       <div className="form-group">
                                         <label>Change Quantity</label>
-                                        <input onChange={(e) => setProductInfo({ ...productInfo, quantity: e.target.value })} className="form-control" type="number" placeholder={'Product Quantity'}/>
+                                        <input onChange={(e) => {
+                                          const value = e.target.value?.trim();
+                                          if (value) {
+                                            setProductInfo({ ...productInfo, quantity: value });
+                                          }
+                                          else {
+                                            setProductInfo({ ...productInfo, quantity: prod.quantity });
+                                          }
+                                        }} className="form-control" type="number" placeholder={'Product Quantity'}/>
                                       </div>
                                     </div>
                                   </div>
@@ -179,8 +216,15 @@ function ListItem() {
                                     <div className="col">
                                       <div className="form-group">
                                         <label>Change Image URL</label>
-                                        <input onChange={(e) => setProductInfo({ ...productInfo, imageUrl: e.target.value })} className="form-control" type="text" placeholder={productInfo ? productInfo.imageUrl : 'Product Image URL'}
-                                          value={productInfo.imageUrl} />
+                                        <input onChange={(e) => {
+                                          const value = e.target.value?.trim();
+                                          if (value) {
+                                            setProductInfo({ ...productInfo, imageUrl: value });
+                                          }
+                                          else {
+                                            setProductInfo({ ...productInfo, imageUrl: prod.imageUrl });
+                                          }
+                                        }} className="form-control" type="text" placeholder={'Product Image URL'}/>
                                       </div>
                                     </div>
                                   </div>
@@ -202,6 +246,7 @@ function ListItem() {
             </div>
           </div>
 
+          
           <div className='col'>
             <div className="container-fluid">
               <div className="row flex-lg-nowrap">
@@ -209,11 +254,12 @@ function ListItem() {
                   <div className="row">
                     <div className="col mb-3">
                       <div className="card">
+                      <h2 style={{textAlign: 'center', padding:'1rem', backgroundColor:'grey'}}>Updated Product</h2>
                         <div className="card-body">
                           <div className="e-profile">
                             <div className="card-body">
                               <div className={productstyles.updateItem}>
-                                <img src={productInfo.imageUrl} alt="product image" value={productInfo.imageUrl} />
+                                <img className={updatePageStyles.imageTest} src={productInfo.imageUrl} alt="product image" />
                                 <div className={productstyles.info}>
                                   <h2>{productInfo.title}</h2>
                                   <p>{productInfo.description}</p>
@@ -239,7 +285,8 @@ function ListItem() {
           </div>
         </div>
       </div>
-    </div>)
+    </div>
+    )
 }
 
 export default ListItem;

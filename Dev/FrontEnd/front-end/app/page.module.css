@@ -7,6 +7,12 @@
   min-height: 100vh;
 }
 
+.image
+{
+  max-width: 50px;
+  height: auto;
+}
+
 .listing{
   display: flex;
   flex-wrap: wrap;
@@ -15,7 +21,13 @@
   margin: auto;
 }
 
-
+.navbar
+{
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: center;
+}
 
 .description {
   display: inherit;

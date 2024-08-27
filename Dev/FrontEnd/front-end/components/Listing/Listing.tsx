@@ -69,10 +69,16 @@ function Listing({title, description, imageUrl, price, isAccountPage, productId,
       <div className="card-body">
         <div className="d-flex justify-content-between">
           <p className="small">
+
+
+            {categories.length > 0 ? <p className="small">Categories: <div>{categories}</div></p> : <p></p>}
+
+
             <a href="#!" className="text-muted">
               Category
             </a>
-            {/* <p>{categories}</p> */}
+           
+
           </p>
           <p className="small text-danger">
             <s>${formatter.format(price)}</s>
@@ -84,17 +90,20 @@ function Listing({title, description, imageUrl, price, isAccountPage, productId,
         <div className="d-flex justify-content-between mb-2">
         </div>
     
+        <div className={listingstyles.buttonContainer}>
+  {isAccountPage && <button className="btn btn-primary" onClick={() => createProductUpdateRoute(title)}>
+    Edit Listing
+  </button>}
 
-        {!isAccountPage ? (<button className="btn btn-primary" onClick={() => createRoute(title)}>
-          View
-        </button>) : (<button className="btn btn-primary" onClick={() => deleteProduct(productId)}>
-          Delete
-        </button>
-        )}
+  {!isAccountPage ? (<button className="btn btn-primary" onClick={() => createRoute(title)}>
+    View
+  </button>) : (<button className="btn btn-primary" onClick={() => deleteProduct(productId)}>
+    Delete
+  </button>
+  )}
+</div>
 
-        {isAccountPage && <button className="btn btn-primary" onClick={() => createProductUpdateRoute(title)}>
-          Edit Listing
-        </button>}
+        
         
       </div>
     </div>

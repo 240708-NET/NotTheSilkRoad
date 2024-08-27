@@ -6,7 +6,13 @@
     width: 100%;
     flex-direction: column;
     min-height: 100vh;
+}
 
+.testContainer
+{
+    flex: 1; /* Equal width for each column */
+    padding: 1rem; /* Add padding for spacing */
+    background-color: white;
 }
 
 .info {
@@ -21,7 +27,12 @@
     background-color: white;
     padding: 1rem;
     margin: auto;
-    width: 50%;
+}
+
+.product input {
+    margin: 0.5rem;
+    padding: 0.5rem;
+    background-color: white;
 }
 
 .list

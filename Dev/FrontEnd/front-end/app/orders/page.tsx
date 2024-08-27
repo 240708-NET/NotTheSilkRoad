@@ -4,10 +4,18 @@ import orderstyles from './page.module.css'
 import {useEffect, useState, useContext} from 'react'
 import {LoginContext} from '@/app/contexts/LoginContext'
 
+import NavbarLogo from '@/components/NavbarLogo/NavbarLogo'
+import styles from "./page.module.css";
+
 function Orders(){
 
     const {user} = useContext(LoginContext)
     const [orders, setOrders] = useState([])
+
+    const [isLogin, setIsLogin] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [isAccountClick, setIsAccountClick] = useState(false);
+  const [registrationClick, setRegistrationClick] = useState(false);
 
     const formatter = new Intl.NumberFormat("en-US", {
         style: "currency",
@@ -37,7 +45,11 @@ function Orders(){
     return (
         <div className={orderstyles.container}>
 
-        <h1>Order History</h1>
+           <div className={orderstyles.navbar}>
+            <NavbarLogo showLogin={showLogin} setShowLogin={setShowLogin} isLogin={isLogin} setIsLogin={setIsLogin}
+            isAccountClick={isAccountClick} setIsAccountClick={setIsAccountClick}  />
+           </div>
+
 
         {orders && orders.map((item, key) => {
 
