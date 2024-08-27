@@ -181,7 +181,11 @@ const Account = () => {
   }
 
   return (
+    
     <>
+    
+    <Navbar/>
+
       <div className="container-fluid">
         <div className="row flex-lg-nowrap">
           <div className="col">
