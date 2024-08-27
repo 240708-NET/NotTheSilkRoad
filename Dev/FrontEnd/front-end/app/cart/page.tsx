@@ -40,7 +40,7 @@ function Cart() {
     console.log(cart)
     console.log(user)
     try {
-    const response = await fetch(`http://localhost:${process.env.PORT}/order/${cartId}`, {
+    const response = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_PORT}/order/${cartId}`, {
       method: 'PUT',
       body: JSON.stringify({
         id: cartId,
