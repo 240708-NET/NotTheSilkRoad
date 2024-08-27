@@ -70,7 +70,14 @@ function Listing({title, description, imageUrl, price, isAccountPage, productId,
         <div className="d-flex justify-content-between">
           <p className="small">
 
+
             {categories.length > 0 ? <p className="small">Categories: <div>{categories}</div></p> : <p></p>}
+
+
+            <a href="#!" className="text-muted">
+              Category
+            </a>
+           
 
           </p>
           <p className="small text-danger">

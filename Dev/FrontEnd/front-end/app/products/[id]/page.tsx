@@ -5,12 +5,15 @@ import {usePathname, useRouter} from 'next/navigation'
 import productstyles from './page.module.css'
 import { LoginContext } from '@/app/contexts/LoginContext'
 import { CartContext } from '@/app/contexts/CartContext'
+
 import { Form, Button, Col, Row, Container, Navbar } from 'react-bootstrap';
 import NavbarLogo from '@/components/NavbarLogo/NavbarLogo'
 import NavbarNavbar from '@/components/Navbar/Navbar'
 import Login from '@/components/Login/Login'
 import RegistrationForm from '@/components/RegistrationForm/RegistrationForm'
 import styles from "./page.module.css";
+import WaveLoading from '@/components/Loading/WaveLoading'
+
 
 function ListItem(){
     const {isSeller, user} = useContext(LoginContext)
@@ -252,7 +255,7 @@ function ListItem(){
        
 
     if (loading) {
-        return <h1>Loading...</h1>
+        return <WaveLoading />
     }
     console.log("User: ");
     console.log(user);

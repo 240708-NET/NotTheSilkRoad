@@ -8,6 +8,8 @@ import Listing from "@/components/Listing/Listing";
 import accountstyles from "./page.module.css";
 import NavbarLogo from "@/components/NavbarLogo/NavbarLogo";
 import router from "next/router";
+import Navbar from "@/components/Navbar/Navbar";
+import WaveLoading from '@/components/Loading/WaveLoading';
 
 const Account = () => {
   const path = usePathname();
@@ -212,7 +214,7 @@ const Account = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>
+    return <WaveLoading />
   }
 
   return (

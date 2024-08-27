@@ -7,6 +7,7 @@ import { LoginContext } from '../../../contexts/LoginContext'
 import { Form, Button, Col, Row, Container } from 'react-bootstrap';
 import { products } from '@/components/Listing/listings.js'
 import NavbarLogo from '@/components/NavbarLogo/NavbarLogo'
+import WaveLoading from '@/components/Loading/WaveLoading'
 
 
 function ListItem() {
@@ -94,7 +95,7 @@ function ListItem() {
   }, [path])
 
   if (loading) {
-    return <h1>Loading...</h1>
+    return <WaveLoading />
   }
   console.log("User: ");
   console.log(user);
