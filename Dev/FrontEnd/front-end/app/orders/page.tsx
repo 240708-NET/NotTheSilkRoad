@@ -26,7 +26,7 @@ function Orders(){
 
     useEffect(() => {
         const getOrders = async () => {
-            const response = await fetch(`http://localhost:5224/order`)
+            const response = await fetch(`http://localhost:${process.env.PORT}/order`)
 
             if(response.ok){
                 const data = await response.json();

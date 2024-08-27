@@ -51,7 +51,7 @@ const Account = () => {
       console.log(itemName)
 
       if (isSeller) {
-        const response = await fetch(`http://localhost:5224/seller/${itemName}`);
+        const response = await fetch(`http://localhost:${process.env.PORT}/seller/${itemName}`);
 
         const customer = await response.json();
 
@@ -68,7 +68,7 @@ const Account = () => {
         setCustomer(customer);
       }
       else {
-        const response = await fetch(`http://localhost:5224/customer/${itemName}`);
+        const response = await fetch(`http://localhost:${process.env.PORT}/customer/${itemName}`);
 
         const customer = await response.json();
 
@@ -100,7 +100,7 @@ const Account = () => {
 
   const getProducts = async () => {
     setLoading(true);
-    const response = await fetch("http://localhost:5224/product");
+    const response = await fetch("http://localhost:${process.env.PORT}/product");
     const data = await response.json();
     console.log(data);
     const filteredData = data.filter((product: any) => product.seller.id === user.id);
@@ -111,7 +111,7 @@ const Account = () => {
   }
 
   const addProduct = async () => {
-    const response = await fetch("http://localhost:5224/product", {
+    const response = await fetch("http://localhost:${process.env.PORT}/product", {
       method: "POST",
 
       body: JSON.stringify({
@@ -135,7 +135,7 @@ const Account = () => {
     let itemName = itemArray[1]
 
       if (isSeller) {
-        const response = await fetch(`http://localhost:5224/seller/${itemName}`, {
+        const response = await fetch(`http://localhost:${process.env.PORT}/seller/${itemName}`, {
           method: "PUT",
 
           body: JSON.stringify({
@@ -164,7 +164,7 @@ const Account = () => {
         }
       }
       else {
-        const response = await fetch(`http://localhost:5224/customer/${itemName}`, {
+        const response = await fetch(`http://localhost:${process.env.PORT}/customer/${itemName}`, {
           method: "PUT",
 
           body: JSON.stringify({
@@ -206,7 +206,7 @@ const Account = () => {
 
     setListLoading(false);
 
-    const response = await fetch(`http://localhost:5224/product/${myID}`, {
+    const response = await fetch(`http://localhost:${process.env.PORT}/product/${myID}`, {
       method: "DELETE",
     });
     const data = await response.json();
