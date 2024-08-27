@@ -23,7 +23,7 @@ const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, s
             setIsLogin(true);
 
                 console.log(email);
-                const response = await fetch(`http://localhost:${process.env.PORT}/auth`, {
+                const response = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_PORT}/auth`, {
                     method: "POST",
                     body: JSON.stringify({ email, password }),
                     headers: {
@@ -44,7 +44,7 @@ const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, s
                         setIsSeller(false);
                     }
                     console.log(user);
-                        const orderresponse = await fetch(`http://localhost:${process.env.PORT}/order`)
+                        const orderresponse = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_PORT}/order`)
                   
                         const data = await orderresponse.json();
                         
@@ -54,7 +54,7 @@ const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, s
                   
                         if(filteredData.length === 0){
 
-                          const newresponse = await fetch(`http://localhost:${process.env.PORT}/order`, {
+                          const newresponse = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_PORT}/order`, {
                             method: 'POST',
                             body: JSON.stringify({
                               customer: user,
