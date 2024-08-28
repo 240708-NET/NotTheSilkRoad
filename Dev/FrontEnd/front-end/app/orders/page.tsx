@@ -26,7 +26,7 @@ function Orders(){
 
     useEffect(() => {
         const getOrders = async () => {
-            const response = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_PORT}/order`)
+            const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/order`)
 
             if(response.ok){
                 const data = await response.json();
