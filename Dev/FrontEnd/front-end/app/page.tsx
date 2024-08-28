@@ -56,7 +56,7 @@ export default function Home() {
   useEffect(() => {
 
     const getCustomer = async () => {
-      const response = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_PORT}/customer`);
+      const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/customer`);
       const data = await response.json();
     };
 
@@ -68,7 +68,7 @@ export default function Home() {
 
   const getProducts = async () => {
     setLoading(true);
-    const response = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_PORT}/product`);
+    const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/product`);
     const data = await response.json();
     console.log(data);
     setProducts(data);

@@ -14,3 +14,13 @@
     align-items: center;
     margin: auto;
 }
+
+.goBack
+{
+    /* position: fixed;
+    bottom: 14rem;
+    left: 66rem; */
+
+    display: flex;
+    padding-top: 1rem;
+}

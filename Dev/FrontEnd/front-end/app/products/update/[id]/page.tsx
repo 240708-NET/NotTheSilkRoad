@@ -8,6 +8,7 @@ import { Form, Button, Col, Row, Container } from 'react-bootstrap';
 import { products } from '@/components/Listing/listings.js'
 import NavbarLogo from '@/components/NavbarLogo/NavbarLogo'
 import WaveLoading from '@/components/Loading/WaveLoading'
+import router from 'next/navigation'
 
 
 function ListItem() {
@@ -16,6 +17,7 @@ function ListItem() {
   const [prod, setProd] = useState()
   const [loading, setLoading] = useState(true)
   const [count, setCount] = useState(0)
+  const router = useRouter()
 
   const [productInfo, setProductInfo] = useState({
   })
@@ -24,7 +26,7 @@ function ListItem() {
     setLoading(true);
     console.log("Update Product: ", productInfo.id);
 
-    const response = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_PORT}/product/${productInfo.id}`, {
+    const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/product/${productInfo.id}`, {
       method: "PUT",
 
       body: JSON.stringify({
@@ -58,7 +60,7 @@ function ListItem() {
     const testProd = async () => {
 
       setLoading(true);
-      const response = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_PORT}/product`);
+      const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/product`);
       const products = await response.json();
       setLoading(false);
 
@@ -106,7 +108,6 @@ function ListItem() {
 
     <div>
       <NavbarLogo />
-
       <div className="container-fluid">
         <div className="row flex-lg-nowrap">
           <div className="col">
@@ -118,6 +119,12 @@ function ListItem() {
                       <div className="row">
                         <div className="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                           <div className="text-center text-sm-left mb-2 mb-sm-0">
+                          <div onClick={() => router.back()} className={updatePageStyles.back}>
+                                <div className="fas fa-long-arrow-alt-left me-2">
+                                    <img src="/images/arrow-90deg-left.svg" alt="Arrow Back" />
+                                    Go Back
+                                </div>
+                            </div>
                             <h2 className="pt-sm-2 pb-1 mb-0 text-nowrap">Edit Product</h2>
                           </div>
                         </div>
