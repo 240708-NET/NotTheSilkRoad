@@ -22,7 +22,7 @@ const RegistrationForm = () => {
     const createUser = async () => {
 
         if(isSeller) {
-            const response = fetch(`https://notthesilkroadapi.azurewebsites.net/seller`, {
+            const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/seller`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -42,7 +42,7 @@ const RegistrationForm = () => {
         }
         else
         {
-            const response = fetch(`https://notthesilkroadapi.azurewebsites.net/customer`, {
+            const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/customer`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
