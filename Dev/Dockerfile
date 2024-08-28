@@ -10,3 +10,5 @@ COPY --from=build /API/out ./
 EXPOSE 80
 EXPOSE 443
 ENTRYPOINT [ "dotnet", "./API.dll" ]
+
+# Dockerfile for API and dependencies.
