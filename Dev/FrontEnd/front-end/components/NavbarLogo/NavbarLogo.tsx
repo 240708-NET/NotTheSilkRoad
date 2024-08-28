@@ -26,6 +26,10 @@ const NavbarLogo = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountCli
         router.push(`/orders`);
     }
 
+    const toCartPage = () => {
+        router.push(`/cart`);
+    }
+
     const getSearchTerm = () => {
         searchHandler(inputEl.current.value);
       };
@@ -77,7 +81,7 @@ const NavbarLogo = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountCli
                             <DropdownButton id="dropdown-basic-button" title="Account">
                                 <Dropdown.Item><div onClick={toAccountPage}> Manage Account </div></Dropdown.Item>
                                 <Dropdown.Item><div onClick={toOrdersPage}>Order History</div></Dropdown.Item>
-                                <Dropdown.Item><Link href="/cart">Cart</Link></Dropdown.Item>
+                                <Dropdown.Item><div onClick={toCartPage}>Cart</div></Dropdown.Item>
                             </DropdownButton>
                             <button onClick={handleLogout} className="btn btn-primary">
                                 Logout

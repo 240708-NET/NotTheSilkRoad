@@ -1,6 +1,12 @@
-.logo
-{
+.logo {
     width: 300px;
     height: 300px;
     margin-right: 10px;
+}
+
+.welcomeMessage {
+    position: relative;
+    top: 1rem;
+    left: 46.5rem;
+    color: black;
 }

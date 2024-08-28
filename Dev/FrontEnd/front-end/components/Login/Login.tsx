@@ -141,7 +141,7 @@ const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, s
                             <div className="form-outline mb-4">
                                 <input
                                     onChange={(e) => setPassword(e.target.value)}
-                                    type="text"
+                                    type="password"
                                     id="form2Example27"
                                     className="form-control form-control-lg"
                                     placeholder="Password"

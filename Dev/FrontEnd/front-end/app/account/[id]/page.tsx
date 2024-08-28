@@ -225,7 +225,8 @@ const Account = () => {
           isAccountClick={isAccountClick} setIsAccountClick={setIsAccountClick} />
       </div>
 
-      <div className="container-fluid">
+
+      {isSeller ? (<div className="container-fluid">
         <div className="row">
           <div className={accountstyles.testContainer}> {/* Update User Section */}
             <div className="row">
@@ -343,7 +344,98 @@ const Account = () => {
       </div>
 
 
+        </div>) : 
+        
+        
+        (<div className="container-fluid">
+          <div className="row">
+            <div className={accountstyles.testContainer}> {/* Update User Section */}
+              <div className="row">
+              <div className="card">
+                    <div className="card-body">
+                      <div className="e-profile">
+                        <div className="row">
+                          <div className="col d-flex flex-column flex-sm-row justify-content-between mb-3">
+                            <div className="text-center text-sm-left mb-2 mb-sm-0">
+                              <h4 className="pt-sm-2 pb-1 mb-0 text-nowrap">Update Account Information</h4>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="tab-content pt-3">
+                          <div className="tab-pane active">
+                            <form className="form">
+                              <div className="row">
+                                <div className="col">
+                                  <div className="row">
+                                    <div className="col">
+                                      <div className="form-group">
+                                        <label>Change Name</label>
+                                        <input
+                                          onChange={(e) => setUserInfo({ ...userInfo, name: e.target.value })}
+                                          className="form-control"
+                                          type="text"
+                                          name="name"
+                                          placeholder={customer ? customer.name : 'John Smith'}
+                                        // Set value from state
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="row">
+                                    <div className="col">
+                                      <div className="form-group">
+                                        <label>Change Email</label>
+                                        <input
+                                          onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })}
+                                          className="form-control"
+                                          type="text"
+                                          name="email"
+                                          placeholder={customer ? customer.email : '@johnny.s'}
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="row">
+                                  <div className="col mb-3">
+                                    <div className="row">
+                                      <div className="col">
+                                        <div className="form-group">
+                                          <label>New Password</label>
+                                          <input onChange={(e) => setUserInfo({ ...userInfo, password: e.target.value })} className="form-control" type="password" placeholder="••••••" />
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className="row">
+                                      <div className="col">
+                                        <div className="form-group">
+                                          <label>Repeat New Password</label>
+                                          <input onChange={(e) => setUserInfo({ ...userInfo, confirmPassword: e.target.value })} className="form-control" type="password" placeholder="••••••" />
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="row">
+                                <div className="col d-flex justify-content-end">
+                                  {(userInfo.password === userInfo.confirmPassword) || (userInfo.password == null && userInfo.confirmPassword == null) || (userInfo.password == "" && userInfo.confirmPassword == "") ? <button onClick={updateUserInfo} className="btn btn-primary" >Save Changes</button> : <button className="btn btn-primary" disabled>Passwords Must Match</button>}
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
         </div>
+  
+  
+          </div>)}
+
+      
      
 
       {/* Rest of your code */}

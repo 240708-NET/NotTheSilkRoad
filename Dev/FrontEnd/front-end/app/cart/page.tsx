@@ -13,6 +13,7 @@ function Cart() {
   const {user} = useContext(LoginContext)
   const router = useRouter()
 
+  const router = useRouter();
 
   const [isLogin, setIsLogin] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
@@ -26,17 +27,15 @@ function Cart() {
     maximumFractionDigits: 0,
   });
 
- 
-
-
-  
-
   useEffect(() => {
 
     console.log(cart)
     
   }, [])
 
+  const toHomePage = () => {
+    router.push(`/`);
+}
 
   const createOrder = async () => {
     console.log(cart)
@@ -86,20 +85,11 @@ function Cart() {
     }
 
     return `${new Date(Date.now()).getFullYear()}-${month}-${day}`
-
-
-    
-
 }
-
-  
-
   return (
     
     <div className={CartStyles.pageBackground}>
 
-
-      
     <section className={CartStyles.section} style={{ backgroundColor: '#eee'}}>
       
       {/* <a href="/" className="navbar-brand">
@@ -122,6 +112,7 @@ function Cart() {
                   <div className="col-lg-7">
                     <h5 className="mb-3">
                       <div onClick={()=> router.push('/')} style={{cursor: "pointer"}} className="text-body">
+
                         <img src="images/arrow-90deg-left.svg" alt="Arrow Back" />
                         <i className="fas fa-long-arrow-alt-left me-2"></i>
                         Continue Shopping
