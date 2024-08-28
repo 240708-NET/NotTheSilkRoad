@@ -109,37 +109,37 @@ const Account = () => {
     setLoading(false);
   }
 
-const addProduct = async () => {
-      const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/product`, {
-        method: "POST",
-  
-        body: JSON.stringify({
-          title: productInfo.title,
-          price: productInfo.price,
-          description: productInfo.description,
-          imageUrl: productInfo.imageUrl,
-          quantity: productInfo.quantity,
-          seller: user,
-        }),
-  
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-  
-      if (!response.ok) {
-        alert("Error: Must include all fields other than image url!");
-        const errorData = await response.json(); // Parse error message
-        console.error("Error creating a new product:", errorData.message || errorData);
-        console.error("Error creating a new product:", errorData.message || errorData);
-        console.error("Validation Errors:", errorData.errors); // Log the errors object
-        // Handle specific errors based on the error details
-        // Handle the error appropriately (e.g., display an error message to the user)
-      } else {
-        alert("New Product Successfully Created!");
-        console.log("New Product Successfully Created!");
-      }
+  const addProduct = async () => {
+    const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/product`, {
+      method: "POST",
+
+      body: JSON.stringify({
+        title: productInfo.title,
+        price: productInfo.price,
+        description: productInfo.description,
+        imageUrl: productInfo.imageUrl,
+        quantity: productInfo.quantity,
+        seller: user,
+      }),
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+
+    if (!response.ok) {
+      alert("Error: Must include all fields other than image url!");
+      const errorData = await response.json(); // Parse error message
+      console.error("Error creating a new product:", errorData.message || errorData);
+      console.error("Error creating a new product:", errorData.message || errorData);
+      console.error("Validation Errors:", errorData.errors); // Log the errors object
+      // Handle specific errors based on the error details
+      // Handle the error appropriately (e.g., display an error message to the user)
+    } else {
+      alert("New Product Successfully Created!");
+      console.log("New Product Successfully Created!");
     }
+  }
 
   const updateUserInfo = async () => {
     setLoading(true);
@@ -147,7 +147,7 @@ const addProduct = async () => {
     let itemName = itemArray[1]
 
     if (isSeller) {
-      const response = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_PORT}/seller/${itemName}`, {
+      const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/seller/${itemName}`, {
         method: "PUT",
 
         body: JSON.stringify({
@@ -177,7 +177,7 @@ const addProduct = async () => {
       }
     }
     else {
-      const response = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_PORT}/customer/${itemName}`, {
+      const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/customer/${itemName}`, {
         method: "PUT",
 
         body: JSON.stringify({
@@ -227,6 +227,46 @@ const addProduct = async () => {
     console.log(data);
   };
 
+  const deleteUser = async () => {
+
+    for(let i = 0; i < products.length; i++) {
+      deleteProduct(products[i].id);
+    }
+
+    if (isSeller) {
+      const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/seller/${user.id}`, {
+        method: "DELETE",
+      });
+      const data = await response.json();
+      console.log(data);
+
+      if (response.ok) {
+        alert("Account Deleted Successfully!");
+        console.log("User deleted successfully!");
+      }
+      else {
+        alert("Error: Account was not deleted successfully!");
+        console.log("Error: Account was not deleted successfully!");
+      }
+    }
+    else {
+      const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/customer/${user.id}`, {
+        method: "DELETE",
+      });
+      const data = await response.json();
+      console.log(data);
+
+      if (response.ok) {
+        alert("Account Deleted Successfully!");
+        console.log("User deleted successfully!");
+      }
+      else {
+        alert("Error: Account was not deleted successfully!");
+        console.log("Error: Account was not deleted successfully!");
+      }
+    }
+  };
+
   if (loading) {
     return <WaveLoading />
   }
@@ -263,7 +303,15 @@ const addProduct = async () => {
                                   <div className="form-group">
                                     <label>Change Name</label>
                                     <input
-                                      onChange={(e) => setUserInfo({ ...userInfo, name: e.target.value })}
+                                      onChange={(e) => {
+                                        const value = e.target.value?.trim();
+                                        if (value) {
+                                          setUserInfo({ ...userInfo, name: value });
+                                        }
+                                        else {
+                                          setUserInfo({ ...userInfo, name: user.name });
+                                        }
+                                      }}
                                       className="form-control"
                                       type="text"
                                       name="name"
@@ -278,7 +326,16 @@ const addProduct = async () => {
                                   <div className="form-group">
                                     <label>Change Email</label>
                                     <input
-                                      onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })}
+                                      onChange={(e) => {
+                                          
+                                        const value = e.target.value?.trim();
+                                        if (value) {
+                                          setUserInfo({ ...userInfo, email: value });
+                                        }
+                                        else {
+                                          setUserInfo({ ...userInfo, email: user.email });
+                                        }
+                                      }}
                                       className="form-control"
                                       type="text"
                                       name="email"
@@ -315,6 +372,7 @@ const addProduct = async () => {
                             </div>
                           </div>
                         </form>
+                        <button className="btn btn-danger" onClick={deleteUser}>Delete Account</button>
                       </div>
                     </div>
                   </div>
@@ -377,7 +435,15 @@ const addProduct = async () => {
                                     <div className="form-group">
                                       <label>Change Name</label>
                                       <input
-                                        onChange={(e) => setUserInfo({ ...userInfo, name: e.target.value })}
+                                        onChange={(e) => {
+                                          const value = e.target.value?.trim();
+                                          if (value) {
+                                            setUserInfo({ ...userInfo, name: value });
+                                          }
+                                          else {
+                                            setUserInfo({ ...userInfo, name: user.name });
+                                          }
+                                        }}  
                                         className="form-control"
                                         type="text"
                                         name="name"
@@ -392,11 +458,41 @@ const addProduct = async () => {
                                     <div className="form-group">
                                       <label>Change Email</label>
                                       <input
-                                        onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })}
+                                        onChange={(e) => {
+                                          const value = e.target.value?.trim();
+                                          if (value) {
+                                            setUserInfo({ ...userInfo, email: value });
+                                          }
+                                          else {
+                                            setUserInfo({ ...userInfo, email: user.email });
+                                          }
+                                        }}
                                         className="form-control"
                                         type="text"
                                         name="email"
                                         placeholder={userInfo ? userInfo.email : '@johnny.s'}
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="row">
+                                  <div className="col">
+                                    <div className="form-group">
+                                      <label>Change Address</label>
+                                      <input
+                                        onChange={(e) => {
+                                          const value = e.target.value?.trim();
+                                          if (value) {
+                                            setUserInfo({ ...userInfo, address: value });
+                                          }
+                                          else {
+                                            setUserInfo({ ...userInfo, address: user.address });
+                                          }
+                                        }}
+                                        className="form-control"
+                                        type="text"
+                                        name="address"
+                                        placeholder={userInfo ? userInfo.address : 'No Address Found'}
                                       />
                                     </div>
                                   </div>
@@ -429,6 +525,7 @@ const addProduct = async () => {
                               </div>
                             </div>
                           </form>
+                          <button className="btn btn-danger" onClick={deleteUser}>Delete Account</button>
                         </div>
                       </div>
                     </div>
