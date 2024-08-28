@@ -5,6 +5,15 @@
     min-height: 100vh;
 }
 
+.back
+{
+    position: relative;
+    left: -3rem;
+    cursor: pointer;
+    text-decoration: underline;
+    color: blue;
+}
+
 .product {
     display: flex;
     flex-direction: row;

@@ -8,7 +8,6 @@ import { useState, useContext } from "react";
 import router from "next/router";
 import Link from "next/link";
 
-
 const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, setIsAccountClick, registrationClick, setRegistrationClick }: { showLogin: boolean, setShowLogin: any, isLogin: boolean, setIsLogin: any, isAccountClick: boolean, setIsAccountClick: any, registrationClick: boolean, setRegistrationClick: any }) => {
 
     const { user, setUser, isSeller, setIsSeller } : { user: any, setUser: any, isSeller: boolean, setIsSeller: any } = useContext(LoginContext);
@@ -148,39 +147,6 @@ const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, s
                                 />
                             </div>
 
-                            {/* <div className="d-flex justify-content-start align-items-center mb-3">
-                                <h6 className="mb-0 me-4">Role:</h6>
-
-                                <div className="form-check form-check-inline mb-0">
-                                    <input
-                                        onChange={(e) => setIsSeller(false)}
-                                        className="form-check-input"
-                                        type="radio"
-                                        name="role"
-                                        id="customerRole"
-                                        value="customer"
-                                        defaultChecked
-                                    />
-                                    <label className="form-check-label" htmlFor="customerRole">
-                                        Customer
-                                    </label>
-                                </div>
-
-                                <div className="form-check form-check-inline mb-0 me-4">
-                                    <input
-                                        onChange={(e) => setIsSeller(true)}
-                                        className="form-check-input"
-                                        type="radio"
-                                        name="role"
-                                        id="sellerRole"
-                                        value="seller"
-                                    />
-                                    <label className="form-check-label" htmlFor="sellerRole">
-                                        Seller
-                                    </label>
-                                </div>
-                            </div> */}
-
                             <div className="pt-1 mb-4">
                                 <button className="btn btn-dark btn-lg btn-block" type="submit" onClick={handleLogin}>
                                     {showLogin ? "Login" : "Logout"}
@@ -196,6 +162,13 @@ const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, s
                                     Register here
                                 </button>
                             </p>
+
+                            <div>
+                                <a href="/" className="fas fa-long-arrow-alt-left me-2">
+                                    <img src="images/arrow-90deg-left.svg" alt="Arrow Back" />
+                                    Go Back
+                                </a>
+                            </div>
 
                             {/* <a href="#!" className="small text-muted">
                                 Terms of use.
