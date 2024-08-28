@@ -147,7 +147,7 @@ const addProduct = async () => {
     let itemName = itemArray[1]
 
     if (isSeller) {
-      const response = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_PORT}/seller/${itemName}`, {
+      const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/seller/${itemName}`, {
         method: "PUT",
 
         body: JSON.stringify({
@@ -175,35 +175,36 @@ const addProduct = async () => {
         alert("Account Updated Successfully!");
         console.log("User updated successfully!");
       }
-    }
-    else {
-      const response = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_PORT}/customer/${itemName}`, {
-        method: "PUT",
 
-        body: JSON.stringify({
-          id: itemName,
-          email: userInfo.email,
-          name: userInfo.name,
-          password: userInfo.password,
-          address: userInfo.address,
-          orders: userInfo.orders,
-        }),
+      else {
+        const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/customer/${itemName}`, {
+          method: "PUT",
 
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+          body: JSON.stringify({
+            id: itemName,
+            email: userInfo.email,
+            name: userInfo.name,
+            password: userInfo.password,
+            address: userInfo.address,
+            orders: userInfo.orders,
+          }),
 
-      if (!response.ok) {
-        const errorData = await response.json(); // Parse error message
-        console.error("Error updating user:", errorData.message || errorData);
-        console.error("Error updating user:", errorData.message || errorData);
-        console.error("Validation Errors:", errorData.errors); // Log the errors object
-        // Handle specific errors based on the error details
-        // Handle the error appropriately (e.g., display an error message to the user)
-      } else {
-        alert("Account Updated Successfully!");
-        console.log("User updated successfully!");
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        //new line
+
+        if (!response.ok) {
+          const errorData = await response.json(); // Parse error message
+          console.error("Error updating user:", errorData.message || errorData);
+          console.error("Error updating user:", errorData.message || errorData);
+          console.error("Validation Errors:", errorData.errors); // Log the errors object
+          // Handle specific errors based on the error details
+          // Handle the error appropriately (e.g., display an error message to the user)
+        } else {
+          console.log("User updated successfully!");
+        }
       }
     }
     setLoading(false);
