@@ -50,7 +50,7 @@ const Account = () => {
       console.log(itemName)
 
       if (isSeller) {
-        const response = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_PORT}/seller/${itemName}`);
+        const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/seller/${itemName}`);
 
         const customer = await response.json();
 
@@ -67,7 +67,7 @@ const Account = () => {
         setCustomer(customer);
       }
       else {
-        const response = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_PORT}/customer/${itemName}`);
+        const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/customer/${itemName}`);
 
         const customer = await response.json();
 
@@ -99,7 +99,7 @@ const Account = () => {
 
   const getProducts = async () => {
     setLoading(true);
-    const response = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_PORT}/product`);
+    const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/product`);
     const data = await response.json();
     console.log(data);
     const filteredData = data.filter((product: any) => product.seller.id === user.id);
@@ -109,12 +109,8 @@ const Account = () => {
     setLoading(false);
   }
 
-  const updateAccountPage = () => {
-    setRefreshComponent(!refreshComponent);
-  }
-
-    const addProduct = async () => {
-      const response = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_PORT}/product`, {
+const addProduct = async () => {
+      const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/product`, {
         method: "POST",
   
         body: JSON.stringify({
@@ -224,7 +220,7 @@ const Account = () => {
 
     setListLoading(false);
 
-    const response = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_PORT}/product/${myID}`, {
+    const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/product/${myID}`, {
       method: "DELETE",
     });
     const data = await response.json();
@@ -242,7 +238,6 @@ const Account = () => {
         <NavbarLogo showLogin={showLogin} setShowLogin={setShowLogin} isLogin={isLogin} setIsLogin={setIsLogin}
           isAccountClick={isAccountClick} setIsAccountClick={setIsAccountClick} />
       </div>
-
 
       {isSeller ? (<div className="container-fluid">
         <div className="row">

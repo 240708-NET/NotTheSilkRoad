@@ -26,7 +26,7 @@ function Listing({title, description, imageUrl, price, isAccountPage, productId,
 
     let list = [];
 
-    const response = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_PORT}/category`)
+    const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/category`)
 
     if(response.ok){
       const data = await response.json();
