@@ -5,11 +5,13 @@ import { CartContext } from '@/app/contexts/CartContext';
 import { LoginContext } from '../contexts/LoginContext';
 import NavbarLogo from '@/components/NavbarLogo/NavbarLogo';
 import styles from "../page.module.css";
+import { useRouter } from 'next/navigation';
 
 
 function Cart() {
   const {cart, cartId} = useContext(CartContext)
   const {user} = useContext(LoginContext)
+  const router = useRouter()
 
 
   const [isLogin, setIsLogin] = useState(false);
@@ -59,6 +61,7 @@ function Cart() {
 
     if(response.ok){
       console.log('Items purchased successfully')
+      router.push('/?success=true')
    
     } else {
       console.error('Something went wrong')
@@ -118,11 +121,11 @@ function Cart() {
                 <div className="row">
                   <div className="col-lg-7">
                     <h5 className="mb-3">
-                      <a href="#!" className="text-body">
+                      <div onClick={()=> router.push('/')} style={{cursor: "pointer"}} className="text-body">
                         <img src="images/arrow-90deg-left.svg" alt="Arrow Back" />
                         <i className="fas fa-long-arrow-alt-left me-2"></i>
                         Continue Shopping
-                      </a>
+                      </div>
                     </h5>
                     <hr />
                     <div className="d-flex justify-content-between align-items-center mb-4">
@@ -142,14 +145,16 @@ function Cart() {
                     </div>
                     
                     {/* List of shopping cart items */}
-                    <div className="card mb-3">
-                      <div className="card-body">
+                   
+                      
 
                         {cart.map((item, key) => {
                           console.log(item)
 
                           return (
-                            <div key={key} className="d-flex justify-content-between">
+                            <div  key={key} className="card mb-3">
+                            <div className="card-body">
+                            <div className="d-flex justify-content-between">
                           <div className="d-flex flex-row align-items-center">
 
                             <img
@@ -179,11 +184,13 @@ function Cart() {
                             </a>
                           </div>
                         </div>
+                        </div>
+                        </div>
                           )
                         })}
                         
-                      </div>
-                    </div>
+                    
+                   
 
                     {/* More shopping cart items... */}
                   </div>
