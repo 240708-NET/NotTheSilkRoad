@@ -5,6 +5,7 @@ import { Dropdown, DropdownButton, DropdownItem } from 'react-bootstrap';
 import { useRouter } from "next/navigation";
 import { LoginContext } from "@/app/contexts/LoginContext";
 import { useContext, useRef } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Navbar = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, setIsAccountClick, searchHandler }: { showLogin: boolean, setShowLogin: any, isLogin: boolean, setIsLogin: any, isAccountClick: boolean, setIsAccountClick: any, searchHandler: any }) => {
 
@@ -24,6 +25,10 @@ const Navbar = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, 
 
     const toOrdersPage = () => {
         router.push(`/orders`);
+    }
+
+    const toCartPage = () => {
+        router.push(`/cart`);
     }
 
     const getSearchTerm = () => {
@@ -64,7 +69,11 @@ const Navbar = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, 
     return (
         
         <nav className="navbar navbar-light bg-body-tertiary">
-            {user && <p>Welcome, {user.name}</p>}
+
+            
+            {user && (<p className={NavbarStyles.welcomeMessage + " text-primary mb-3 border-bottom bg-light text-dark"}>Welcome, {user.name}</p>)}
+
+
             <div className="container-fluid">
                 <div style={{ cursor: 'pointer' }} onClick={toHomePage}>
                     <img src="/images/NotTheSilkRoadLogo.png" alt="Logo" className={NavbarStyles.logo} style={{ height: '100%', objectFit: 'contain' }} />
@@ -92,12 +101,9 @@ const Navbar = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, 
                     {isLogin || user ? (
                         <>
                             <DropdownButton id="dropdown-basic-button" title="Account">
-
-                                
-
                                 <Dropdown.Item><div onClick={toAccountPage}> Manage Account </div></Dropdown.Item>
                                 <Dropdown.Item><div onClick={toOrdersPage}>Order History</div></Dropdown.Item>
-                                <Dropdown.Item><Link href="/cart">Cart</Link></Dropdown.Item>
+                                <Dropdown.Item><div onClick={toCartPage}>Cart</div></Dropdown.Item>
                             </DropdownButton>
                             <button onClick={handleLogout} className="btn btn-primary">
                                 Logout
