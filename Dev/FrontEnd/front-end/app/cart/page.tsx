@@ -13,8 +13,6 @@ function Cart() {
   const {user} = useContext(LoginContext)
   const router = useRouter()
 
-  const router = useRouter();
-
   const [isLogin, setIsLogin] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [isAccountClick, setIsAccountClick] = useState(false);
