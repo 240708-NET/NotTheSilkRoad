@@ -10,10 +10,13 @@ import { LoginContext } from "./contexts/LoginContext";
 import { CartContext } from "./contexts/CartContext";
 import { useContext } from "react";
 import WaveLoading from "@/components/Loading/WaveLoading";
+import Toast from "@/components/Toast/Toast";
+
 
 export default function Home() {
 
   const router = useRouter();
+  
 
   const { isSeller, user} = useContext(LoginContext); // isSeller
   const {cart, setCart} = useContext(CartContext)
@@ -25,11 +28,9 @@ export default function Home() {
   const [registrationClick, setRegistrationClick] = useState(false);
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
+  const [successMessage, setSuccessMessage] = useState(false)
 
-  useEffect(()=> {
-
-    console.log(process.env.NEXT_PUBLIC_PORT)
-  }, [])
+ 
 
   useEffect(() => {
     if (isLogin) {
@@ -43,6 +44,14 @@ export default function Home() {
 
     }
   }, [isLogin])
+
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search);
+    if(query.get('success')){
+      setSuccessMessage(true)
+      setTimeout(() => {setSuccessMessage(false)}, 3000)
+    }
+  }, [])
 
   useEffect(() => {
 
@@ -98,6 +107,7 @@ export default function Home() {
     <main className={styles.main}>
 
       {/* <RegistrationForm /> */}
+      {successMessage && (<Toast message={"Your purchase was successful!"}/>)}
 
       {!showLogin ? (
         <>

@@ -1,0 +1,19 @@
+
+
+.toast {
+    display: flex;
+    margin: auto;
+   max-height: 100px;
+   min-width: 600px;
+   position: absolute;
+   margin-top: 25%;
+    background-color: #18181b;
+    padding: 1rem;
+    color: white;
+    border-radius: 5px;
+    z-index: 99;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    
+}

@@ -13,6 +13,7 @@ import Login from '@/components/Login/Login'
 import RegistrationForm from '@/components/RegistrationForm/RegistrationForm'
 import styles from "./page.module.css";
 import WaveLoading from '@/components/Loading/WaveLoading'
+import Toast from '@/components/Toast/Toast'
 
 
 function ListItem(){
@@ -31,6 +32,7 @@ function ListItem(){
   const [isAccountClick, setIsAccountClick] = useState(false);
   const [registrationClick, setRegistrationClick] = useState(false);
   const [products, setProducts] = useState([]);
+  const [successMessage, setSuccessMessage] = useState(false)
 
     const updateProduct = async () => {
         setLoading(true);
@@ -195,6 +197,8 @@ function ListItem(){
         if(response.ok){
            console.log('Item added to cart successfully!')
            setCart([...cart, data])
+           setSuccessMessage(true)
+           setTimeout(()=> {setSuccessMessage(false)}, 2000)
         } else {
             console.error('Something went wrong.')
         }
@@ -270,6 +274,8 @@ function ListItem(){
     return (
 
         <main className={styles.navbarLogoStyles}>
+
+            {successMessage && (<Toast message={`${productInfo.title} successfully added to cart`}/>)}
 
         <div>
                 {!showLogin ? (
