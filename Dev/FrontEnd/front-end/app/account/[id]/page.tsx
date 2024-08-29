@@ -50,7 +50,7 @@ const Account = () => {
       console.log(itemName)
 
       if (isSeller) {
-        const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/seller/${itemName}`);
+        const response = await fetch(`${process.env.API_URL}/seller/${itemName}`);
 
         const customer = await response.json();
 
@@ -67,7 +67,7 @@ const Account = () => {
         setCustomer(customer);
       }
       else {
-        const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/customer/${itemName}`);
+        const response = await fetch(`${process.env.API_URL}/customer/${itemName}`);
 
         const customer = await response.json();
 
@@ -99,7 +99,7 @@ const Account = () => {
 
   const getProducts = async () => {
     setLoading(true);
-    const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/product`);
+    const response = await fetch(`${process.env.API_URL}/product`);
     const data = await response.json();
     console.log(data);
     const filteredData = data.filter((product: any) => product.seller.id === user.id);
@@ -110,7 +110,7 @@ const Account = () => {
   }
 
   const addProduct = async () => {
-    const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/product`, {
+    const response = await fetch(`${process.env.API_URL}/product`, {
       method: "POST",
 
       body: JSON.stringify({
@@ -147,7 +147,7 @@ const Account = () => {
     let itemName = itemArray[1]
 
     if (isSeller) {
-      const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/seller/${itemName}`, {
+      const response = await fetch(`${process.env.API_URL}/seller/${itemName}`, {
         method: "PUT",
 
         body: JSON.stringify({
@@ -177,7 +177,7 @@ const Account = () => {
       }
     }
     else {
-      const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/customer/${itemName}`, {
+      const response = await fetch(`${process.env.API_URL}/customer/${itemName}`, {
         method: "PUT",
 
         body: JSON.stringify({
@@ -220,7 +220,7 @@ const Account = () => {
 
     setListLoading(false);
 
-    const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/product/${myID}`, {
+    const response = await fetch(`${process.env.API_URL}/product/${myID}`, {
       method: "DELETE",
     });
     const data = await response.json();
@@ -234,7 +234,7 @@ const Account = () => {
     }
 
     if (isSeller) {
-      const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/seller/${user.id}`, {
+      const response = await fetch(`${process.env.API_URL}/seller/${user.id}`, {
         method: "DELETE",
       });
       const data = await response.json();
@@ -250,7 +250,7 @@ const Account = () => {
       }
     }
     else {
-      const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/customer/${user.id}`, {
+      const response = await fetch(`${process.env.API_URL}/customer/${user.id}`, {
         method: "DELETE",
       });
       const data = await response.json();

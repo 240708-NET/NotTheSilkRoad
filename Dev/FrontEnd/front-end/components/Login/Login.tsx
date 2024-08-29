@@ -22,7 +22,7 @@ const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, s
             setIsLogin(true);
 
                 console.log(email);
-                const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/auth`, {
+                const response = await fetch(`${process.env.API_URL}/auth`, {
                     method: "POST",
                     body: JSON.stringify({ email, password }),
                     headers: {
@@ -43,7 +43,7 @@ const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, s
                         setIsSeller(false);
                     }
                     console.log(user);
-                        const orderresponse = await fetch(`https://notthesilkroadapi.azurewebsites.net/order`)
+                        const orderresponse = await fetch(`${process.env.API_URL}/order`)
                   
                         const data = await orderresponse.json();
                         
@@ -53,7 +53,7 @@ const Login = ({ showLogin, setShowLogin, isLogin, setIsLogin, isAccountClick, s
                   
                         if(filteredData.length === 0){
 
-                          const newresponse = await fetch(`https://notthesilkroadapi.azurewebsites.net/order`, {
+                          const newresponse = await fetch(`${process.env.API_URL}/order`, {
                             method: 'POST',
                             body: JSON.stringify({
                               customer: user,

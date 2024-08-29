@@ -38,7 +38,7 @@ function ListItem(){
         setLoading(true);
         console.log("Update Product: ", productInfo.id);
 
-        const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/product/${productInfo.id}`, {
+        const response = await fetch(`${process.env.API_URL}/product/${productInfo.id}`, {
             method: "PUT",
 
             body: JSON.stringify({
@@ -70,7 +70,7 @@ function ListItem(){
         const testProd = async () => {
 
             setLoading(true);
-            const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/product`);
+            const response = await fetch(`${process.env.API_URL}/product`);
             const products = await response.json();
             setLoading(false);
 
@@ -108,7 +108,7 @@ function ListItem(){
 
     const getProducts = async () => {
         setLoading(true);
-        const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/product`);
+        const response = await fetch(`${process.env.API_URL}/product`);
         const data = await response.json();
         setLoading(false);
 
@@ -149,7 +149,7 @@ function ListItem(){
 
             }))
         
-        const itemresponse = await fetch(`https://notthesilkroadapi.azurewebsites.net/item`, {
+        const itemresponse = await fetch(`${process.env.API_URL}/item`, {
             method: 'POST',
             body: JSON.stringify({
                 product: {
@@ -177,7 +177,7 @@ function ListItem(){
             
 
 
-               const response = await fetch(`https://notthesilkroadapi.azurewebsites.net/order/${cartId}`, {
+               const response = await fetch(`${process.env.API_URL}/order/${cartId}`, {
             method: 'PUT',
             body: JSON.stringify({
                 id: cartId,
