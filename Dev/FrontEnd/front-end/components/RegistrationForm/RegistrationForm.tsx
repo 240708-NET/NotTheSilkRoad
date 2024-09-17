@@ -22,7 +22,7 @@ const RegistrationForm = () => {
     const createUser = async () => {
 
         if(isSeller) {
-            const response = await fetch(`${process.env.API_URL}/seller`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/seller`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -42,7 +42,7 @@ const RegistrationForm = () => {
         }
         else
         {
-            const response = await fetch(`${process.env.API_URL}/customer`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/customer`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

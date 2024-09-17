@@ -26,7 +26,7 @@ function Listing({title, description, imageUrl, price, isAccountPage, productId,
 
     let list = [];
 
-    const response = await fetch(`${process.env.API_URL}/category`)
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/category`)
 
     if(response.ok){
       const data = await response.json();

@@ -39,7 +39,7 @@ function Cart() {
     console.log(cart)
     console.log(user)
     try {
-    const response = await fetch(`${process.env.API_URL}/order/${cartId}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/order/${cartId}`, {
       method: 'PUT',
       body: JSON.stringify({
         id: cartId,

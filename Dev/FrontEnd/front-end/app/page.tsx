@@ -15,6 +15,10 @@ import Toast from "@/components/Toast/Toast";
 
 export default function Home() {
 
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+  console.log(apiUrl);
+
   const router = useRouter();
   
 
@@ -56,7 +60,7 @@ export default function Home() {
   useEffect(() => {
 
     const getCustomer = async () => {
-      const response = await fetch(`${process.env.API_URL}/customer`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/customer`);
       const data = await response.json();
     };
 
@@ -68,7 +72,7 @@ export default function Home() {
 
   const getProducts = async () => {
     setLoading(true);
-    const response = await fetch(`${process.env.API_URL}/product`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product`);
     const data = await response.json();
     console.log(data);
     setProducts(data);
@@ -104,8 +108,10 @@ export default function Home() {
 
 
   return (
+    
+    
     <main className={styles.main}>
-
+      
       {/* <RegistrationForm /> */}
       {successMessage && (<Toast message={"Your purchase was successful!"}/>)}
 
